@@ -1,6 +1,7 @@
 import { FC } from "react";
 import Select from "react-select";
 import { Field, FieldProps, useField } from "formik";
+import { cn } from "@/libs/utils";
 
 interface OptionType {
   value: string | number;
@@ -9,6 +10,7 @@ interface OptionType {
 
 interface MainSelectProps {
   label?: string;
+  labelColor?: string;
   name: string;
   options: OptionType[];
   placeholder?: string;
@@ -21,6 +23,7 @@ interface MainSelectProps {
 
 const MainSelect: FC<MainSelectProps> = ({
   label,
+  labelColor = "text-black",
   name,
   options,
   placeholder = "Select an option...",
@@ -37,7 +40,7 @@ const MainSelect: FC<MainSelectProps> = ({
       {label && (
         <label
           htmlFor={name}
-          className="block text-sm font-medium text-gray-700"
+          className={`block text-[#344054] text-sm font-medium ${labelColor}`}
         >
           {label}
         </label>
@@ -60,13 +63,18 @@ const MainSelect: FC<MainSelectProps> = ({
             placeholder={placeholder}
             isDisabled={disabled}
             isSearchable={isSearchable}
-            className={`mt-2 w-full text-gray-800 ${
-              cutBorder ? "border-l-0 border-t-0 border-r-0" : "border"
-            } rounded-lg shadow-sm focus:ring focus:ring-orange-300`}
+            className={cn(
+              `mt-2 w-full bg-[#F6F8FA] text-gray-800 ${
+                cutBorder ? "border-l-0 border-t-0 border-r-0" : "border"
+              } rounded-lg shadow-sm focus:ring focus:ring-orange-300`
+            )}
             styles={{
               control: (base, { isFocused }) => ({
                 ...base,
-                borderColor: meta.touched && meta.error ? "#E10000" : "#D1D5DB",
+                background: "#F6F8FA",
+                padding: "0.25rem",
+                borderColor: meta.touched && meta.error ? "#E10000" : "#ECEFF3",
+                borderRadius: "0.5rem",
                 boxShadow: isFocused
                   ? "0 0 0 2px rgba(249, 167, 2, 0.2)"
                   : "none",

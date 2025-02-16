@@ -23,3 +23,7 @@
 .css-1u9des2-indicatorSeparator{
   display: none;
 }
+
+.auth-body {
+  @apply p-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll
+}

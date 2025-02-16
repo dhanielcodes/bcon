@@ -8,8 +8,7 @@ import { Form, Formik } from "formik";
 
 export default function Page() {
   return (
-    <div className="p-4">
-      <div>BCON Playground</div>
+    <div>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={LoginSchema}
@@ -40,10 +39,6 @@ export default function Page() {
               options={[{ label: "hi", value: "hello" }]}
             />
             <AppButton placeholder="Submit" />
-            <br />
-            <AppButton secondary placeholder="Submit" />
-            <br />
-            <AppButton outline placeholder="Submit" />
           </Form>
         )}
       </Formik>
