@@ -57,7 +57,7 @@ const AppButton: FC<AppButtonProps> = ({
           showBorder ? `border-[${borderColor || "#D0D5DD"}]` : "border-none"
         } bg-transparent`
       : secondary
-      ? "bg-gray-200 text-black"
+      ? "bg-white text-black"
       : `bg-[#FF7434] text-white`,
     roundedFull
       ? "rounded-full"

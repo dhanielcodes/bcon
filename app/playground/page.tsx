@@ -1,7 +1,8 @@
 "use client";
-import AppButton from "@/components/AppButton";
-import FormInput from "@/components/FormInput";
-import FormPasswordInput from "@/components/FormPasswordInput";
+import AppButton from "@/components/fields/AppButton";
+import FormInput from "@/components/fields/FormInput";
+import FormPasswordInput from "@/components/fields/FormPasswordInput";
+import MainSelect from "@/components/fields/MainSelect";
 import { LoginSchema } from "@/Schema";
 import { Form, Formik } from "formik";
 
@@ -32,8 +33,17 @@ export default function Page() {
               placeholder="Enter your email"
               width="w-[510px]"
             />
-
+            <MainSelect
+              name="password"
+              placeholder="Hiii"
+              label="Hello"
+              options={[{ label: "hi", value: "hello" }]}
+            />
             <AppButton placeholder="Submit" />
+            <br />
+            <AppButton secondary placeholder="Submit" />
+            <br />
+            <AppButton outline placeholder="Submit" />
           </Form>
         )}
       </Formik>

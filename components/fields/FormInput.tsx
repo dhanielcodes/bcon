@@ -81,7 +81,7 @@ const FormInput: FC<FormInputProps> = ({
       ) : hint ? (
         <p className="text-gray-500 text-xs mt-1">{hint}</p>
       ) : (
-        <p className="text-white text-xs mt-1">1</p>
+        <p className="text-transparent text-xs mt-1">full</p>
       )}
     </div>
   );
