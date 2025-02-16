@@ -8,7 +8,9 @@ interface BoxProps {
 
 const Box: FC<BoxProps> = ({ children, className }) => {
   return (
-    <div className={cn(`p-4 bg-white rounded-2xl`, className)}>{children}</div>
+    <div className={cn(`p-6 bg-white rounded-2xl mb-4`, className)}>
+      {children}
+    </div>
   );
 };
 

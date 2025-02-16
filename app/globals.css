@@ -27,3 +27,7 @@
 .auth-body {
   @apply p-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll
 }
+
+.center-logo {
+  @apply grid place-items-center
+}

@@ -9,8 +9,10 @@ export default function AuthLayout({
 }>) {
   return (
     <div className={"auth-body"}>
-      <Box className="grid place-items-center rounded-t-none">
-        <Image src="/logo.svg" width={60} height={60} alt="logo" />
+      <Box className="rounded-t-none">
+        <div className="center-logo">
+          <Image src="/logo.svg" width={60} height={60} alt="logo" />
+        </div>
       </Box>
       {children}
     </div>
