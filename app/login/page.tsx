@@ -3,7 +3,6 @@ import Box from "@/components/bits/Box";
 import AppButton from "@/components/Fields/AppButton";
 import FormInput from "@/components/Fields/FormInput";
 import FormPasswordInput from "@/components/Fields/FormPasswordInput";
-import MainSelect from "@/components/Fields/MainSelect";
 import { LoginSchema } from "@/Schema";
 import { Form, Formik } from "formik";
 
