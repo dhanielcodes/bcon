@@ -5,6 +5,7 @@ import FormInput from "@/components/Fields/FormInput";
 import FormPasswordInput from "@/components/Fields/FormPasswordInput";
 import { LoginSchema } from "@/Schema";
 import { Form, Formik } from "formik";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -42,6 +43,12 @@ export default function Page() {
             </Form>
           )}
         </Formik>
+        <div className="text-center my-4">
+          Don’t have an account?{" "}
+          <Link className="text-secondary-orange underline" href={"/register"}>
+            Sign up
+          </Link>
+        </div>
       </Box>
     </div>
   );
