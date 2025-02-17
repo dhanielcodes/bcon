@@ -18,7 +18,7 @@
   margin: 0;
   box-sizing: border-box;
  }
-body{
+ html{
   @apply bg-[#F2F4F7]
 }
 
@@ -26,10 +26,6 @@ body{
   display: none;
 }
 
-.auth-body {
-  @apply p-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll w-full max-w-[400px] mx-auto
-}
-
-.center-logo {
-  @apply grid place-items-center
+body {
+  @apply px-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll w-full max-w-[430px] mx-auto relative
 }

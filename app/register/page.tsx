@@ -61,6 +61,27 @@ export default function Page() {
                 placeholder="Enter code"
                 width="w-[510px]"
               />
+              <FormInput
+                label="Invite Code"
+                name="code"
+                type="text"
+                placeholder="Enter code"
+                width="w-[510px]"
+              />
+              <FormInput
+                label="Invite Code"
+                name="code"
+                type="text"
+                placeholder="Enter code"
+                width="w-[510px]"
+              />
+              <FormInput
+                label="Invite Code"
+                name="code"
+                type="text"
+                placeholder="Enter code"
+                width="w-[510px]"
+              />
               {/*   <FormInputNumber
                 label="Invite Code"
                 name="code"
@@ -68,7 +89,10 @@ export default function Page() {
                 width="w-[510px]"
               /> */}
             </Box>
-            <Box>
+            <Box className="opacity-0">
+              <AppButton placeholder="Submit" />
+            </Box>
+            <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-[400px] mb-0">
               <AppButton placeholder="Submit" />
             </Box>
           </Form>
