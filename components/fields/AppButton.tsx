@@ -50,7 +50,7 @@ const AppButton: FC<AppButtonProps> = ({
   };
 
   const buttonClasses = cn(
-    "flex items-center justify-center gap-2 py-3 px-4 font-semibold text-sm transition-all",
+    "flex items-center justify-center gap-2 py-3 px-4 font-semibold text-sm transition-all mt-3",
     disabled ? "cursor-not-allowed bg-gray-400 text-white" : "cursor-pointer",
     outline
       ? `border ${

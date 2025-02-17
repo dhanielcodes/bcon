@@ -51,7 +51,7 @@ const FormInput: FC<FormInputProps> = ({
       <div
         className={`relative flex items-center ${background} border rounded-lg p-3 mt-2 ${
           hasError ? "border-red-500" : "border-[#ECEFF3]"
-        }`}
+        } focus-within:ring-2 focus-within:focus:ring-orange-200`}
       >
         {IconLeft && <IconLeft className="w-5 h-5 text-gray-500 mr-2" />}
         <Field
