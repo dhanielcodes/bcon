@@ -1,16 +1,11 @@
-import React, { FC, lazy } from "react";
+import React, { FC, lazy, ReactNode } from "react";
 
-const BaseFilterTab = lazy(() => import("@/components/BaseFilterTab"));
-const DashboardCard: FC = () => {
+interface CardProps {
+  children?: ReactNode;
+}
+const DashboardCard: FC<CardProps> = ({ children }) => {
   return (
-    <div className="p-6 bg-primary-orange rounded-3xl mb-4">
-      <BaseFilterTab
-        tab={[
-          { name: "Sent", tab: "sent" },
-          { name: "Received", tab: "received" },
-        ]}
-      />
-    </div>
+    <div className="p-6 bg-primary-orange rounded-3xl mb-4">{children}</div>
   );
 };
 

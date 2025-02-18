@@ -16,7 +16,7 @@ const Stepper: FC<StepperProp> = ({
   containerClassName,
   stepClassName,
   containerWidth = "100%",
-  dotSize = 14,
+  dotSize = 16,
   active = 1,
   setActive,
 }) => {
@@ -45,7 +45,7 @@ const Stepper: FC<StepperProp> = ({
                 if (setActive) setActive(index + 1);
               }}
               className={cn(
-                `flex p-2 w-full items-center justify-center rounded-full z-10 border-2 `,
+                `flex w-full items-center justify-center rounded-full z-10 border `,
                 `${
                   active >= index + 1
                     ? " border-primary-orange"
@@ -54,16 +54,17 @@ const Stepper: FC<StepperProp> = ({
                 stepClassName
               )}
             >
-              <div
-                style={{
-                  width: dotSize,
-                  height: dotSize,
-                }}
-                className={cn(
-                  `rounded-full w-10 h-10`,
-                  `${active >= index + 1 ? "bg-primary-orange " : "bg-white "}`
-                )}
-              ></div>
+              {active >= index + 1 && (
+                <div
+                  style={{
+                    width: "50%",
+                    height: "50%",
+                  }}
+                  className={cn(
+                    `rounded-full text-sm relative bg-primary-orange`
+                  )}
+                ></div>
+              )}
             </div>
           );
         })}

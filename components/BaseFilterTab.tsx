@@ -18,11 +18,11 @@ const BaseFilterTab: FC<BaseFilterTabProps> = ({ tab }) => {
 
   const addQueryParams = (query: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("filterss", query);
+    params.set("tab", query);
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
-  const active = searchParams.get("filterss");
+  const active = searchParams.get("tab");
 
   return (
     <div className="w-full flex gap-2 p-1 bg-light-orange rounded-full">
