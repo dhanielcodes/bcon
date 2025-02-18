@@ -13,6 +13,7 @@ export default {
         foreground: "var(--foreground)",
         "primary-orange": "#FC5900",
         "secondary-orange": "#FF7434",
+        "light-orange": '#FD9563'
       },
     },
   },

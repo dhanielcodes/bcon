@@ -1,0 +1,40 @@
+import "@/app/globals.css";
+import Box from "@/components/bits/Box";
+import type { Metadata } from "next";
+import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Dashboard | BCON",
+  description: "Your BCON account, start transacting",
+};
+
+export default function DashboardLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <div>
+      <Box className="rounded-t-none">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Image
+              src="/icons/profile.png"
+              width={40}
+              height={40}
+              alt="profile"
+            />
+            <div className="-space-y-0.5">
+              <h2 className="text-[0.8rem]">Good Afternoon,</h2>
+              <h1 className="text-[1rem]">Jesuloba</h1>
+            </div>
+          </div>
+          <div>
+            <Image src="/icons/bell.svg" width={40} height={40} alt="bell" />
+          </div>
+        </div>
+      </Box>
+      {children}
+    </div>
+  );
+}
