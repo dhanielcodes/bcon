@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import Box from "@/components/bits/Box";
+
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -13,14 +13,5 @@ export default function RegisterLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <div>
-      <Box className="rounded-t-none">
-        <div className="grid place-items-center">
-          <Image src="/logo.svg" width={60} height={60} alt="logo" />
-        </div>
-      </Box>
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 }
