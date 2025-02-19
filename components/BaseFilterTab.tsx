@@ -25,7 +25,7 @@ const BaseFilterTab: FC<BaseFilterTabProps> = ({ tab }) => {
   const active = searchParams.get("tab");
 
   return (
-    <div className="w-full flex gap-2 p-1 bg-light-orange rounded-full">
+    <div className="w-full flex gap-2 p-1 bg-white bg-opacity-30 rounded-full">
       {tab.map((item) => (
         <div
           key={item.tab}

@@ -36,11 +36,11 @@ const CountrySelect: FC<MainSelectProps> = ({
 
   const options = [
     {
-      label: "USD",
+      label: "British Pounds",
       value: "USD",
     },
     {
-      label: "NGN",
+      label: "Nigerian Naira",
       value: "NGN",
     },
   ];
@@ -57,8 +57,17 @@ const CountrySelect: FC<MainSelectProps> = ({
                 (option: OptionType) => option.value === field.value
               ) || null
             }
+            theme={(theme) => ({
+              ...theme,
+              colors: {
+                ...theme.colors,
+                primary25: "#ff5500",
+                primary: "#ff5500",
+              },
+            })}
             options={options}
-            onChange={(selectedOption: OptionType) => {
+            onChange={(newValue, actionMeta) => {
+              const selectedOption = newValue as OptionType | null;
               helpers.setValue(selectedOption ? selectedOption.value : "");
               if (onChange) onChange(selectedOption);
             }}
@@ -66,13 +75,14 @@ const CountrySelect: FC<MainSelectProps> = ({
             onBlur={field.onBlur}
             isDisabled={disabled}
             isSearchable={isSearchable}
-            getOptionLabel={(item: OptionType) => (
+            formatOptionLabel={(item: OptionType) => (
               <span
                 className="countryName"
                 style={{
-                  fontSize: "20px",
+                  fontSize: "14px",
                   display: "flex",
                   alignItems: "center",
+                  color: "#fff",
                 }}
                 onClick={() => {
                   console.log(item?.value);
@@ -83,13 +93,13 @@ const CountrySelect: FC<MainSelectProps> = ({
                   style={{
                     borderRadius: "999px",
                     marginRight: "1px",
-                    width: "26px",
-                    height: "26px",
+                    width: "24px",
+                    height: "24px",
                   }}
                   size="sm"
                 />
                 &nbsp;
-                {item.value}
+                {item.label}
               </span>
             )}
             className={cn(
@@ -110,6 +120,41 @@ const CountrySelect: FC<MainSelectProps> = ({
                   : "none",
                 "&:hover": {
                   borderColor: "#f9a702",
+                },
+              }),
+              option: (styles) => ({
+                ...styles,
+                display: "flex",
+                alignItems: "center",
+                //borderRadius: "6px",
+                color: "#000",
+                width: "100%",
+                fontSize: "30px",
+                //   border:"0.1px solid #d8d8d8",
+                //   backgroundColor:"#e4e4e4",
+                //   borerRadius:"18px"
+              }),
+              menuList: (styles) => ({
+                ...styles,
+                display: "flex",
+                backgroundColor: "#FD9563",
+                borderRadius: "10px",
+                flexDirection: "column",
+                // gap:"10px",
+                color: "#FFF",
+                width: "100%",
+                alignItems: "center",
+              }),
+
+              singleValue: (styles) => ({
+                ...styles,
+                display: "flex",
+                width: "100%",
+                color: "#000",
+                alignItems: "center",
+                "> svg": {
+                  marginRight: "8px",
+                  borderRadius: "50%",
                 },
               }),
             }}
