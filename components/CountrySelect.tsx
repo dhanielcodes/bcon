@@ -15,6 +15,7 @@ interface MainSelectProps {
   name: string;
   isSearchable?: boolean;
   hint?: string;
+  className?: string;
   disabled?: boolean;
   cutBorder?: boolean;
   onChange?: (selected: OptionType | null) => void;
@@ -26,24 +27,37 @@ const CountrySelect: FC<MainSelectProps> = ({
   name,
   isSearchable = true,
   hint,
+  className,
   disabled = false,
   cutBorder = false,
   onChange,
 }) => {
   const [field, meta, helpers] = useField(name);
 
+  const options = [
+    {
+      label: "USD",
+      value: "USD",
+    },
+    {
+      label: "NGN",
+      value: "NGN",
+    },
+  ];
+
   return (
-    <div className="w-full mb-3">
+    <div className={cn("w-full mb-3", className)}>
       <Field name={name}>
         {({ field }: FieldProps) => (
           <Select
             id={name}
             name={field.name}
             value={
-              [].find((option: OptionType) => option.value === field.value) ||
-              null
+              options.find(
+                (option: OptionType) => option.value === field.value
+              ) || null
             }
-            options={[]}
+            options={options}
             onChange={(selectedOption: OptionType) => {
               helpers.setValue(selectedOption ? selectedOption.value : "");
               if (onChange) onChange(selectedOption);
@@ -56,7 +70,7 @@ const CountrySelect: FC<MainSelectProps> = ({
               <span
                 className="countryName"
                 style={{
-                  fontSize: "16px",
+                  fontSize: "20px",
                   display: "flex",
                   alignItems: "center",
                 }}
@@ -68,10 +82,9 @@ const CountrySelect: FC<MainSelectProps> = ({
                   currency={item?.value}
                   style={{
                     borderRadius: "999px",
-                    border: "1px solid #919191",
                     marginRight: "1px",
-                    width: "16px",
-                    height: "16px",
+                    width: "26px",
+                    height: "26px",
                   }}
                   size="sm"
                 />
@@ -88,7 +101,7 @@ const CountrySelect: FC<MainSelectProps> = ({
               control: (base, { isFocused }) => ({
                 ...base,
                 background: "#ffffff22",
-                padding: "0.25rem",
+                padding: "0.35rem",
                 borderColor:
                   meta.touched && meta.error ? "#E10000" : "#ffffff22",
                 borderRadius: "999px",

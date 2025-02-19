@@ -30,7 +30,7 @@ const BaseFilterTab: FC<BaseFilterTabProps> = ({ tab }) => {
         <div
           key={item.tab}
           onClick={() => addQueryParams(item.tab)}
-          className={`px-4 w-full py-2 text-white text-center rounded-full cursor-pointer text-sm transition-all 
+          className={`px-4 w-full py-3 text-white text-center rounded-full cursor-pointer text-sm transition-all 
             ${active === item.tab ? "bg-primary-orange" : "bg-transparent"}`}
         >
           {item.name}

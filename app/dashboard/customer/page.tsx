@@ -25,7 +25,7 @@ export default function Page() {
         >
           {({ handleSubmit }) => (
             <Form>
-              <CountrySelect name={"country"} />
+              <CountrySelect name={"country"} className="w-[]" />
             </Form>
           )}
         </Formik>
