@@ -1,8 +1,7 @@
 "use client";
 import Box from "@/components/bits/Box";
-import { Form, Formik } from "formik";
 import Image from "next/image";
-import { lazy } from "react";
+import { lazy, useState } from "react";
 
 const DashboardCard = lazy(() => import("@/components/DashboardCard"));
 const BaseFilterTab = lazy(() => import("@/components/BaseFilterTab"));
@@ -32,6 +31,10 @@ export default function Page() {
       route: "/dashboard/send",
     },
   ];
+  const [value, setValue] = useState<{
+    amount: number;
+    currency: string;
+  }>({ amount: 0, currency: "GBP" });
   return (
     <div>
       <DashboardCard>
@@ -41,23 +44,12 @@ export default function Page() {
             { name: "Received", tab: "received" },
           ]}
         />
-        <Formik
-          initialValues={{ country: "" }}
-          onSubmit={(values) => {
-            console.log(values);
-          }}
-        >
-          {({ handleSubmit }) => (
-            <Form>
-              <CountrySelect name={"country"} className="w-[200px] mx-auto" />
-            </Form>
-          )}
-        </Formik>
+        <CountrySelect className="w-[200px] mx-auto" />
 
         <div className="text-white text-center">
           <h4>You Have Sent</h4>
           <h1 className="text-3xl font-bold">
-            <span className="text-sm">£</span> 2,901,063.02
+            <span className="text-sm">₦</span> 1,063.02
           </h1>
         </div>
       </DashboardCard>
@@ -76,7 +68,22 @@ export default function Page() {
       </div>
       <Box className="rounded-3xl p-6">
         <h1 className="text-base mb-2">Today's Rates</h1>
-        <RateInput />
+        <RateInput
+          onChange={(e) => {
+            console.log(e, "rate in");
+            setValue(e);
+          }}
+          value={value}
+        />
+        <br />
+        <RateInput
+          title="Receiver gets"
+          onChange={(e) => {
+            console.log(e, "rate in");
+            setValue(e);
+          }}
+          value={value}
+        />
       </Box>
     </div>
   );

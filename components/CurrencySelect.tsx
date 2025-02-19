@@ -13,6 +13,7 @@ interface CurrencySelectProps {
   className?: string;
   disabled?: boolean;
   onChange?: (selected: OptionType | null) => void;
+  value?: OptionType | null;
 }
 
 const CurrencySelect: FC<CurrencySelectProps> = ({
@@ -20,12 +21,14 @@ const CurrencySelect: FC<CurrencySelectProps> = ({
   className,
   disabled = false,
   onChange,
+  value,
 }) => {
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
 
   const options = [
-    { label: "USD", value: "USD" },
     { label: "NGN", value: "NGN" },
+    { label: "GBP", value: "GBP" },
+    { label: "USD", value: "USD" },
   ];
 
   const handleChange = (selected: OptionType | null) => {
@@ -36,7 +39,7 @@ const CurrencySelect: FC<CurrencySelectProps> = ({
   return (
     <div className={cn("w-full", className)}>
       <Select
-        value={selectedOption}
+        value={value || selectedOption}
         onChange={handleChange}
         placeholder={""}
         options={options}
@@ -51,10 +54,10 @@ const CurrencySelect: FC<CurrencySelectProps> = ({
           },
         })}
         formatOptionLabel={(item) => (
-          <span className="flex items-center text-sm font-bold">
+          <span className="flex items-center text-[18px] font-medium">
             <CurrencyFlagImage
               currency={item.value}
-              className="rounded-full mr-2"
+              className="rounded-full mr-1"
               style={{ width: "24px", height: "24px" }}
             />
             {item.label}
@@ -86,6 +89,7 @@ const CurrencySelect: FC<CurrencySelectProps> = ({
           }),
           singleValue: (styles) => ({
             ...styles,
+            padding: "0.4rem",
             display: "flex",
             color: "#000",
             alignItems: "center",
