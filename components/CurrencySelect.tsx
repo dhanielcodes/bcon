@@ -16,7 +16,7 @@ interface CurrencySelectProps {
 }
 
 const CurrencySelect: FC<CurrencySelectProps> = ({
-  isSearchable = true,
+  isSearchable = false,
   className,
   disabled = false,
   onChange,
