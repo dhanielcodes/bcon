@@ -1,7 +1,13 @@
 "use client";
 import Box from "@/components/bits/Box";
+import ConversionRateInput from "@/components/ConversionRateInput";
 import Image from "next/image";
 import { lazy, useState } from "react";
+
+type OptionType = {
+  amount: number;
+  currency: string;
+};
 
 const DashboardCard = lazy(() => import("@/components/DashboardCard"));
 const BaseFilterTab = lazy(() => import("@/components/BaseFilterTab"));
@@ -35,6 +41,17 @@ export default function Page() {
     amount: number;
     currency: string;
   }>({ amount: 0, currency: "GBP" });
+
+  const [val, setVal] = useState<{
+    fromCurrency: OptionType;
+    toCurrency: OptionType;
+  }>({
+    fromCurrency: { amount: 0, currency: "GBP" } as OptionType,
+    toCurrency: { amount: 0, currency: "NGN" } as OptionType,
+  });
+
+  console.log(val, "whole rate conversion");
+
   return (
     <div>
       <DashboardCard>
@@ -68,7 +85,7 @@ export default function Page() {
       </div>
       <Box className="rounded-3xl p-6">
         <h1 className="text-base mb-2">Today's Rates</h1>
-        <RateInput
+        {/*   <RateInput
           onChange={(e) => {
             console.log(e, "rate in");
             setValue(e);
@@ -83,6 +100,12 @@ export default function Page() {
             setValue(e);
           }}
           value={value}
+        /> */}
+        <ConversionRateInput
+          onChange={(e) => {
+            setVal(e);
+          }}
+          value={val}
         />
       </Box>
     </div>

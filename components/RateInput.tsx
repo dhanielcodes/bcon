@@ -11,7 +11,7 @@ import { NumericFormat } from "react-number-format";
 
 const RateInput: FC<{
   onChange?: (arg0: any) => void;
-  value: {
+  value?: {
     amount: number;
     currency: string;
   };
