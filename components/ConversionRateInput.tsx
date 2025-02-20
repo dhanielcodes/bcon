@@ -44,7 +44,7 @@ const ConversionRateInput = ({
       />
       <div className="flex justify-between space-x-2">
         <div className="flex w-full items-center justify-between text-right">
-          <div>
+          <div className="text-left">
             <div>Rate</div>
             <div>Fee</div>
           </div>
