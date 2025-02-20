@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 import Box from "@/components/bits/Box";
+import MenuBar from "@/components/MenuBar";
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -35,6 +36,7 @@ export default function DashboardLayout({
         </div>
       </Box>
       {children}
+      <MenuBar />
     </div>
   );
 }

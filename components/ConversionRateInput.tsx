@@ -42,13 +42,13 @@ const ConversionRateInput = ({
             });
         }}
       />
-      <div className="flex justify-between space-x-2">
+      <div className="flex justify-between space-x-4">
         <div className="flex w-full items-center justify-between text-sm">
-          <div className="text-left">
+          <div className="text-left space-y-4">
             <div>Rate</div>
             <div>Fee</div>
           </div>
-          <div className="text-right">
+          <div className="text-right space-y-4">
             <div>£1 = ₦1829.00</div>
             <div>FREE</div>
           </div>
@@ -56,8 +56,8 @@ const ConversionRateInput = ({
         <Image
           src="/icons/switch-icon.svg"
           alt="switch"
-          width={60}
-          height={60}
+          width={70}
+          height={70}
           className="cursor-pointer"
         />
       </div>
