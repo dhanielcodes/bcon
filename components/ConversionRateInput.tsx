@@ -43,12 +43,12 @@ const ConversionRateInput = ({
         }}
       />
       <div className="flex justify-between space-x-2">
-        <div className="flex w-full items-center justify-between text-right">
+        <div className="flex w-full items-center justify-between">
           <div className="text-left">
             <div>Rate</div>
             <div>Fee</div>
           </div>
-          <div>
+          <div className="text-right">
             <div>£1 = ₦1829.00</div>
             <div>FREE</div>
           </div>
