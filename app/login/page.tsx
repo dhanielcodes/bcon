@@ -4,10 +4,10 @@ import { Form, Formik } from "formik";
 import Link from "next/link";
 import { lazy } from "react";
 
-const AppButton = lazy(() => import("@/components/Fields/AppButton"));
-const FormInput = lazy(() => import("@/components/Fields/FormInput"));
+const AppButton = lazy(() => import("@/components/fields/AppButton"));
+const FormInput = lazy(() => import("@/components/fields/FormInput"));
 const FormPasswordInput = lazy(
-  () => import("@/components/Fields/FormPasswordInput")
+  () => import("@/components/fields/FormPasswordInput")
 );
 const Box = lazy(() => import("@/components/bits/Box"));
 

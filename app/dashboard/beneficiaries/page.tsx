@@ -1,7 +1,7 @@
 "use client";
 import BeneficiarySlip from "@/components/BeneficiarySlip";
 import Box from "@/components/bits/Box";
-import FormRegularInput from "@/components/Fields/FormRegularInput";
+import FormRegularInput from "@/components/fields/FormRegularInput";
 import { BellIcon } from "@radix-ui/react-icons";
 import { Form, Formik } from "formik";
 
