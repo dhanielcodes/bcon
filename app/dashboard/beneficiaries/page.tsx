@@ -31,7 +31,7 @@ export default function Page() {
       </Box>
 
       <Box className="space-y-4">
-        {Array(9)
+        {Array(12)
           .fill(3)
           .map((_, idx) => {
             return <BeneficiarySlip />;
