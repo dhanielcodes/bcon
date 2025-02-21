@@ -27,5 +27,5 @@
 }
 
 body {
-  @apply px-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll w-full max-w-[430px] mx-auto relative
+  @apply px-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll w-full max-w-[400px] mx-auto relative
 }

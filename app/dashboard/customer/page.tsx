@@ -1,6 +1,8 @@
 "use client";
 import Box from "@/components/bits/Box";
 import ConversionRateInput from "@/components/ConversionRateInput";
+import QuickSendTab from "@/components/QuickSendTab";
+import RecentTransactionsTab from "@/components/RecentTransactionsTab";
 import Image from "next/image";
 import { lazy, useState } from "react";
 
@@ -85,22 +87,6 @@ export default function Page() {
       </div>
       <Box className="rounded-3xl p-6">
         <h1 className="text-base mb-2">Today's Rates</h1>
-        {/*   <RateInput
-          onChange={(e) => {
-            console.log(e, "rate in");
-            setValue(e);
-          }}
-          value={value}
-        />
-        <br />
-        <RateInput
-          title="Receiver gets"
-          onChange={(e) => {
-            console.log(e, "rate in");
-            setValue(e);
-          }}
-          value={value}
-        /> */}
         <ConversionRateInput
           onChange={(e) => {
             setVal(e);
@@ -108,6 +94,8 @@ export default function Page() {
           value={val}
         />
       </Box>
+      <QuickSendTab />
+      <RecentTransactionsTab />
     </div>
   );
 }
