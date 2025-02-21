@@ -9,7 +9,7 @@ import Link from "next/link";
 const MenuBar = () => {
   return (
     <>
-      <div className="h-[140px]"></div>
+      <div className="h-[110px]"></div>
       <Box className="mb-0 rounded-b-none grid grid-cols-6 gap-4 text-[12px] fixed bottom-0 left-1/2 transform -translate-x-1/2  w-full max-w-[400px]">
         <Image
           className="rounded-full cursor-pointer p-4 absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-[40%] w-[100px] bg-neutral"

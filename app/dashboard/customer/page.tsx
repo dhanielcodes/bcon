@@ -79,7 +79,7 @@ export default function Page() {
           return (
             <Box
               key={action.title}
-              className="cursor-pointer py-5 px-2 text-primary-orange col-span-1 grid place-items-center"
+              className="cursor-pointer rounded-2xl py-5 px-2 text-primary-orange col-span-1 grid place-items-center"
             >
               <Image src={action.image} alt="cta" width={26} height={26} />
               <div>{action.title}</div>

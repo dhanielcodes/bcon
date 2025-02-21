@@ -21,6 +21,7 @@ interface AppButtonProps {
   radius?: string;
   textColor?: string;
   borderWidth?: number;
+  className?: string;
 }
 
 const AppButton: FC<AppButtonProps> = ({
@@ -41,6 +42,7 @@ const AppButton: FC<AppButtonProps> = ({
   radius,
   textColor = "#000",
   borderWidth = 1,
+  className,
 }) => {
   const router = useRouter();
 
@@ -64,7 +66,8 @@ const AppButton: FC<AppButtonProps> = ({
       : radius
       ? `rounded-[${radius}]`
       : "rounded-lg",
-    width
+    width,
+    className
   );
 
   return (
