@@ -1,11 +1,15 @@
 "use client";
-import Box from "@/components/bits/Box";
-import AppButton from "@/components/Fields/AppButton";
-import FormInput from "@/components/Fields/FormInput";
-import FormPasswordInput from "@/components/Fields/FormPasswordInput";
-import MainSelect from "@/components/Fields/MainSelect";
 import { LoginSchema } from "@/Schema";
 import { Form, Formik } from "formik";
+import Link from "next/link";
+import { lazy } from "react";
+
+const AppButton = lazy(() => import("@/components/Fields/AppButton"));
+const FormInput = lazy(() => import("@/components/Fields/FormInput"));
+const FormPasswordInput = lazy(
+  () => import("@/components/Fields/FormPasswordInput")
+);
+const Box = lazy(() => import("@/components/bits/Box"));
 
 export default function Page() {
   return (
@@ -43,6 +47,12 @@ export default function Page() {
             </Form>
           )}
         </Formik>
+        <div className="text-center my-4">
+          Don’t have an account?{" "}
+          <Link className="text-secondary-orange underline" href={"/register"}>
+            Sign up
+          </Link>
+        </div>
       </Box>
     </div>
   );

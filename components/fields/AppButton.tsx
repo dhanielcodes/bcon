@@ -50,15 +50,15 @@ const AppButton: FC<AppButtonProps> = ({
   };
 
   const buttonClasses = cn(
-    "flex items-center justify-center gap-2 py-3 px-4 font-semibold text-sm transition-all",
-    disabled ? "cursor-not-allowed bg-gray-400 text-white" : "cursor-pointer",
+    "flex items-center justify-center gap-2 py-3 px-4 font-semibold text-sm transition-all mt-3",
+    disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer",
     outline
       ? `border ${
           showBorder ? `border-[${borderColor || "#D0D5DD"}]` : "border-none"
         } bg-transparent`
       : secondary
       ? "bg-white text-black"
-      : `bg-[#FF7434] text-white`,
+      : `bg-primary-orange text-white`,
     roundedFull
       ? "rounded-full"
       : radius
@@ -88,7 +88,7 @@ const AppButton: FC<AppButtonProps> = ({
 };
 
 const Spinner = () => (
-  <div className="animate-spin w-4 h-4 border-2 border-t-orange-500 border-gray-300 rounded-full" />
+  <div className="animate-spin w-5 h-5 border-2 border-t-secondary-orange border-gray-300 rounded-full" />
 );
 
 export default AppButton;

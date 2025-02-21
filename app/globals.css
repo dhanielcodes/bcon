@@ -18,16 +18,14 @@
   margin: 0;
   box-sizing: border-box;
  }
-
+ html{
+  @apply bg-[#F2F4F7]
+}
 
 .css-1u9des2-indicatorSeparator{
-  display: none;
+ @apply hidden
 }
 
-.auth-body {
-  @apply p-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll
-}
-
-.center-logo {
-  @apply grid place-items-center
+body {
+  @apply px-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll w-full max-w-[400px] mx-auto relative
 }
