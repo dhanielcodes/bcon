@@ -15,6 +15,8 @@ export default {
         "secondary-orange": "#FF7434",
         "light-orange": "#FD9563",
         neutral: "#F2F4F7",
+        neutral2: "#F7F9FC",
+        neutral3: "#98A2B3",
       },
     },
   },

@@ -16,7 +16,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <div>
-      <Box className="rounded-t-none fixed top-0 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-[400px]">
+      <Box className="rounded-t-none fixed top-0 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-[390px]">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Image

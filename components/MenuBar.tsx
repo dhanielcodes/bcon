@@ -4,6 +4,7 @@ import Box from "./bits/Box";
 import BeneficiariesIcon from "./icons/BeneficiariesIcon";
 import HistoryIcon from "./icons/HistoryIcon";
 import Image from "next/image";
+import Link from "next/link";
 
 const MenuBar = () => {
   return (
@@ -17,20 +18,32 @@ const MenuBar = () => {
           height={244}
           alt="send"
         />
-        <div className="flex items-center flex-col col-span-1">
+        <Link
+          href="/dashboard/customer"
+          className="flex items-center flex-col col-span-1"
+        >
           <HomeIcon />
           <div>Home</div>
-        </div>
-        <div className="flex items-center flex-col col-span-1">
+        </Link>
+        <Link
+          href="/dashboard/beneficiaries"
+          className="flex items-center flex-col col-span-1"
+        >
           <BeneficiariesIcon />
           <div>Beneficiaries</div>
-        </div>
+        </Link>
         <div className="col-span-2"></div>
-        <div className="flex items-center  flex-col  col-span-1">
+        <Link
+          href="/dashboard/customer"
+          className="flex items-center  flex-col  col-span-1"
+        >
           <HistoryIcon />
           <div>History</div>
-        </div>
-        <div className="flex items-center flex-col col-span-1">
+        </Link>
+        <Link
+          href="/dashboard/customer"
+          className="flex items-center flex-col col-span-1"
+        >
           <Image
             src="/icons/profile.png"
             width={24}
@@ -38,7 +51,7 @@ const MenuBar = () => {
             alt="profile"
           />
           <div>Profile</div>
-        </div>
+        </Link>
       </Box>
     </>
   );
