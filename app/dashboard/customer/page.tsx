@@ -4,7 +4,7 @@ import ConversionRateInput from "@/components/ConversionRateInput";
 import QuickSendTab from "@/components/QuickSendTab";
 import RecentTransactionsTab from "@/components/RecentTransactionsTab";
 import Image from "next/image";
-import { lazy, useState } from "react";
+import { lazy, Suspense, useState } from "react";
 
 type OptionType = {
   amount: number;
@@ -57,12 +57,14 @@ export default function Page() {
   return (
     <div>
       <DashboardCard>
-        <BaseFilterTab
-          tab={[
-            { name: "Sent", tab: "sent" },
-            { name: "Received", tab: "received" },
-          ]}
-        />
+        <Suspense fallback={<div>.</div>}>
+          <BaseFilterTab
+            tab={[
+              { name: "Sent", tab: "sent" },
+              { name: "Received", tab: "received" },
+            ]}
+          />
+        </Suspense>
         <CountrySelect className="w-[200px] mx-auto" />
 
         <div className="text-white text-center">

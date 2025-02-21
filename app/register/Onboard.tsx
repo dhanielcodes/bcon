@@ -2,15 +2,15 @@ import Link from "next/link";
 import React, { lazy } from "react";
 const Box = lazy(() => import("@/components/bits/Box"));
 
-const FormInput = lazy(() => import("@/components/Fields/FormInput"));
+const FormInput = lazy(() => import("@/components/fields/FormInput"));
 const FormInputNumber = lazy(
-  () => import("@/components/Fields/FormInputNumber")
+  () => import("@/components/fields/FormInputNumber")
 );
 const FormPasswordInput = lazy(
-  () => import("@/components/Fields/FormPasswordInput")
+  () => import("@/components/fields/FormPasswordInput")
 );
-const MainSelect = lazy(() => import("@/components/Fields/MainSelect"));
-const AppButton = lazy(() => import("@/components/Fields/AppButton"));
+const MainSelect = lazy(() => import("@/components/fields/MainSelect"));
+const AppButton = lazy(() => import("@/components/fields/AppButton"));
 
 const Onboard = () => {
   return <div></div>;
