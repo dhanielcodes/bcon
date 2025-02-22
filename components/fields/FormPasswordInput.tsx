@@ -1,22 +1,7 @@
 import { FC, useState } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-
-interface FormPasswordInputProps {
-  name: string;
-  placeholder?: string;
-  defaultValue?: string;
-  label?: string;
-  disabled?: boolean;
-  width?: string;
-  labelColor?: string;
-  background?: string;
-  required?: boolean;
-  max?: number;
-  IconRight?: React.ElementType;
-  IconLeft?: React.ElementType;
-  hint?: string;
-}
+import { FormPasswordInputProps } from "@/types/form-types";
 
 const FormPasswordInput: FC<FormPasswordInputProps> = ({
   name,

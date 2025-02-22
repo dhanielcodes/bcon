@@ -1,11 +1,8 @@
+import { RateSelectType } from "@/types/types";
 import Image from "next/image";
 import React, { lazy, useState } from "react";
 const RateInput = lazy(() => import("@/components/RateInput"));
 
-type OptionType = {
-  amount: number;
-  currency: string;
-};
 const ConversionRateInput = ({
   onChange,
   value = {
@@ -21,8 +18,8 @@ const ConversionRateInput = ({
 }: {
   onChange: (arg0: any) => void;
   value?: {
-    fromCurrency: OptionType;
-    toCurrency: OptionType;
+    fromCurrency: RateSelectType;
+    toCurrency: RateSelectType;
   };
 }) => {
   const [from, setFrom] = useState();

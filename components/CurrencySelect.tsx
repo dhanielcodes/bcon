@@ -2,19 +2,7 @@ import { FC, useState } from "react";
 import Select from "react-select";
 import CurrencyFlagImage from "react-currency-flags";
 import { cn } from "@/libs/utils";
-
-interface OptionType {
-  value: string | number;
-  label: string;
-}
-
-interface CurrencySelectProps {
-  isSearchable?: boolean;
-  className?: string;
-  disabled?: boolean;
-  onChange?: (selected: OptionType | null) => void;
-  value?: OptionType | null;
-}
+import { CurrencySelectProps, OptionType } from "@/types/form-types";
 
 const CurrencySelect: FC<CurrencySelectProps> = ({
   isSearchable = false,

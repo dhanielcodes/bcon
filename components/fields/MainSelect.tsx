@@ -2,24 +2,7 @@ import { FC } from "react";
 import Select from "react-select";
 import { Field, FieldProps, useField } from "formik";
 import { cn } from "@/libs/utils";
-
-interface OptionType {
-  value: string | number;
-  label: string;
-}
-
-interface MainSelectProps {
-  label?: string;
-  labelColor?: string;
-  name: string;
-  options: OptionType[];
-  placeholder?: string;
-  isSearchable?: boolean;
-  hint?: string;
-  disabled?: boolean;
-  cutBorder?: boolean;
-  onChange?: (selected: OptionType | null) => void;
-}
+import { MainSelectProps } from "@/types/form-types";
 
 const MainSelect: FC<MainSelectProps> = ({
   label,

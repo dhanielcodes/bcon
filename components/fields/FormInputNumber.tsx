@@ -1,31 +1,7 @@
 import { useFormikContext, Field, ErrorMessage } from "formik";
 import { NumericFormat } from "react-number-format";
 import getSymbolFromCurrency from "currency-symbol-map";
-
-interface FormInputNumberProps {
-  name: string;
-  placeholder?: string;
-  defaultValue?: string | number;
-  label?: string;
-  disabled?: boolean;
-  width?: string;
-  bottom?: string;
-  required?: boolean;
-  amount?: boolean;
-  percent?: boolean;
-  item?: React.ReactNode;
-  max?: number;
-  pin?: boolean;
-  padding?: string;
-  labelColor?: string;
-  background?: string;
-  IconRight?: React.FC<{ width: string; height: string }>;
-  IconLeft?: React.FC<{ width: string; height: string }>;
-  hint?: string;
-  currency?: string;
-  cutBorder?: boolean;
-  showError?: boolean;
-}
+import { FormInputNumberProps } from "@/types/form-types";
 
 export default function FormInputNumber({
   name,

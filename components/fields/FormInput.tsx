@@ -1,24 +1,7 @@
 import { FC } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import { cn } from "@/libs/utils";
-
-interface FormInputProps {
-  name: string;
-  type: string;
-  placeholder?: string;
-  defaultValue?: string;
-  label?: string;
-  disabled?: boolean;
-  width?: string;
-  labelColor?: string;
-  background?: string;
-  required?: boolean;
-  max?: number;
-  IconRight?: React.ElementType;
-  IconLeft?: React.ElementType;
-  hint?: string;
-  className?: string;
-}
+import { FormInputProps } from "@/types/form-types";
 
 const FormInput: FC<FormInputProps> = ({
   name,

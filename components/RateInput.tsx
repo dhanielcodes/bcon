@@ -1,20 +1,15 @@
 import React, { FC, useEffect, useState } from "react";
 
-type OptionType = {
-  value: string | number;
-  label: string;
-};
 import CurrencySelect from "./CurrencySelect";
 import styled from "styled-components";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { NumericFormat } from "react-number-format";
+import { OptionType } from "@/types/form-types";
+import { RateSelectType } from "@/types/types";
 
 const RateInput: FC<{
   onChange?: (arg0: any) => void;
-  value?: {
-    amount: number;
-    currency: string;
-  };
+  value?: RateSelectType;
   title?: string;
 }> = ({
   onChange,
@@ -22,10 +17,7 @@ const RateInput: FC<{
   title = "You send",
 }) => {
   const [amount, setAmount] = useState<number>(value.amount);
-  const [currency, setCurrency] = useState<{
-    value: string | number;
-    label: string;
-  }>({
+  const [currency, setCurrency] = useState<OptionType>({
     value: value.currency || "",
     label: value.currency || "",
   });
@@ -39,7 +31,7 @@ const RateInput: FC<{
         value: value.currency,
         label: value.currency,
       }
-    : (currency as { value: string | number; label: string });
+    : (currency as OptionType);
 
   const currencyAmount = value.amount ? value.amount : amount;
   return (
