@@ -1,7 +1,6 @@
 import "@/app/globals.css";
 
 import type { Metadata } from "next";
-import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Register | BCON",

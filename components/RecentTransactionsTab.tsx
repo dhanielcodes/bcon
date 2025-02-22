@@ -1,7 +1,6 @@
 import React from "react";
 import Box from "./bits/Box";
 import Image from "next/image";
-import { cn } from "@/libs/utils";
 
 const RecentTransactionsTab = () => {
   return (

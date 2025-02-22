@@ -1,12 +1,7 @@
 "use client";
-import BeneficiarySlip from "@/components/BeneficiarySlip";
-import BackBtn from "@/components/bits/BackBtn";
 import Box from "@/components/bits/Box";
 import PageTitle from "@/components/bits/PageTitle";
 import DetailsCard from "@/components/DetailsCard";
-import FormRegularInput from "@/components/fields/FormRegularInput";
-import { ArrowLeftIcon, BellIcon, DotFilledIcon } from "@radix-ui/react-icons";
-import { Form, Formik } from "formik";
 import { Share2 } from "lucide-react";
 import Image from "next/image";
 import { lazy } from "react";
@@ -16,7 +11,7 @@ const AppButton = lazy(() => import("@/components/fields/AppButton"));
 export default function Page() {
   return (
     <div>
-      <PageTitle title="Transaction Details" icon={<div></div>} />
+      <PageTitle space="80" title="Transaction Details" icon={<div></div>} />
       <Box className="space-y-4">
         <div className="grid place-items-center">
           <div className="text-neutral3 mb-4">03-08-1968 12:32:45</div>

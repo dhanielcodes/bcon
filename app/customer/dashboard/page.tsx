@@ -12,7 +12,6 @@ import { lazy, Suspense, useState } from "react";
 const DashboardCard = lazy(() => import("@/components/DashboardCard"));
 const BaseFilterTab = lazy(() => import("@/components/BaseFilterTab"));
 const CountrySelect = lazy(() => import("@/components/CountrySelect"));
-const RateInput = lazy(() => import("@/components/RateInput"));
 
 export default function Page() {
   const callToActions = [
