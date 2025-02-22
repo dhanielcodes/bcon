@@ -3,7 +3,7 @@ import { FC } from "react";
 import Box from "./Box";
 import BackBtn from "./BackBtn";
 import { Form, Formik } from "formik";
-import FormRegularInput from "../fields/FormRegularInput";
+import FormRegularInput from "@/components/fields/FormRegularInput";
 import { Search } from "lucide-react";
 import { cn } from "@/libs/utils";
 

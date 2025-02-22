@@ -3,6 +3,7 @@ import { InfoCircledIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import React, { FC, HTMLAttributes } from "react";
 import Box from "../bits/Box";
+import { SendCardProps } from "@/types/types";
 
 const PayByField = () => {
   const paymentOptions = [
@@ -26,12 +27,7 @@ const PayByField = () => {
   );
 };
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  active?: boolean;
-  name: string;
-  img?: string;
-}
-const Card: FC<CardProps> = ({ active, name, img = "", ...props }) => {
+const Card: FC<SendCardProps> = ({ active, name, img = "", ...props }) => {
   return (
     <div
       className={cn(

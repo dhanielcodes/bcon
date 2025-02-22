@@ -1,16 +1,8 @@
 "use client";
 
+import { BaseFilterTabProps } from "@/types/types";
 import { useSearchParams, useRouter } from "next/navigation";
 import { FC } from "react";
-
-interface TabItem {
-  tab: string;
-  name: string;
-}
-
-interface BaseFilterTabProps {
-  tab: TabItem[];
-}
 
 const BaseFilterTab: FC<BaseFilterTabProps> = ({ tab }) => {
   const searchParams = useSearchParams();

@@ -1,16 +1,6 @@
 "use client";
+import { BaseFilterTabProps } from "@/types/types";
 import { Dispatch, FC, SetStateAction } from "react";
-
-interface TabItem {
-  tab: string;
-  name: string;
-}
-
-interface BaseFilterTabProps {
-  tab: TabItem[];
-  active?: string;
-  setActive?: Dispatch<SetStateAction<string>>;
-}
 
 const BaseFilterTab: FC<BaseFilterTabProps> = ({
   tab,
