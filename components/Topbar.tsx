@@ -1,14 +1,9 @@
 "use client";
 
 import React from "react";
-import HomeIcon from "./icons/HomeIcon";
 import Box from "./bits/Box";
-import BeneficiariesIcon from "./icons/BeneficiariesIcon";
-import HistoryIcon from "./icons/HistoryIcon";
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/libs/utils";
 
 const Topbar = () => {
   const pathname = usePathname();

@@ -1,12 +1,7 @@
 "use client";
-import BeneficiarySlip from "@/components/BeneficiarySlip";
-import BackBtn from "@/components/bits/BackBtn";
 import Box from "@/components/bits/Box";
 import PageTitle from "@/components/bits/PageTitle";
 import DetailsCard from "@/components/DetailsCard";
-import FormRegularInput from "@/components/fields/FormRegularInput";
-import { ArrowLeftIcon, BellIcon, DotFilledIcon } from "@radix-ui/react-icons";
-import { Form, Formik } from "formik";
 import Image from "next/image";
 import { lazy } from "react";
 

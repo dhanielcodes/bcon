@@ -1,4 +1,4 @@
-import React, { FC, lazy, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 
 interface CardProps {
   children?: ReactNode;

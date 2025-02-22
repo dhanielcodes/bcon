@@ -5,8 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC, lazy } from "react";
 
-const AppButton = lazy(() => import("@/components/fields/AppButton"));
-
 export default function Page() {
   return (
     <div>

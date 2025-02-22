@@ -1,5 +1,5 @@
 import { WalletCardProps } from "@/types/types";
-import React, { FC, lazy, ReactNode } from "react";
+import React, { FC } from "react";
 import CurrencyFlagImage from "react-currency-flags";
 
 const WalletCard: FC<WalletCardProps> = ({

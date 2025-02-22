@@ -1,8 +1,6 @@
 "use client";
 import Box from "@/components/bits/Box";
 import PageTitle from "@/components/bits/PageTitle";
-import FormInput from "@/components/fields/FormInput";
-import FormInputNumber from "@/components/fields/FormInputNumber";
 import FormPasswordInput from "@/components/fields/FormPasswordInput";
 import { Form, Formik } from "formik";
 import Image from "next/image";

@@ -5,22 +5,10 @@ import DetailsCard from "@/components/DetailsCard";
 import CollectByField from "@/components/fields/CollectByField";
 import PayByField from "@/components/fields/PayByField";
 import Divider from "@/components/icons/Divider";
-import {
-  DividerHorizontalIcon,
-  DividerVerticalIcon,
-  PlusIcon,
-} from "@radix-ui/react-icons";
-import Link from "next/link";
+import { PlusIcon } from "@radix-ui/react-icons";
 import React, { lazy, useState } from "react";
 const Box = lazy(() => import("@/components/bits/Box"));
 
-const FormInput = lazy(() => import("@/components/fields/FormInput"));
-const FormInputNumber = lazy(
-  () => import("@/components/fields/FormInputNumber")
-);
-const FormPasswordInput = lazy(
-  () => import("@/components/fields/FormPasswordInput")
-);
 const MainSelect = lazy(() => import("@/components/fields/MainSelect"));
 const AppButton = lazy(() => import("@/components/fields/AppButton"));
 

@@ -1,13 +1,9 @@
 "use client";
 import Box from "@/components/bits/Box";
 import PageTitle from "@/components/bits/PageTitle";
-import FormInput from "@/components/fields/FormInput";
-import FormInputNumber from "@/components/fields/FormInputNumber";
 import WalletCard from "@/components/WalletCard";
-import { Form, Formik } from "formik";
 import Image from "next/image";
-import Link from "next/link";
-import { FC, lazy } from "react";
+import { lazy } from "react";
 
 const AppButton = lazy(() => import("@/components/fields/AppButton"));
 

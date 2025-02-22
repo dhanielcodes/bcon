@@ -1,8 +1,7 @@
 import { cn } from "@/libs/utils";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
-import React, { FC, HTMLAttributes } from "react";
-import Box from "../bits/Box";
+import React, { FC } from "react";
 import { SendCardProps } from "@/types/types";
 
 const CollectByField = () => {
