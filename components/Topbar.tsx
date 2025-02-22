@@ -1,21 +1,30 @@
-import "@/app/globals.css";
-import Box from "@/components/bits/Box";
-import MenuBar from "@/components/MenuBar";
-import type { Metadata } from "next";
+"use client";
+
+import React from "react";
+import HomeIcon from "./icons/HomeIcon";
+import Box from "./bits/Box";
+import BeneficiariesIcon from "./icons/BeneficiariesIcon";
+import HistoryIcon from "./icons/HistoryIcon";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { cn } from "@/libs/utils";
 
-export const metadata: Metadata = {
-  title: "Dashboard | BCON",
-  description: "Your BCON account, start transacting",
-};
+const Topbar = () => {
+  const pathname = usePathname();
+  const excludeRoutes = [
+    "/customer/send-money",
+    "/customer/explore",
+    "/customer/profile/profile",
+    "/customer/profile/wallet",
+    "/customer/profile/address",
+    "/customer/profile/password",
+  ];
 
-export default function DashboardLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <div>
+  return excludeRoutes.includes(pathname) ? (
+    ""
+  ) : (
+    <>
       <Box className="rounded-t-none fixed top-0 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-[390px]">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
@@ -35,9 +44,9 @@ export default function DashboardLayout({
           </div>
         </div>
       </Box>
-      <div className="h-[120px]"></div>
-      {children}
-      <MenuBar />
-    </div>
+      <div className="h-[100px]"></div>
+    </>
   );
-}
+};
+
+export default Topbar;

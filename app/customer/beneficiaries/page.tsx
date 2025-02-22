@@ -10,7 +10,12 @@ export default function Page() {
     <div>
       <PageTitleSearchBox
         title="Beneficiaries"
-        icon={<PlusIcon color="#FF7434" width={24} height={24} />}
+        icon={
+          <Link href="/customer/add-beneficiary">
+            <PlusIcon color="#FF7434" width={24} height={24} />
+          </Link>
+        }
+        space="130"
       />
 
       <Box className="space-y-4">
@@ -19,7 +24,7 @@ export default function Page() {
           .map((_, idx) => {
             return (
               <div>
-                <Link href={`/dashboard/beneficiary?id=${idx}`}>
+                <Link href={`/customer/beneficiary?id=${idx}`}>
                   <BeneficiarySlip />
                 </Link>
               </div>

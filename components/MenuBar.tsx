@@ -12,19 +12,19 @@ import { cn } from "@/libs/utils";
 
 const MenuBar = () => {
   const side1 = [
-    { name: "Home", route: "/dashboard/customer", Icon: HomeIcon },
+    { name: "Home", route: "/customer/dashboard", Icon: HomeIcon },
     {
       name: "Beneficiaries",
-      route: "/dashboard/beneficiaries",
+      route: "/customer/beneficiaries",
       Icon: BeneficiariesIcon,
     },
   ];
 
   const side2 = [
-    { name: "History", route: "/dashboard/histories", Icon: HistoryIcon },
+    { name: "History", route: "/customer/histories", Icon: HistoryIcon },
     {
       name: "Profile",
-      route: "/dashboard/profile",
+      route: "/customer/profile",
       image: () => (
         <Image src="/icons/profile.png" width={24} height={24} alt="profile" />
       ),
@@ -33,7 +33,11 @@ const MenuBar = () => {
 
   const pathname = usePathname();
 
-  return (
+  const excludeRoutes = ["/customer/send-money"];
+
+  return excludeRoutes.includes(pathname) ? (
+    ""
+  ) : (
     <>
       <div className="h-[110px]"></div>
       <Box className="mb-0 rounded-b-none grid grid-cols-6 gap-4 text-[12px] fixed bottom-0 left-1/2 transform -translate-x-1/2  w-full max-w-[400px]">

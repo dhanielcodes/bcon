@@ -11,6 +11,7 @@ export default function Page() {
       <PageTitleSearchBox
         title="Profile"
         icon={<div></div>}
+        space="120"
         showSearch={false}
       />
 
@@ -42,29 +43,29 @@ export default function Page() {
         <Tab
           title="Profile"
           icon="icons/profile/profile.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/profile"
         />
         <Tab
           title="ID Documents"
           icon="icons/profile/document.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/document"
         />
         <Tab
           title="Wallet"
           icon="icons/profile/profile.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/wallet"
         />
 
         <Tab
           title="Change address"
           icon="icons/profile/address.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/address"
         />
 
         <Tab
           title="Refer & Earn"
           icon="icons/profile/refer.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/earn"
         />
       </Box>
       <Box>
@@ -73,23 +74,23 @@ export default function Page() {
         <Tab
           title="Password"
           icon="icons/profile/password.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/password"
         />
         <Tab
           title="Our bank details"
           icon="icons/profile/bank.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/profile"
         />
         <Tab
           title="Contact us"
           icon="icons/profile/contact.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/profile"
         />
 
         <Tab
           title="FAQs"
           icon="icons/profile/faqs.svg"
-          route="dashboard/profile/profile"
+          route="customer/profile/profile"
         />
       </Box>
     </div>

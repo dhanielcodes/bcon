@@ -1,30 +1,30 @@
 "use client";
 import Box from "@/components/bits/Box";
-import PageTitleSearchBox from "@/components/bits/PageTitleSearchBox";
-import { ListFilter } from "lucide-react";
+import PageTitle from "@/components/bits/PageTitle";
+import FormInput from "@/components/fields/FormInput";
+import FormInputNumber from "@/components/fields/FormInputNumber";
+import WalletCard from "@/components/WalletCard";
+import { Form, Formik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
+import { FC, lazy } from "react";
+
+const AppButton = lazy(() => import("@/components/fields/AppButton"));
 
 export default function Page() {
   return (
     <div>
-      <PageTitleSearchBox
-        title="History"
-        icon={<ListFilter color="#667085" width={24} height={24} />}
-      />
-
-      <Box className="space-y-4">
-        {Array(12)
-          .fill(3)
-          .map((_, idx) => {
-            return (
-              <div>
-                <Link href={`/dashboard/history?id=${idx}`}>
-                  <Slip />
-                </Link>
-              </div>
-            );
-          })}
+      <PageTitle space="40" title="GBP Wallet" icon={<div></div>} />
+      <WalletCard />
+      <Box className="rounded-3xl p-6">
+        <h1 className="text-base mb-4">Recent Transactions</h1>
+        <div className="space-y-4">
+          {Array(3)
+            .fill(3)
+            .map((_, idx) => {
+              return <Slip />;
+            })}
+        </div>
       </Box>
     </div>
   );
@@ -42,7 +42,6 @@ const Slip = () => {
         <div className="text-right space-y-2">
           <div className="text-lg ">£25</div>
           <div className="text-neutral3">₦25,829</div>
-          <div className="text-green-500 text-sm">Success</div>
         </div>
       </div>
     </div>
