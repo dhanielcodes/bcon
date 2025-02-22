@@ -16,6 +16,7 @@ export default function Page() {
   return (
     <div>
       <PageTitle
+        space="80"
         title="Beneficiary Details"
         icon={
           <Image

@@ -14,7 +14,7 @@ export default function Home() {
         />
         <AppButton to="/login" placeholder="Login" secondary className="mt-0" />
         <AppButton
-          to="/dashboard/customer"
+          to="/customer/dashboard"
           placeholder="Dashboard"
           outline
           className="mt-0"

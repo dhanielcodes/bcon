@@ -531,6 +531,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@juggle/resize-observer@npm:^3.3.1":
+  version: 3.4.0
+  resolution: "@juggle/resize-observer@npm:3.4.0"
+  checksum: 2505028c05cc2e17639fcad06218b1c4b60f932a4ebb4b41ab546ef8c157031ae377e3f560903801f6d01706dbefd4943b6c4704bf19ed86dfa1c62f1473a570
+  languageName: node
+  linkType: hard
+
 "@next/env@npm:15.1.7":
   version: 15.1.7
   resolution: "@next/env@npm:15.1.7"
@@ -832,6 +839,7 @@ __metadata:
     clsx: ^2.1.1
     currency-symbol-map: ^5.1.0
     formik: ^2.4.6
+    framer: ^2.4.1
     lucide-react: ^0.475.0
     next: 15.1.7
     postcss: ^8
@@ -1195,6 +1203,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eventemitter3@npm:^3.1.0":
+  version: 3.1.2
+  resolution: "eventemitter3@npm:3.1.2"
+  checksum: 81e4e82b8418f5cfd986d2b4a2fa5397ac4eb8134e09bcb47005545e22fdf8e9e61d5c053d34651112245aae411bdfe6d0ad5511da0400743fef5fc38bfcfbe3
+  languageName: node
+  linkType: hard
+
 "exponential-backoff@npm:^3.1.1":
   version: 3.1.2
   resolution: "exponential-backoff@npm:3.1.2"
@@ -1240,6 +1255,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fontfaceobserver@npm:^2.1.0":
+  version: 2.3.0
+  resolution: "fontfaceobserver@npm:2.3.0"
+  checksum: 5f14715974203b9d68f299f93a7623afd9d5701572d683e861cdbb7514573ac556f56e9b5d07d2d534e01aed19a3b0bbe568e735e0e5494cbea913fc3f12b856
+  languageName: node
+  linkType: hard
+
 "foreground-child@npm:^3.1.0":
   version: 3.3.0
   resolution: "foreground-child@npm:3.3.0"
@@ -1265,6 +1287,23 @@ __metadata:
   peerDependencies:
     react: ">=16.8.0"
   checksum: ed0ff8eca11b3c4b5564a6ae5650cb124820d239ece9a7cb3d526ff8ce3d8f9fb992e2f78ef0666e65b7c05c944a91cc98a736e806e424019d6aac8bee313a42
+  languageName: node
+  linkType: hard
+
+"framer@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "framer@npm:2.4.1"
+  dependencies:
+    "@juggle/resize-observer": ^3.3.1
+    eventemitter3: ^3.1.0
+    fontfaceobserver: ^2.1.0
+    hoist-non-react-statics: ^3.3.2
+    hsluv: ^0.0.3
+  peerDependencies:
+    framer-motion: ^10.13.1
+    react: ^18.2.0
+    react-dom: ^18.2.0
+  checksum: ded01094849ae9d8583e19a8f6d3cae8b5218bd0db52877fac15cae0926a19ea7b01594dd1537d59373da1661b8a9b1aa4e96a5841e4edecde9d8512e97c623c
   languageName: node
   linkType: hard
 
@@ -1360,12 +1399,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1":
+"hoist-non-react-statics@npm:^3.3.0, hoist-non-react-statics@npm:^3.3.1, hoist-non-react-statics@npm:^3.3.2":
   version: 3.3.2
   resolution: "hoist-non-react-statics@npm:3.3.2"
   dependencies:
     react-is: ^16.7.0
   checksum: b1538270429b13901ee586aa44f4cc3ecd8831c061d06cb8322e50ea17b3f5ce4d0e2e66394761e6c8e152cd8c34fb3b4b690116c6ce2bd45b18c746516cb9e8
+  languageName: node
+  linkType: hard
+
+"hsluv@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "hsluv@npm:0.0.3"
+  checksum: 2cd6dbe3423de7b8dade6429530388c4473dd3f7ded52d2c395dc99b4a0712c2ab215c8186a38a3617e51f344f555a562ac785db433e7364d75011657d1f17da
   languageName: node
   linkType: hard
 

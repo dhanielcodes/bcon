@@ -95,7 +95,7 @@ const CountrySelect: FC<CountrySelectProps> = ({
           menuList: (styles) => ({
             ...styles,
             display: "flex",
-            backgroundColor: "#FD9563",
+            backgroundColor: "#fff",
             borderRadius: "10px",
             flexDirection: "column",
             // gap:"10px",
