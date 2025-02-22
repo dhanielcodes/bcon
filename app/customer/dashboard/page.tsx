@@ -4,14 +4,10 @@ import ConversionRateInput from "@/components/ConversionRateInput";
 import QuickSendTab from "@/components/QuickSendTab";
 import RecentTransactionsTab from "@/components/RecentTransactionsTab";
 import Topbar from "@/components/Topbar";
+import { RateSelectType } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
 import { lazy, Suspense, useState } from "react";
-
-type OptionType = {
-  amount: number;
-  currency: string;
-};
 
 const DashboardCard = lazy(() => import("@/components/DashboardCard"));
 const BaseFilterTab = lazy(() => import("@/components/BaseFilterTab"));
@@ -41,27 +37,25 @@ export default function Page() {
       route: "/customer/explore",
     },
   ];
-  const [value, setValue] = useState<{
-    amount: number;
-    currency: string;
-  }>({ amount: 0, currency: "GBP" });
 
   const [val, setVal] = useState<{
-    fromCurrency: OptionType;
-    toCurrency: OptionType;
+    fromCurrency: RateSelectType;
+    toCurrency: RateSelectType;
   }>({
-    fromCurrency: { amount: 0, currency: "GBP" } as OptionType,
-    toCurrency: { amount: 0, currency: "NGN" } as OptionType,
+    fromCurrency: { amount: 0, currency: "GBP" } as RateSelectType,
+    toCurrency: { amount: 0, currency: "NGN" } as RateSelectType,
   });
 
   console.log(val, "whole rate conversion");
-
+  const [active, setActive] = useState<string>("sent");
   return (
     <div>
       <Topbar />
       <DashboardCard>
         <Suspense fallback={<div>.</div>}>
           <BaseFilterTab
+            setActive={setActive}
+            active={active}
             tab={[
               { name: "Sent", tab: "sent" },
               { name: "Received", tab: "received" },

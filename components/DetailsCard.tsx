@@ -1,21 +1,12 @@
 import { cn } from "@/libs/utils";
-import { HTMLAttributes } from "react";
+import { DetailsCardProps } from "@/types/types";
+import { FC } from "react";
 
-type DetailType = {
-  title: string;
-  value: string;
-};
-
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
-  details?: DetailType[];
-}
-
-const DetailsCard = ({
+const DetailsCard: FC<DetailsCardProps> = ({
   title = "Personal details",
   details = [],
   ...props
-}: Props) => {
+}) => {
   return (
     <div className="space-y-2" {...props}>
       {title && <h4 className="font-medium">{title}</h4>}

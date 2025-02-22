@@ -2,28 +2,7 @@
 import { FC } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/libs/utils";
-
-interface AppButtonProps {
-  onClick?: () => void;
-  placeholder: string;
-  loading?: boolean;
-  disabled?: boolean;
-  outline?: boolean;
-  secondary?: boolean;
-  showBorder?: boolean;
-  color?: string;
-  borderColor?: string;
-  style?: React.CSSProperties;
-  IconLeft?: React.ElementType;
-  IconRight?: React.ElementType;
-  to?: string;
-  width?: string;
-  roundedFull?: boolean;
-  radius?: string;
-  textColor?: string;
-  borderWidth?: number;
-  className?: string;
-}
+import { AppButtonProps } from "@/types/form-types";
 
 const AppButton: FC<AppButtonProps> = ({
   onClick,

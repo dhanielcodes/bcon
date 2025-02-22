@@ -1,12 +1,8 @@
+import { WalletCardProps } from "@/types/types";
 import React, { FC, lazy, ReactNode } from "react";
 import CurrencyFlagImage from "react-currency-flags";
 
-interface CardProps {
-  amount?: string | number;
-  currency?: string;
-  title?: string;
-}
-const WalletCard: FC<CardProps> = ({
+const WalletCard: FC<WalletCardProps> = ({
   amount = "10,000",
   currency = "GBP",
   title = "Wallet Balance",
