@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Beneficiary | BCON",
+  title: "History | BCON",
   description: "Your BCON account, start transacting",
 };
 
