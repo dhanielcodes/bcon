@@ -1,15 +1,14 @@
 import "@/app/globals.css";
-import Box from "@/components/bits/Box";
-import MenuBar from "@/components/MenuBar";
+
 import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Beneficiary | BCON",
-  description: "Your BCON account, start transacting",
+  title: "Send Money | BCON",
+  description: "Send money, start transacting",
 };
 
-export default function BeneficiariesLayout({
+export default function SendMoneyLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

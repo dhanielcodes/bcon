@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Beneficiary | BCON",
+  title: "History | BCON",
   description: "Your BCON account, start transacting",
 };
 
@@ -14,5 +14,10 @@ export default function BeneficiariesLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div>{children}</div>;
+  return (
+    <div>
+      <div className="h-[40px]"></div>
+      {children}
+    </div>
+  );
 }
