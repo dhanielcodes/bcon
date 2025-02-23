@@ -3,15 +3,15 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="bg-[#FF7434] h-full fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-[500px] px-4 flex flex-col justify-between py-10">
+    <div className="bg-[#FF7434] relative h-full px-4 flex flex-col justify-between py-10">
       <Image
         alt="o1"
-        className="h-full w-full object-cover absolute left-0 top-0 -z-10"
+        className="h-full w-full object-cover absolute left-0 top-0"
         src="/images/Onboard1.png"
-        height={1000}
-        width={1000}
+        height={3000}
+        width={3000}
       />
-      <div className="space-y-4 text-center">
+      <div className="relative  z-10 space-y-4 text-center">
         <div className="flex items-center justify-center">
           <Image alt="logo" src="/logo.svg" height={60} width={60} />
         </div>
@@ -20,7 +20,7 @@ export default function Home() {
           We ensure it reaches your loved ones or business partners swiftly
         </div>
       </div>
-      <div className="space-y-4">
+      <div className="space-y-4 relative  z-10">
         <AppButton
           to="/register"
           placeholder="Create an account"

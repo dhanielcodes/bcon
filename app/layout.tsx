@@ -4,6 +4,7 @@ import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
 import { MainProvider } from "../context/global.context";
 import { AuthProvider } from "@/context/auth.context";
+import { Toaster } from "react-hot-toast";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -28,7 +29,10 @@ export default function RootLayout({
       <body className={`${plusJakartaSans.className} antialiased`}>
         <QueryProvider>
           <MainProvider>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              <Toaster position="top-right" />
+              {children}
+            </AuthProvider>
           </MainProvider>
         </QueryProvider>
       </body>
