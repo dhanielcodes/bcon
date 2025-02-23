@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="bg-[#FF7434] relative h-full px-4 flex flex-col justify-between py-10">
+    <div className="bg-[#FF7434] relative h-full flex flex-col justify-between px-4 py-10 w-full">
       <Image
         alt="o1"
         className="h-full w-full object-cover absolute left-0 top-0"
@@ -20,7 +20,7 @@ export default function Home() {
           We ensure it reaches your loved ones or business partners swiftly
         </div>
       </div>
-      <div className="space-y-4 relative  z-10">
+      <div className="space-y-4 relative z-10">
         <AppButton
           to="/register"
           placeholder="Create an account"
