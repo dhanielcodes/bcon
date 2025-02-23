@@ -43,7 +43,7 @@ export default function Page() {
                 width="w-[510px]"
               />
 
-              <AppButton placeholder="Submit" />
+              <AppButton to="/customer/dashboard" placeholder="Submit" />
             </Form>
           )}
         </Formik>

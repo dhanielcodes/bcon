@@ -35,9 +35,8 @@ const RateInput: FC<{
 
   const currencyAmount = value.amount ? value.amount : amount;
   return (
-    <Style className="bg-neutral p-5 rounded-3xl flex justify-between items-center">
+    <Style className="bg-neutral p-5 rounded-3xl grid grid-cols-[120px_1fr]">
       <CurrencySelect
-        className="w-[160px]"
         onChange={(selected: OptionType | null) => {
           if (selected) {
             setCurrency(selected as { value: string; label: string });

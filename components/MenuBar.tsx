@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { FC } from "react";
 import HomeIcon from "./icons/HomeIcon";
 import Box from "./bits/Box";
 import BeneficiariesIcon from "./icons/BeneficiariesIcon";
@@ -10,27 +10,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/libs/utils";
 
-const MenuBar = () => {
-  const side1 = [
-    { name: "Home", route: "/customer/dashboard", Icon: HomeIcon },
-    {
-      name: "Beneficiaries",
-      route: "/customer/beneficiaries",
-      Icon: BeneficiariesIcon,
-    },
-  ];
+type Props = {
+  side1: { name: string; route: string; Icon?: any; image?: any }[];
+  side2: { name: string; route: string; Icon?: any; image?: any }[];
+  mainRoute: {
+    route: string;
+    img: string;
+  };
+};
 
-  const side2 = [
-    { name: "History", route: "/customer/histories", Icon: HistoryIcon },
-    {
-      name: "Profile",
-      route: "/customer/profile",
-      image: () => (
-        <Image src="/icons/profile.png" width={24} height={24} alt="profile" />
-      ),
-    },
-  ];
-
+const MenuBar: FC<Props> = ({ side1, side2, mainRoute }) => {
   const pathname = usePathname();
 
   const excludeRoutes = ["/customer/send-money"];
@@ -40,14 +29,14 @@ const MenuBar = () => {
   ) : (
     <>
       <div className="h-[130px]"></div>
-      <Box className="mb-0 pb-[40px] rounded-b-none grid grid-cols-6 gap-4 text-[12px] fixed bottom-0 left-1/2 transform -translate-x-1/2  w-full max-w-[400px]">
+      <Box className="mb-0 pb-[40px] rounded-b-none grid grid-cols-6 gap-4 text-[12px] fixed bottom-0 left-1/2 transform -translate-x-1/2  max-width-util">
         <Link
-          href="/customer/send-money"
+          href={mainRoute.route}
           className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-[40%]"
         >
           <Image
             className="rounded-full cursor-pointer p-4 w-[100px] bg-neutral"
-            src="/icons/send-circle.svg"
+            src={mainRoute.img}
             width={244}
             height={244}
             alt="send"

@@ -4,10 +4,14 @@ import ConversionRateInput from "@/components/ConversionRateInput";
 import QuickSendTab from "@/components/QuickSendTab";
 import RecentTransactionsTab from "@/components/RecentTransactionsTab";
 import Topbar from "@/components/Topbar";
+import MainContext, {
+  ErrorContextType,
+  useMainContext,
+} from "@/context/global.context";
 import { RateSelectType } from "@/types/types";
 import Image from "next/image";
 import Link from "next/link";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useContext, useState } from "react";
 
 const DashboardCard = lazy(() => import("@/components/DashboardCard"));
 const BaseFilterTab = lazy(() => import("@/components/BaseFilterTab"));
@@ -47,6 +51,9 @@ export default function Page() {
 
   console.log(val, "whole rate conversion");
   const [active, setActive] = useState<string>("sent");
+  const { isAuth } = useMainContext();
+
+  console.log(isAuth, "isAuth");
   return (
     <div>
       <Topbar />

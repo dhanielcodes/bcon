@@ -1,6 +1,7 @@
 "use client";
 import Box from "@/components/bits/Box";
 import PageTitleSearchBox from "@/components/bits/PageTitleSearchBox";
+import { LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
@@ -93,6 +94,12 @@ export default function Page() {
           route="customer/profile/profile"
         />
       </Box>
+
+      <Link href={"/"}>
+        <Box className="rounded-full cursor-pointer text-[#fc0000] flex items-center justify-center space-x-2">
+          <LogOut color="#fc0000" /> <span>Logout</span>
+        </Box>
+      </Link>
     </div>
   );
 }

@@ -25,7 +25,15 @@
 .css-1u9des2-indicatorSeparator{
  @apply hidden
 }
+.max-width-util {
+  @apply w-[92%] max-w-[800px]
+}
 
 body {
-  @apply px-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll w-full max-w-[400px] mx-auto relative
+  @apply bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll max-width-util mx-auto relative
+}
+
+
+::-webkit-scrollbar{
+  width: 0;
 }
