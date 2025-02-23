@@ -1,4 +1,5 @@
 import axios from "axios";
+import toast from "react-hot-toast";
 
 
 
@@ -20,6 +21,17 @@ Axios.interceptors.request.use((config) => {
 Axios.interceptors.response.use(
   function (response) {
     if (response?.config?.method !== 'get') {
+      toast.success(response?.data?.message,
+        {
+                   //icon:'✅',
+          style: {
+            borderRadius: '1100px',
+            border: '1px solid green',
+            color: '#000',
+            fontSize: '14px'
+          },
+        }
+      );
       console.log(response?.data?.message)
     return response
     }
@@ -27,6 +39,17 @@ Axios.interceptors.response.use(
   },
   function (error) {
     if (error?.config?.method !== 'get') {
+      toast.error(error?.response?.data?.message || error?.message,
+        {
+          //icon:'❌',
+          style: {
+            borderRadius: '1100px',
+            border: '1px solid red',
+            color: 'red',
+            fontSize: '14px'
+          },
+        }
+      );
       console.log( error?.response?.data?.message || error?.message)
      return
     }
