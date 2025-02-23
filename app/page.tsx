@@ -6,7 +6,7 @@ export default function Home() {
     <div className="bg-[#FF7434] h-full w-full fixed top-0 left-0 grid place-items-center ">
       <Image src="/logo.svg" width={140} height={140} alt="logo" />
 
-      <div className="space-y-2 w-full max-w-[400px]">
+      <div className="space-y-2 w-full max-w-[650px]">
         <AppButton
           to="/register"
           placeholder="Create an account"

@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import MenuBar from "@/components/MenuBar";
+import CustomerMenuBar from "@/components/navbars/CustomerMenuBar";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export default function DashboardLayout({
   return (
     <div>
       {children}
-      <MenuBar />
+      <CustomerMenuBar />
     </div>
   );
 }
