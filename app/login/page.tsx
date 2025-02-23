@@ -1,4 +1,5 @@
 "use client";
+import useLogin from "@/hooks/login";
 import { LoginSchema } from "@/Schema";
 import { Form, Formik } from "formik";
 import Link from "next/link";
@@ -12,6 +13,8 @@ const FormPasswordInput = lazy(
 const Box = lazy(() => import("@/components/bits/Box"));
 
 export default function Page() {
+  const { mutate, isPending } = useLogin();
+
   return (
     <div>
       <Box>
@@ -24,6 +27,7 @@ export default function Page() {
           validationSchema={LoginSchema}
           onSubmit={(values) => {
             console.log(values);
+            mutate(values);
           }}
         >
           {({ handleSubmit }) => (
@@ -43,7 +47,7 @@ export default function Page() {
                 width="w-[510px]"
               />
 
-              <AppButton to="/customer/dashboard" placeholder="Submit" />
+              <AppButton placeholder="Submit" loading={isPending} />
             </Form>
           )}
         </Formik>

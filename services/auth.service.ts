@@ -4,8 +4,7 @@ import { LoginParam } from "./types";
 export const ApiServiceAuth = {
     LoginAuthService: async (body:LoginParam) => {
         const { data } = await Axios.post(`auth`, body);
-        localStorage.setItem("token", data?.data?.token);
-        console.log(data);
+        localStorage.setItem("user", data);
         return data;
     },
  /*    RegisterAuthService: async (body) => {
