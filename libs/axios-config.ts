@@ -20,12 +20,14 @@ Axios.interceptors.request.use((config) => {
 Axios.interceptors.response.use(
   function (response) {
     if (response?.config?.method !== 'get') {
+      console.log(response?.data?.message)
     return response
     }
     return response;
   },
   function (error) {
     if (error?.config?.method !== 'get') {
+      console.log( error?.response?.data?.message || error?.message)
      return
     }
     if (error?.response?.data?.message === 'Invalid token, Expired') {
