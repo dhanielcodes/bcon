@@ -13,7 +13,7 @@ interface Props {
 const PageTitle: FC<Props> = ({ className, icon, title, space }) => {
   return (
     <>
-      <Box className="rounded-t-none flex justify-between items-center fixed top-0 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-[650px]">
+      <Box className="rounded-t-none flex justify-between items-center fixed top-0 left-1/2 transform -translate-x-1/2 z-10 w-[92%] max-w-[600px]">
         <BackBtn />
         <h1 className="text-base">{title}</h1>
         {icon && icon}

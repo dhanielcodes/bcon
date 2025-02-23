@@ -27,5 +27,9 @@
 }
 
 body {
-  @apply px-4 bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll w-full max-w-[600px] mx-auto relative
+  @apply bg-[#F2F4F7] h-screen overflow-hidden overflow-y-scroll w-[92%] max-w-[600px] mx-auto relative
+}
+
+::-webkit-scrollbar{
+  width: 0;
 }

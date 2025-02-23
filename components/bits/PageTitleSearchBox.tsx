@@ -28,7 +28,7 @@ const PageTitleSearchBox: FC<Props> = ({
     <>
       <Box
         className={cn(
-          "rounded-t-none fixed top-0 left-1/2 transform -translate-x-1/2 z-10 w-full max-w-[650px]",
+          "rounded-t-none fixed top-0 left-1/2 transform -translate-x-1/2 z-10 w-[92%] max-w-[600px]",
           className
         )}
       >

@@ -29,7 +29,7 @@ const MenuBar: FC<Props> = ({ side1, side2, mainRoute }) => {
   ) : (
     <>
       <div className="h-[130px]"></div>
-      <Box className="mb-0 pb-[40px] rounded-b-none grid grid-cols-6 gap-4 text-[12px] fixed bottom-0 left-1/2 transform -translate-x-1/2  w-full max-w-[650px]">
+      <Box className="mb-0 pb-[40px] rounded-b-none grid grid-cols-6 gap-4 text-[12px] fixed bottom-0 left-1/2 transform -translate-x-1/2  w-[92%] max-w-[600px]">
         <Link
           href={mainRoute.route}
           className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-[40%]"
