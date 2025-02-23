@@ -20,7 +20,7 @@ const Topbar = () => {
     ""
   ) : (
     <>
-      <Box className="rounded-t-none fixed top-0 left-1/2 transform -translate-x-1/2 z-10 w-[92%] max-w-[600px]">
+      <Box className="rounded-t-none fixed top-0 left-1/2 transform -translate-x-1/2 z-10 max-width-util">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Image

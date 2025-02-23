@@ -37,7 +37,7 @@ const StepOneComponent = () => {
           })}
       </Box>
       <div className="h-[100px]"></div>
-      <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[92%] max-w-[600px] mb-0">
+      <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
         <AppButton placeholder="Proceed" />
       </Box>
     </>
@@ -117,7 +117,7 @@ const StepTwoComponent = () => {
       <Box className="opacity-0">
         <AppButton placeholder="Submit" />
       </Box>
-      <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[92%] max-w-[600px] mb-0 space-x-2 grid grid-cols-[1fr_2fr]">
+      <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0 space-x-2 grid grid-cols-[1fr_2fr]">
         <AppButton placeholder="Back" outline className="mt-0" />
         <AppButton placeholder="Continue" className="mt-0" />
       </Box>
@@ -156,7 +156,7 @@ const StepThreeComponent = () => {
       <Box className="opacity-0">
         <AppButton placeholder="Submit" />
       </Box>
-      <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[92%] max-w-[600px] mb-0 space-x-2 grid grid-cols-[1fr_2fr]">
+      <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0 space-x-2 grid grid-cols-[1fr_2fr]">
         <AppButton placeholder="Back" outline className="mt-0" />
         <AppButton placeholder="Send money" className="mt-0" />
       </Box>
