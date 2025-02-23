@@ -3,10 +3,10 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="bg-[#FF7434] h-screen fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-[500px] px-4 flex flex-col justify-between py-10">
+    <div className="bg-[#FF7434] h-full fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-[500px] px-4 flex flex-col justify-between py-10">
       <Image
         alt="o1"
-        className="h-screen w-full object-cover absolute left-0 top-0 -z-10"
+        className="h-full w-full object-cover absolute left-0 top-0 -z-10"
         src="/images/Onboard1.png"
         height={1000}
         width={1000}

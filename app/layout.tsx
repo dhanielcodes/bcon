@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import QueryProvider from "@/providers/QueryProvider";
 import { MainProvider } from "../context/global.context";
+import { AuthProvider } from "@/context/auth.context";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -26,7 +27,9 @@ export default function RootLayout({
       </head>
       <body className={`${plusJakartaSans.className} antialiased`}>
         <QueryProvider>
-          <MainProvider>{children}</MainProvider>
+          <MainProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </MainProvider>
         </QueryProvider>
       </body>
     </html>
