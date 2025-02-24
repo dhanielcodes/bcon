@@ -6,9 +6,12 @@ import Box from "@/components/bits/Box";
 import Stepper from "@/components/Stepper";
 import { useState } from "react";
 import BackBtn from "@/components/bits/BackBtn";
+import AppButton from "@/components/fields/AppButton";
 
 export default function Page() {
   const [active, setActive] = useState<number>(1);
+
+  let onSubmit: () => void;
 
   return (
     <div>
@@ -24,17 +27,83 @@ export default function Page() {
         //validationSchema={LoginSchema}
         onSubmit={(values) => {
           console.log(values);
-          setActive((curr) => curr + 1);
+          //setActive((curr) => curr + 1);
         }}
       >
-        {({ handleSubmit, setFieldValue }) => (
-          <Form onSubmit={handleSubmit}>
-            {active === 1 && <Send.StepOneComponent />}
-            {active === 2 && <Send.StepTwoComponent />}
-            {active === 3 && <Send.StepThreeComponent />}
-          </Form>
-        )}
+        {({ handleSubmit, setFieldValue }) => {
+          onSubmit = handleSubmit;
+          return (
+            <Form onSubmit={handleSubmit}>
+              {active === 1 && <Send.StepOneComponent />}
+              {active === 2 && <Send.StepTwoComponent />}
+              {active === 3 && <Send.StepThreeComponent />}
+            </Form>
+          );
+        }}
       </Formik>
+      {active === 1 && (
+        <>
+          <Box className="opacity-0">
+            <AppButton placeholder="Submit" />
+          </Box>
+          <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
+            <AppButton
+              onClick={() => {
+                setActive((curr) => curr + 1);
+              }}
+              placeholder="Proceed"
+            />
+          </Box>
+        </>
+      )}
+      {active === 2 && (
+        <>
+          <Box className="opacity-0">
+            <AppButton placeholder="Submit" />
+          </Box>
+          <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0 space-x-2 grid grid-cols-[1fr_2fr]">
+            <AppButton
+              onClick={() => {
+                setActive && setActive((curr) => curr - 1);
+              }}
+              placeholder="Back"
+              outline
+              className="mt-0"
+            />
+            <AppButton
+              onClick={() => {
+                setActive((curr) => curr + 1);
+              }}
+              placeholder="Continue"
+              className="mt-0"
+            />
+          </Box>
+        </>
+      )}
+      {active === 3 && (
+        <>
+          <Box className="opacity-0">
+            <AppButton placeholder="Submit" />
+          </Box>
+          <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0 space-x-2 grid grid-cols-[1fr_2fr]">
+            <AppButton
+              onClick={() => {
+                setActive && setActive((curr) => curr - 1);
+              }}
+              placeholder="Back"
+              outline
+              className="mt-0"
+            />
+            <AppButton
+              onClick={() => {
+                onSubmit();
+              }}
+              placeholder="Send money"
+              className="mt-0"
+            />
+          </Box>
+        </>
+      )}
     </div>
   );
 }
