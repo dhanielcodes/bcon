@@ -21,9 +21,10 @@ export default function Page() {
       </Box>
       <Formik
         initialValues={{ email: "", password: "" }}
-        validationSchema={LoginSchema}
+        //validationSchema={LoginSchema}
         onSubmit={(values) => {
           console.log(values);
+          setActive((curr) => curr + 1);
         }}
       >
         {({ handleSubmit, setFieldValue }) => (
