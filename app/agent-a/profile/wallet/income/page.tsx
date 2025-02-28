@@ -1,6 +1,7 @@
 "use client";
 import Box from "@/components/bits/Box";
 import PageTitle from "@/components/bits/PageTitle";
+import WithdrawIcon from "@/components/icons/WithdrawIcon";
 import WalletCard from "@/components/WalletCard";
 import { Plus } from "lucide-react";
 import Image from "next/image";
@@ -14,7 +15,7 @@ export default function Page() {
       <PageTitle space="40" title="GBP Wallet" icon={<div></div>} />
       <WalletCard />
       <Box className="rounded-full cursor-pointer text-primary-orange flex items-center justify-center space-x-2">
-        <Plus color="#fc5900" /> <span>Request Fund</span>
+        <WithdrawIcon /> <span>Withdraw</span>
       </Box>
       <Box className="rounded-3xl p-6">
         <h1 className="text-base mb-4">Recent Transactions</h1>
