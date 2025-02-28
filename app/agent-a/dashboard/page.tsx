@@ -1,4 +1,5 @@
 "use client";
+import ActionTabs from "@/components/agentTabs/ActionTabs";
 import YourStatsTab from "@/components/agentTabs/YourStatsTab";
 import Box from "@/components/bits/Box";
 import ConversionRateInput from "@/components/ConversionRateInput";
@@ -32,12 +33,12 @@ export default function Page() {
     },
     {
       title: "Payment Link",
-      image: "/icons/wallet-icon.svg",
+      image: "/icons/payment-link-icon.svg",
       route: "/customer/profile/wallet",
     },
     {
       title: "My Rates",
-      image: "/icons/explore-icon.svg",
+      image: "/icons/my-rates-icon.svg",
       route: "/customer/explore",
     },
   ];
@@ -95,6 +96,7 @@ export default function Page() {
           value={val}
         />
       </Box>
+      <ActionTabs />
       <RecentTransactionsTab />
     </div>
   );

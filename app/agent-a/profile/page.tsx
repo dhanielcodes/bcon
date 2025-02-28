@@ -49,29 +49,29 @@ export default function Page() {
         <Tab
           title="Profile"
           icon="icons/profile/profile.svg"
-          route="customer/profile/profile"
+          route="agent-a/profile/profile"
         />
         <Tab
           title="ID Documents"
           icon="icons/profile/document.svg"
-          route="customer/profile/document"
+          route="agent-a/profile/document"
         />
         <Tab
           title="Wallet"
           icon="icons/profile/profile.svg"
-          route="customer/profile/wallet"
+          route="agent-a/profile/wallet"
         />
 
         <Tab
           title="Change address"
           icon="icons/profile/address.svg"
-          route="customer/profile/address"
+          route="agent-a/profile/address"
         />
 
         <Tab
           title="Refer & Earn"
           icon="icons/profile/refer.svg"
-          route="customer/profile/earn"
+          route="agent-a/profile/earn"
         />
       </Box>
       <Box>
@@ -80,23 +80,23 @@ export default function Page() {
         <Tab
           title="Password"
           icon="icons/profile/password.svg"
-          route="customer/profile/password"
+          route="agent-a/profile/password"
         />
         <Tab
           title="Our bank details"
           icon="icons/profile/bank.svg"
-          route="customer/profile/profile"
+          route="agent-a/profile/profile"
         />
         <Tab
           title="Contact us"
           icon="icons/profile/contact.svg"
-          route="customer/profile/profile"
+          route="agent-a/profile/profile"
         />
 
         <Tab
           title="FAQs"
           icon="icons/profile/faqs.svg"
-          route="customer/profile/profile"
+          route="agent-a/profile/profile"
         />
       </Box>
 

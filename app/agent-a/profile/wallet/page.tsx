@@ -1,6 +1,7 @@
 "use client";
 import Box from "@/components/bits/Box";
 import PageTitleSearchBox from "@/components/bits/PageTitleSearchBox";
+import WalletCard from "@/components/WalletCard";
 import { ListFilter } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,13 +28,15 @@ export default function Page() {
           </div>
         }
       />
-
+      <Link href="/agent-a/profile/wallet/income">
+        <WalletCard title="Your Income Wallet" currency="ngn" />
+      </Link>
       <Box className="grid grid-cols-2 gap-4">
         {Array(4)
           .fill(1)
           .map((itm) => {
             return (
-              <Link href="/customer/profile/wallet/gbp">
+              <Link href="/agent-a/profile/wallet/gbp">
                 <Card />
               </Link>
             );
