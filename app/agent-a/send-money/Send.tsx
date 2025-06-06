@@ -31,7 +31,7 @@ const StepOneComponent = () => {
           .map((_, idx) => {
             return (
               <div>
-                <BeneficiarySlip active />
+                <BeneficiarySlip />
               </div>
             );
           })}

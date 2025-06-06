@@ -32,7 +32,11 @@ const StepOneComponent = ({ values, setFieldValue }: any) => {
         ].map((item, idx) => {
           return (
             <div>
-              <BeneficiarySlip item={item} name="beneficiary" />
+              <BeneficiarySlip
+                slipType="input"
+                item={item}
+                name="beneficiary"
+              />
             </div>
           );
         })}
@@ -68,7 +72,11 @@ const StepTwoComponent = ({ values, setFieldValue }: any) => {
       </Box>
 
       <Box>
-        <BeneficiarySlip item={values?.beneficiary} name="beneficiary" />
+        <BeneficiarySlip
+          slipType="input"
+          item={values?.beneficiary}
+          name="beneficiary"
+        />
         <Divider />
         <ConversionRateInput
           onChange={(e) => {
