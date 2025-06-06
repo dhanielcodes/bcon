@@ -42,9 +42,10 @@ const MenuBar: FC<Props> = ({ side1, side2, mainRoute }) => {
             alt="send"
           />
         </Link>
-        {side1.map((item) => {
+        {side1.map((item, idx) => {
           return (
             <Link
+              key={idx}
               href={item.route}
               className="flex items-center flex-col col-span-1"
             >
@@ -60,9 +61,10 @@ const MenuBar: FC<Props> = ({ side1, side2, mainRoute }) => {
           );
         })}
         <div className="col-span-2"></div>
-        {side2.map((item) => {
+        {side2.map((item, idx) => {
           return (
             <Link
+              key={idx}
               href={item.route}
               className="flex items-center flex-col col-span-1"
             >

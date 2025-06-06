@@ -18,14 +18,17 @@ export default function Page() {
       </Box>
       <Formik
         initialValues={{ email: "", password: "" }}
-        validationSchema={LoginSchema}
+        //validationSchema={LoginSchema}
         onSubmit={(values) => {
           console.log(values);
+          setActive((curr) => curr + 1);
         }}
       >
         {({ handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
-            <Onboard.StepThreeComponent />
+            {active === 1 && <Onboard.StepOneComponent />}
+            {active === 2 && <Onboard.StepTwoComponent />}
+            {active === 3 && <Onboard.StepThreeComponent />}
           </Form>
         )}
       </Formik>

@@ -30,7 +30,7 @@ const StepOneComponent = () => {
           .fill(3)
           .map((_, idx) => {
             return (
-              <div>
+              <div key={idx}>
                 <BeneficiarySlip />
               </div>
             );

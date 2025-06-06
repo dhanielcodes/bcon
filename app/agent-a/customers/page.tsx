@@ -23,7 +23,7 @@ export default function Page() {
           .fill(3)
           .map((_, idx) => {
             return (
-              <div>
+              <div key={idx}>
                 <Link href={`/agent-a/customer?id=${idx}`}>
                   <BeneficiarySlip />
                 </Link>

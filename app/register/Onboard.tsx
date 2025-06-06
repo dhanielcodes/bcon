@@ -61,8 +61,8 @@ const StepOneComponent = () => {
           width="w-[510px]"
         />
       </Box>
-      <Box className="opacity-0">
-        <AppButton placeholder="Submit" />
+      <Box className="opacity-0 cursor-default">
+        <AppButton disabled placeholder="Submit" className="cursor-default" />
       </Box>
       <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
         <AppButton placeholder="Submit" />
@@ -134,8 +134,8 @@ const StepTwoComponent = () => {
           width="w-[510px]"
         />
       </Box>
-      <Box className="opacity-0">
-        <AppButton placeholder="Submit" />
+      <Box className="opacity-0 cursor-default">
+        <AppButton disabled placeholder="Submit" className="cursor-default" />
       </Box>
       <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
         <AppButton placeholder="Submit" />
@@ -198,8 +198,8 @@ const StepThreeComponent = () => {
           width="w-[510px]"
         />
       </Box>
-      <Box className="opacity-0">
-        <AppButton placeholder="Submit" />
+      <Box className="opacity-0 cursor-default">
+        <AppButton disabled placeholder="Submit" className="cursor-default" />
       </Box>
       <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
         <AppButton placeholder="Submit" />

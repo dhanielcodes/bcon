@@ -15,6 +15,7 @@ const DetailsCard: FC<DetailsCardProps> = ({
         {details.map((detail, idx) => {
           return (
             <div
+              key={idx}
               className={cn(
                 "flex justify-between w-full px-4 py-3 border-neutral",
                 `${details.length === idx + 1 ? "" : "border-b"}`

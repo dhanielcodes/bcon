@@ -13,6 +13,7 @@ const YourStatsTab = () => {
           .map((_, idx) => {
             return (
               <div
+                key={idx}
                 className={cn(
                   "py-4 cursor-pointer flex items-start space-x-2",
                   `${

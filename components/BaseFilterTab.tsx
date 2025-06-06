@@ -9,9 +9,9 @@ const BaseFilterTab: FC<BaseFilterTabProps> = ({
 }) => {
   return (
     <div className="w-full flex gap-2 p-1 bg-white bg-opacity-30 rounded-full">
-      {tab.map((item) => (
+      {tab.map((item, idx) => (
         <div
-          key={item.tab}
+          key={idx}
           onClick={() => {
             if (setActive) {
               setActive(item.tab);

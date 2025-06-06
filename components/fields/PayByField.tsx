@@ -18,8 +18,8 @@ const PayByField = () => {
       </h1>
 
       <div className="grid grid-cols-2 gap-2">
-        {paymentOptions.map(({ img, name }) => {
-          return <Card img={img} name={name} />;
+        {paymentOptions.map(({ img, name }, idx) => {
+          return <Card key={idx} img={img} name={name} />;
         })}
       </div>
     </div>

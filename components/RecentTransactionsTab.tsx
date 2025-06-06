@@ -10,7 +10,7 @@ const RecentTransactionsTab = () => {
         {Array(3)
           .fill(3)
           .map((_, idx) => {
-            return <Slip />;
+            return <Slip key={idx} />;
           })}
       </div>
     </Box>

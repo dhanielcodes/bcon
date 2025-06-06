@@ -13,6 +13,7 @@ const QuickSendTab = () => {
           .map((_, idx) => {
             return (
               <div
+                key={idx}
                 className={cn(
                   "py-4 cursor-pointer",
                   `${

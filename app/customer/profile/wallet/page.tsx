@@ -31,9 +31,9 @@ export default function Page() {
       <Box className="grid grid-cols-2 gap-4">
         {Array(4)
           .fill(1)
-          .map((itm) => {
+          .map((itm, idx) => {
             return (
-              <Link href="/customer/profile/wallet/gbp">
+              <Link key={idx} href="/customer/profile/wallet/gbp">
                 <Card />
               </Link>
             );

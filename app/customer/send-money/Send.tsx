@@ -31,7 +31,7 @@ const StepOneComponent = ({ values, setFieldValue }: any) => {
           { name: "Daniel Adekoya", bank: "Gt Bank", number: 3002 },
         ].map((item, idx) => {
           return (
-            <div>
+            <div key={idx}>
               <BeneficiarySlip
                 slipType="input"
                 item={item}

@@ -78,9 +78,9 @@ export default function Page() {
         </div>
       </DashboardCard>
       <div className="grid grid-cols-4 gap-4 text-[12px]">
-        {callToActions.map((action) => {
+        {callToActions.map((action, idx) => {
           return (
-            <div>
+            <div key={idx}>
               <Link href={action.route}>
                 <Box
                   key={action.title}

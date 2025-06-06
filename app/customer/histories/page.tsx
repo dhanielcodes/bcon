@@ -19,7 +19,7 @@ export default function Page() {
           .fill(3)
           .map((_, idx) => {
             return (
-              <div>
+              <div key={idx}>
                 <Link href={`/customer/history?id=${idx}`}>
                   <Slip />
                 </Link>
