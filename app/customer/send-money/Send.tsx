@@ -16,7 +16,7 @@ const Send = () => {
   return <div></div>;
 };
 
-const StepOneComponent = () => {
+const StepOneComponent = ({ values, setFieldValue }: any) => {
   return (
     <>
       <PageTitleSearchBox
@@ -26,21 +26,22 @@ const StepOneComponent = () => {
       />
 
       <Box className="space-y-4">
-        {Array(12)
-          .fill(3)
-          .map((_, idx) => {
-            return (
-              <div>
-                <BeneficiarySlip active />
-              </div>
-            );
-          })}
+        {[
+          { name: "Femi Falana", bank: "Access Bank", number: 1000 },
+          { name: "Daniel Adekoya", bank: "Gt Bank", number: 3002 },
+        ].map((item, idx) => {
+          return (
+            <div>
+              <BeneficiarySlip item={item} name="beneficiary" />
+            </div>
+          );
+        })}
       </Box>
     </>
   );
 };
 
-const StepTwoComponent = () => {
+const StepTwoComponent = ({ values, setFieldValue }: any) => {
   const [val, setVal] = useState<{
     fromCurrency: { amount: number; currency: string };
     toCurrency: { amount: number; currency: string };
@@ -54,6 +55,7 @@ const StepTwoComponent = () => {
       currency: string;
     },
   });
+
   return (
     <>
       <Box>
@@ -66,11 +68,12 @@ const StepTwoComponent = () => {
       </Box>
 
       <Box>
-        <BeneficiarySlip />
+        <BeneficiarySlip item={values?.beneficiary} name="beneficiary" />
         <Divider />
         <ConversionRateInput
           onChange={(e) => {
             setVal(e);
+            setFieldValue("rate", e);
           }}
           value={val}
         />
@@ -114,7 +117,7 @@ const StepTwoComponent = () => {
   );
 };
 
-const StepThreeComponent = () => {
+const StepThreeComponent = ({ values, setFieldValue }: any) => {
   return (
     <>
       <Box>

@@ -23,20 +23,37 @@ export default function Page() {
         <div></div>
       </Box>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ beneficiary: {} }}
         //validationSchema={LoginSchema}
         onSubmit={(values) => {
           console.log(values);
           //setActive((curr) => curr + 1);
         }}
       >
-        {({ handleSubmit, setFieldValue }) => {
+        {({ handleSubmit, setFieldValue, values }) => {
           onSubmit = handleSubmit;
+
+          console.log(values, "values");
           return (
             <Form onSubmit={handleSubmit}>
-              {active === 1 && <Send.StepOneComponent />}
-              {active === 2 && <Send.StepTwoComponent />}
-              {active === 3 && <Send.StepThreeComponent />}
+              {active === 1 && (
+                <Send.StepOneComponent
+                  values={values}
+                  setFieldValue={setFieldValue}
+                />
+              )}
+              {active === 2 && (
+                <Send.StepTwoComponent
+                  values={values}
+                  setFieldValue={setFieldValue}
+                />
+              )}
+              {active === 3 && (
+                <Send.StepThreeComponent
+                  values={values}
+                  setFieldValue={setFieldValue}
+                />
+              )}
             </Form>
           );
         }}
