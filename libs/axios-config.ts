@@ -1,17 +1,13 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 
-
-
 export const Axios = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 Axios.interceptors.request.use((config) => {
-
   const token = localStorage.getItem("token");
 
-  config.headers['ngrok-skip-browser-warning'] = true
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -20,51 +16,53 @@ Axios.interceptors.request.use((config) => {
 
 Axios.interceptors.response.use(
   function (response) {
-    if (response?.config?.method !== 'get') {
-      toast.success(response?.data?.message,
-        {
-                   //icon:'✅',
-          style: {
-            borderRadius: '1100px',
-            border: '1px solid green',
-            color: '#000',
-            fontSize: '14px'
-          },
-        }
-      );
-      console.log(response?.data?.message)
-    return response
+    if (response?.config?.method !== "get") {
+      toast.success(response?.data?.message, {
+        //icon:'✅',
+        style: {
+          borderRadius: "1100px",
+          border: "1px solid green",
+          color: "#000",
+          fontSize: "14px",
+        },
+      });
+      console.log(response?.data?.message);
+      return response;
     }
     return response;
   },
   function (error) {
-    if (error?.config?.method !== 'get') {
-      toast.error(error?.response?.data?.message || error?.message,
-        {
-          //icon:'❌',
-          style: {
-            borderRadius: '1100px',
-            border: '1px solid red',
-            color: 'red',
-            fontSize: '14px'
-          },
-        }
-      );
-      console.log( error?.response?.data?.message || error?.message)
-     return
+    if (error?.config?.method !== "get") {
+      toast.error(error?.response?.data?.message || error?.message, {
+        //icon:'❌',
+        style: {
+          borderRadius: "1100px",
+          border: "1px solid red",
+          color: "red",
+          fontSize: "14px",
+        },
+      });
+      console.log(error?.response?.data?.message || error?.message);
+      return;
     }
-    if (error?.response?.data?.message === 'Invalid token, Expired') {
-      localStorage.clear()
+    if (error?.response?.data?.message === "Invalid token, Expired") {
+      localStorage.clear();
     }
 
     if (401 === error?.response?.status) {
-      if (window.location.pathname === '/' || window.location.pathname === '/login' || window.location.pathname === '/forgot-password' || window.location.pathname === '/register' || window.location.pathname === '/create-account' || window.location.pathname === '/login') {
-        return
+      if (
+        window.location.pathname === "/" ||
+        window.location.pathname === "/login" ||
+        window.location.pathname === "/forgot-password" ||
+        window.location.pathname === "/register" ||
+        window.location.pathname === "/create-account" ||
+        window.location.pathname === "/login"
+      ) {
+        return;
       } else {
-        localStorage.clear()
-        console.log(error?.response?.status)
+        localStorage.clear();
+        console.log(error?.response?.status);
       }
-
     } else if (
       "Request failed with status code 500" === error.message ||
       error?.response?.status >= 500

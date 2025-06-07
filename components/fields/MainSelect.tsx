@@ -35,7 +35,7 @@ const MainSelect: FC<MainSelectProps> = ({
             id={name}
             name={field.name}
             value={
-              options.find((option) => option.value === field.value) || null
+              options?.find((option) => option.value === field.value) || null
             }
             options={options}
             onChange={(selectedOption) => {

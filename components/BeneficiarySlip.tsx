@@ -70,14 +70,14 @@ const BeneficiarySlip: FC<Props> = ({
                     height="15.0669"
                     rx="6.99803"
                     stroke="#FF7434"
-                    stroke-width="0.933071"
+                    strokeWidth="0.933071"
                   />
                   <path
                     d="M11.1104 5.66748L6.83379 9.94406L4.88989 8.00016"
                     stroke="white"
-                    stroke-width="1.55512"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="1.55512"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   />
                 </svg>
               )}

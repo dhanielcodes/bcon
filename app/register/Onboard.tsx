@@ -1,5 +1,9 @@
+import LocationSelect from "@/components/fields/LocationSelect";
+import { formatOptions } from "@/libs/utils";
+import { ApiServiceAuth } from "@/services/auth.service";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import React, { lazy } from "react";
+import React, { lazy, useEffect } from "react";
 const Box = lazy(() => import("@/components/bits/Box"));
 
 const FormInput = lazy(() => import("@/components/fields/FormInput"));
@@ -32,33 +36,31 @@ const StepOneComponent = () => {
       </Box>
       <Box>
         <MainSelect
-          name="type"
+          name="accountType"
           placeholder="Select Account Type"
+          isSearchable={false}
           label="Account Type"
           options={[
-            { label: "Customer", value: "customer" },
-            { label: "Agent", value: "agent" },
+            { label: "Individual", value: "1" },
+            { label: "Corporate", value: "2" },
           ]}
         />
         <FormInput
-          label="Email/Phone Number"
+          label="Email Address"
           name="email"
           type="email"
           placeholder="Enter your email"
-          width="w-[510px]"
         />
         <FormPasswordInput
           label="Password"
           name="password"
           placeholder="Enter your email"
-          width="w-[510px]"
         />
         <FormInput
-          label="Invite Code"
-          name="code"
+          label="Marketer Code (optional)"
+          name="agentId"
           type="text"
-          placeholder="Enter code"
-          width="w-[510px]"
+          placeholder="Enter marketer code"
         />
       </Box>
       <Box className="opacity-0 cursor-default">
@@ -71,7 +73,23 @@ const StepOneComponent = () => {
   );
 };
 
-const StepTwoComponent = () => {
+const StepTwoComponent = ({ values }: any) => {
+  const { data: countries } = useQuery({
+    queryKey: ["GetCountriesQuery"],
+    queryFn: () => ApiServiceAuth.GetCountriesQuery(),
+  });
+  const { data: states, refetch } = useQuery({
+    queryKey: ["GetCitiesQuery"],
+    queryFn: () => ApiServiceAuth.GetCitiesQuery(values?.country?.id),
+    enabled: false,
+  });
+
+  useEffect(() => {
+    if (values?.country?.id) refetch(values?.country?.id);
+  }, [values?.country?.id]);
+
+  console.log(values);
+
   return (
     <>
       <Box>
@@ -88,50 +106,49 @@ const StepTwoComponent = () => {
       <Box>
         <FormInput
           label="First name"
-          name="email"
-          type="email"
-          placeholder="Enter your email"
-          width="w-[510px]"
+          name="firstName"
+          type="text"
+          placeholder="Enter first name"
         />
         <FormInput
           label="Last name"
-          name="email"
-          type="email"
-          placeholder="Enter your email"
-          width="w-[510px]"
+          name="surName"
+          type="text"
+          placeholder="Enter last name"
         />
         <MainSelect
-          name="type"
-          placeholder="Select Account Type"
-          label="Country"
+          name="gender"
+          placeholder="Select Gender"
+          label="Gender"
+          isSearchable={false}
           options={[
-            { label: "Customer", value: "customer" },
-            { label: "Agent", value: "agent" },
+            { label: "male", value: "male" },
+            { label: "female", value: "female" },
           ]}
         />
+        <FormInput
+          label="Date of Birth"
+          name="dob"
+          type="date"
+          placeholder="Enter DOB"
+        />
+
         <MainSelect
-          name="type"
-          placeholder="Select Account Type"
+          name="country[id]"
+          placeholder="Select Country of Residence"
           label="Country"
-          options={[
-            { label: "Customer", value: "customer" },
-            { label: "Agent", value: "agent" },
-          ]}
+          options={formatOptions(countries?.data, "name", "id")}
         />
         <MainSelect
-          name="type"
-          placeholder="Select Account Type"
+          name="state[id]"
+          placeholder="Select City of Residence"
           label="City"
-          options={[
-            { label: "Customer", value: "customer" },
-            { label: "Agent", value: "agent" },
-          ]}
+          options={formatOptions(states?.data, "name", "id")}
         />
         <FormInputNumber
           label="Phone number"
-          name="email"
-          placeholder="Enter your email"
-          width="w-[510px]"
+          name="phone"
+          placeholder="Enter your phone number"
         />
       </Box>
       <Box className="opacity-0 cursor-default">
@@ -144,7 +161,7 @@ const StepTwoComponent = () => {
   );
 };
 
-const StepThreeComponent = () => {
+const StepThreeComponent = ({ values }: any) => {
   return (
     <>
       <Box>
@@ -159,30 +176,15 @@ const StepThreeComponent = () => {
         </div>
       </Box>
       <Box>
-        <FormInputNumber
-          label="Postcode"
-          name="code"
-          placeholder="Enter code"
-          width="w-[510px]"
-        />
-        <FormInput
+        <LocationSelect
+          name="address"
           label="Address"
-          name="email"
-          type="text"
-          placeholder="Enter your email"
-          width="w-[510px]"
+          placeholder="Search for a place"
+          hint="Start typing a city, address, or place"
         />
+        <FormInput label="Address 2 (optional)" name="address2" type="text" />
         <MainSelect
-          name="type"
-          placeholder="Profession"
-          label="Profession"
-          options={[
-            { label: "Customer", value: "customer" },
-            { label: "Agent", value: "agent" },
-          ]}
-        />
-        <MainSelect
-          name="type"
+          name="employmentStatusId"
           placeholder="status"
           label="Employment Status"
           options={[
@@ -190,13 +192,30 @@ const StepThreeComponent = () => {
             { label: "Agent", value: "agent" },
           ]}
         />
+        <MainSelect
+          name="profession"
+          placeholder="Profession"
+          label="Profession (optional)"
+          options={[
+            { label: "Customer", value: "customer" },
+            { label: "Agent", value: "agent" },
+          ]}
+        />
+
+        {/*   <FormInputNumber
+          label="Postcode"
+          name="code"
+          placeholder="Enter code"
+          width="w-[510px]"
+        />
+
         <FormInput
           label="Company name"
           name="code"
           type="text"
           placeholder="Enter code"
           width="w-[510px]"
-        />
+        /> */}
       </Box>
       <Box className="opacity-0 cursor-default">
         <AppButton disabled placeholder="Submit" className="cursor-default" />

@@ -5,9 +5,12 @@ import { Onboard } from "./Onboard";
 import Box from "@/components/bits/Box";
 import Stepper from "@/components/Stepper";
 import { useState } from "react";
+import { stepOneSchema, stepThreeSchema, stepTwoSchema } from "./validation";
+import useSignUp from "@/hooks/signUp";
 
 export default function Page() {
-  const [active, setActive] = useState<number>(1);
+  const [active, setActive] = useState<number>(2);
+  const { mutate, isPending } = useSignUp();
 
   return (
     <div>
@@ -17,18 +20,58 @@ export default function Page() {
         </div>
       </Box>
       <Formik
-        initialValues={{ email: "", password: "" }}
-        //validationSchema={LoginSchema}
+        initialValues={{
+          accountType: "",
+          //"businessCertificateURL": "UPLOADED FILE URL",
+          firstName: "",
+          surName: "",
+          email: "",
+          password: "",
+          dob: "",
+          gender: "",
+          phone: "",
+          address: "",
+          //"postcode": "",
+          country: {
+            id: "",
+          },
+          state: {
+            id: "",
+          },
+          city: {
+            id: "",
+          },
+          employmentStatusId: "",
+          profession: {
+            id: "",
+            name: "",
+          },
+          //"companyName": "WellFed",
+          onboardingSource: "Web",
+          //"deviceId": "Tets",
+          agentId: 0,
+        }}
+        validationSchema={
+          active === 1
+            ? stepOneSchema
+            : active === 2
+            ? stepTwoSchema
+            : stepThreeSchema
+        }
         onSubmit={(values) => {
-          console.log(values);
-          setActive((curr) => curr + 1);
+          console.log(values, "values");
+          if (active == 3) {
+            mutate(values);
+          } else {
+            setActive((curr) => curr + 1);
+          }
         }}
       >
-        {({ handleSubmit }) => (
+        {({ handleSubmit, values }) => (
           <Form onSubmit={handleSubmit}>
             {active === 1 && <Onboard.StepOneComponent />}
-            {active === 2 && <Onboard.StepTwoComponent />}
-            {active === 3 && <Onboard.StepThreeComponent />}
+            {active === 2 && <Onboard.StepTwoComponent values={values} />}
+            {active === 3 && <Onboard.StepThreeComponent values={values} />}
           </Form>
         )}
       </Formik>
