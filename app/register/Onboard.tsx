@@ -3,6 +3,7 @@ import { formatOptions } from "@/libs/utils";
 import { ApiServiceAuth } from "@/services/auth.service";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import React, { lazy, useEffect } from "react";
 const Box = lazy(() => import("@/components/bits/Box"));
 
@@ -21,18 +22,21 @@ const Onboard = () => {
 };
 
 const StepOneComponent = () => {
+  const params = useParams();
+
+  const id = (params?.id as string)?.toLowerCase() || null;
   return (
     <>
       <Box>
         <h1 className="text-2xl mb-2">What's Your Email Address</h1>
         <p className="text-sm">Please enter your details</p>
 
-        <div className="mt-4">
+        {/*  <div className="mt-4">
           Already have an account?{" "}
           <Link className="text-secondary-orange underline" href={"/login"}>
             Sign in
           </Link>
-        </div>
+        </div> */}
       </Box>
       <Box>
         <MainSelect
@@ -60,6 +64,7 @@ const StepOneComponent = () => {
           label="Marketer Code (optional)"
           name="agentId"
           type="text"
+          disabled={id ? true : false}
           placeholder="Enter marketer code"
         />
       </Box>
@@ -73,7 +78,7 @@ const StepOneComponent = () => {
   );
 };
 
-const StepTwoComponent = ({ values }: any) => {
+const StepTwoComponent = ({ values, setFieldValue }: any) => {
   const { data: countries } = useQuery({
     queryKey: ["GetCountriesQuery"],
     queryFn: () => ApiServiceAuth.GetCountriesQuery(),
@@ -96,12 +101,12 @@ const StepTwoComponent = ({ values }: any) => {
         <h1 className="text-2xl mb-2">Personal Information</h1>
         <p className="text-sm">Please enter your details</p>
 
-        <div className="mt-4">
+        {/*     <div className="mt-4">
           Already have an account?{" "}
           <Link className="text-secondary-orange underline" href={"/login"}>
             Sign in
           </Link>
-        </div>
+        </div> */}
       </Box>
       <Box>
         <FormInput
@@ -138,17 +143,24 @@ const StepTwoComponent = ({ values }: any) => {
           placeholder="Select Country of Residence"
           label="Country"
           options={formatOptions(countries?.data, "name", "id")}
+          onChange={(value: any) => {
+            setFieldValue("code", value?.telephoneCode);
+          }}
         />
         <MainSelect
           name="state[id]"
           placeholder="Select City of Residence"
           label="City"
           options={formatOptions(states?.data, "name", "id")}
+          onChange={(value) => {
+            setFieldValue("city[id]", value?.value);
+          }}
         />
         <FormInputNumber
           label="Phone number"
           name="phone"
           placeholder="Enter your phone number"
+          max={11}
         />
       </Box>
       <Box className="opacity-0 cursor-default">
@@ -161,19 +173,31 @@ const StepTwoComponent = ({ values }: any) => {
   );
 };
 
-const StepThreeComponent = ({ values }: any) => {
+const StepThreeComponent = ({ values, setFieldValue, isPending }: any) => {
+  const { data: statuses } = useQuery({
+    queryKey: ["GetEmploymentStatusQuery"],
+    queryFn: () => ApiServiceAuth.GetEmploymentStatusQuery(),
+  });
+
+  const { data: professions } = useQuery({
+    queryKey: ["GetProfessionsQuery"],
+    queryFn: () => ApiServiceAuth.GetProfessionsQuery(),
+  });
+
+  console.log(values);
+
   return (
     <>
       <Box>
         <h1 className="text-2xl mb-2">Last Step, Your Address</h1>
         <p className="text-sm">Please enter your details</p>
 
-        <div className="mt-4">
+        {/*  <div className="mt-4">
           Already have an account?{" "}
           <Link className="text-secondary-orange underline" href={"/login"}>
             Sign in
           </Link>
-        </div>
+        </div> */}
       </Box>
       <Box>
         <LocationSelect
@@ -185,21 +209,15 @@ const StepThreeComponent = ({ values }: any) => {
         <FormInput label="Address 2 (optional)" name="address2" type="text" />
         <MainSelect
           name="employmentStatusId"
-          placeholder="status"
+          isSearchable={false}
           label="Employment Status"
-          options={[
-            { label: "Customer", value: "customer" },
-            { label: "Agent", value: "agent" },
-          ]}
+          options={formatOptions(statuses?.data, "name", "id")}
         />
         <MainSelect
-          name="profession"
+          name="profession[id]"
           placeholder="Profession"
           label="Profession (optional)"
-          options={[
-            { label: "Customer", value: "customer" },
-            { label: "Agent", value: "agent" },
-          ]}
+          options={formatOptions(professions?.data, "name", "id")}
         />
 
         {/*   <FormInputNumber
@@ -221,7 +239,7 @@ const StepThreeComponent = ({ values }: any) => {
         <AppButton disabled placeholder="Submit" className="cursor-default" />
       </Box>
       <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
-        <AppButton placeholder="Submit" />
+        <AppButton placeholder="Submit" loading={isPending} />
       </Box>
     </>
   );

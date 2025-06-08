@@ -14,10 +14,9 @@ export const stepOneSchema = Yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
       "Password must contain at least one uppercase letter, one lowercase letter, and one number"
     ),
-  agentId: Yup.number()
-    .transform((value) => (isNaN(value) ? undefined : value))
-    .nullable()
-    .optional(),
+ /*  agentId: Yup.string()
+  .required("Agent ID is required") */
+
 });
 
 export const stepTwoSchema = Yup.object().shape({
@@ -55,26 +54,15 @@ export const stepTwoSchema = Yup.object().shape({
   }),
   phone: Yup.string()
     .required("Phone number is required")
-    .matches(/^\+?[1-9]\d{1,14}$/, "Invalid phone number format"),
 });
 
 export const stepThreeSchema = Yup.object().shape({
   address: Yup.string().required("Address is required"),
   address2: Yup.string().optional(),
   employmentStatusId: Yup.string()
-    .required("Employment status is required")
-    .oneOf(["customer", "agent"], "Please select a valid employment status"),
+    .required("Employment status is required"),
   profession: Yup.object().shape({
-    id: Yup.string().when("employmentStatusId", {
-      is: "customer",
-      then: (schema) => schema.required("Profession is required"),
-      otherwise: (schema) => schema.optional(),
-    }),
-    name: Yup.string().when("employmentStatusId", {
-      is: "customer",
-      then: (schema) => schema.required("Profession name is required"),
-      otherwise: (schema) => schema.optional(),
-    }),
+    id: Yup.string().required("Profession is required"),
   }),
 });
 

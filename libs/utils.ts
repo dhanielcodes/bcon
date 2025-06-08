@@ -18,3 +18,10 @@ export const formatOptions = <T extends Record<string, any>>(
     };
   });
 };
+
+export function parseImageUrl(imageName?: string): string {
+  if (!imageName) return undefined as unknown as string;
+  return imageName.includes("data:image/") || imageName.includes("http")
+    ? imageName
+    : "https://coventiassets2.blob.core.windows.net/coventidoc/" + imageName;
+}

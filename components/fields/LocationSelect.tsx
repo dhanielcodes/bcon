@@ -80,7 +80,7 @@ const LocationSelect: FC<Omit<MainSelectProps, "options">> = ({
 
   const handleChange = useCallback(
     (selectedOption: SingleValue<OptionType>) => {
-      helpers.setValue(selectedOption ? selectedOption.value : "");
+      helpers.setValue(selectedOption ? selectedOption.label : "");
       if (onChange) onChange(selectedOption);
     },
     [helpers, onChange]
