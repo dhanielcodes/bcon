@@ -111,4 +111,5 @@ export interface CurrencySelectProps {
   disabled?: boolean;
   onChange?: (selected: OptionType | null) => void;
   value?: OptionType | null;
+  excludeId?: any;
 }

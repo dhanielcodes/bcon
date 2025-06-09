@@ -9,10 +9,12 @@ const ConversionRateInput = ({
     fromCurrency: {
       amount: 0,
       currency: "",
+      id: "",
     },
     toCurrency: {
       amount: 0,
       currency: "",
+      id: "",
     },
   },
 }: {

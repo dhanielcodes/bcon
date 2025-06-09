@@ -7,12 +7,16 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   name?: string;
   item?: any;
   slipType?: "input" | "normal";
+  optionValue?: string;
+  onChange?: (arg0: any) => void;
 }
 
 const BeneficiarySlip: FC<Props> = ({
   name,
   item,
   slipType = "normal",
+  optionValue = "id",
+  onChange,
   ...props
 }) => {
   function InputSlip() {
@@ -22,11 +26,12 @@ const BeneficiarySlip: FC<Props> = ({
           return (
             <div
               onClick={() => {
-                form.setFieldValue(name as string, item);
+                form.setFieldValue(name as string, item?.[optionValue]);
+                onChange && onChange(item);
               }}
               className={cn(
                 "relative border border-neutral cursor-pointer bg-white px-4 py-3 space-x-2 rounded-2xl flex justify-between items-center",
-                item?.name === form.values?.[name as string]?.name &&
+                item?.[optionValue] === form.values?.[name as string] &&
                   "border-primary-orange"
               )}
               {...props}
@@ -40,13 +45,17 @@ const BeneficiarySlip: FC<Props> = ({
               />
               <div className="flex w-full items-center justify-between text-sm">
                 <div className="text-left space-y-1">
-                  <div>{item?.name}</div>
-                  <div className="text-sm text-neutral3">{item?.bank}</div>
+                  <div>{item?.beneficiaryName}</div>
+                  <div className="text-sm text-neutral3">
+                    {item?.beneficiaryBank?.bankName}
+                  </div>
                 </div>
-                <div className="text-lg ">••••{item?.number}</div>
+                <div className="text-lg ">
+                  ••••{item?.beneficiaryBank?.accountNumber?.slice(6, 10)}
+                </div>
               </div>
 
-              {item?.name === form.values?.[name as string]?.name && (
+              {item?.[optionValue] === form.values?.[name as string] && (
                 <svg
                   className="absolute right-0 top-0"
                   width="16"
@@ -105,12 +114,17 @@ const BeneficiarySlip: FC<Props> = ({
         />
         <div className="flex w-full items-center justify-between text-sm">
           <div className="text-left space-y-1">
-            <div>{item?.name || "Daniel Falana"}</div>
+            <div>{item?.name || item?.beneficiaryName || "Daniel Falana"}</div>
             <div className="text-sm text-neutral3">
-              {item?.bank || "Access Bank"}
+              {item?.bank || item?.beneficiaryBank?.bankName || "Access Bank"}
             </div>
           </div>
-          <div className="text-lg ">••••{item?.number || "9090"}</div>
+          <div className="text-lg ">
+            ••••
+            {item?.number ||
+              item?.beneficiaryBank?.accountNumber?.slice(6, 10) ||
+              "9090"}
+          </div>
         </div>
       </div>
     );

@@ -1,3 +1,4 @@
+import InstallButton from "@/components/download";
 import AppButton from "@/components/fields/AppButton";
 import Image from "next/image";
 
@@ -21,6 +22,7 @@ export default function Home() {
         </div>
       </div>
       <div className="space-y-4 relative z-10">
+        <InstallButton />
         <AppButton
           to="/register"
           placeholder="Create an account"

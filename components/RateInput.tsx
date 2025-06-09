@@ -11,15 +11,18 @@ const RateInput: FC<{
   onChange?: (arg0: any) => void;
   value?: RateSelectType;
   title?: string;
+  excludeId?: any;
 }> = ({
   onChange,
-  value = { amount: 0, currency: "" },
+  value = { amount: 0, currency: "", id: "" },
   title = "You send",
+  excludeId,
 }) => {
   const [amount, setAmount] = useState<number>(value.amount);
-  const [currency, setCurrency] = useState<OptionType>({
+  const [currency, setCurrency] = useState<OptionType & { id: any }>({
     value: value.currency || "",
     label: value.currency || "",
+    id: value?.id || "",
   });
   const formatToNumber = (str: string) => {
     const cleanedStr = str.replace(/[^0-9.]/g, "");
@@ -30,6 +33,7 @@ const RateInput: FC<{
     ? {
         value: value.currency,
         label: value.currency,
+        id: value?.id,
       }
     : (currency as OptionType);
 
@@ -37,13 +41,15 @@ const RateInput: FC<{
   return (
     <Style className="bg-neutral p-5 rounded-3xl grid grid-cols-[120px_1fr]">
       <CurrencySelect
+        excludeId={excludeId}
         onChange={(selected: OptionType | null) => {
           if (selected) {
-            setCurrency(selected as { value: string; label: string });
+            setCurrency(selected as OptionType & { id: any });
             if (onChange)
               onChange({
                 amount: formatToNumber(currencyAmount.toString()),
                 currency: selected.value,
+                id: (selected as any).id,
               });
           }
         }}
@@ -65,6 +71,7 @@ const RateInput: FC<{
                 onChange({
                   amount: formatToNumber(e.target.value),
                   currency: currencyObject.value,
+                  id: (currencyObject as any).id,
                 });
             }}
             placeholder={""}

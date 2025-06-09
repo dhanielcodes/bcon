@@ -1,8 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Select from "react-select";
 import CurrencyFlagImage from "react-currency-flags";
 import { cn } from "@/libs/utils";
 import { CurrencySelectProps, OptionType } from "@/types/form-types";
+import { ApiServiceAuth } from "@/services/auth.service";
+import { useQuery } from "@tanstack/react-query";
 
 const CurrencySelect: FC<CurrencySelectProps> = ({
   isSearchable = false,
@@ -10,19 +12,36 @@ const CurrencySelect: FC<CurrencySelectProps> = ({
   disabled = false,
   onChange,
   value,
+  excludeId,
 }) => {
   const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
 
-  const options = [
-    { label: "NGN", value: "NGN" },
-    { label: "GBP", value: "GBP" },
-    { label: "USD", value: "USD" },
-  ];
+  const { data: currencies } = useQuery({
+    queryKey: ["GetCurrencyQuery"],
+    queryFn: () => ApiServiceAuth.GetCurrencyQuery(),
+  });
+
+  const options =
+    currencies?.data
+      ?.map((item: any) => {
+        const option = {
+          ...item,
+          label: item?.code,
+          value: item?.code,
+          id: item?.id,
+        };
+        return excludeId && item?.id === excludeId ? null : option;
+      })
+      .filter(Boolean) || [];
 
   const handleChange = (selected: OptionType | null) => {
     setSelectedOption(selected);
     if (onChange) onChange(selected);
   };
+
+  useEffect(() => {
+    handleChange(options?.find((itm: any) => itm?.code === "GBP"));
+  }, []);
 
   return (
     <div className={cn("w-full", className)}>

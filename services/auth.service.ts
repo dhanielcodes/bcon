@@ -12,6 +12,12 @@ export const ApiServiceAuth = {
     return data;
   },
 
+  UploadFile: async (body: any) => {
+    const { data } = await Axios.post(`FileUploadAPI/${body?.id}`, body?.data);
+    return data;
+  },
+
+
   GetCountriesQuery: async () => {
     const { data } = await Axios.get(`getcountries`);
     return data;
@@ -35,4 +41,52 @@ export const ApiServiceAuth = {
     const { data } = await Axios.get(`getprofession`);
     return data;
   },
+
+
+  GetBeneficiariesQuery: async (userId:string) => {
+    const { data } = await Axios.get(`getuserbeneficiaries`, {
+      params:{
+        userId,
+        beneficiaryId:0
+      }
+    });
+    return data;
+  },
+
+  GetPaymentChannelsQuery: async () => {
+    const { data } = await Axios.get(`getpaymentchannel`);
+    return data;
+  },
+  GetPayoutChannelsQuery: async () => {
+    const { data } = await Axios.get(`getpayoutchannel`);
+    return data;
+  },
+
+  
+  GetCurrencyQuery: async () => {
+    const { data } = await Axios.get(`getcurrency`);
+    return data;
+  },
+
+  GetRatesQuery: async (body:{toCurrencyId:any;fromCurrencyId:any;fromAmount:any;toAmount:any;roleId:any;userId:any}) => {
+    const { data } = await Axios.get(`getrate`, {
+      params:body
+    });
+    return data;
+  },
+
+  GetPurposesQuery: async () => {
+    const { data } = await Axios.get(`gettransferpurpose`);
+    return data;
+  },
+
+  GetIdTypesQuery: async () => {
+    const { data } = await Axios.get(`getidtypes`);
+    return data;
+  },
+  checkifusertransactionrequiredocument: async (body: any) => {
+    const { data } = await Axios.post(`checkifusertransactionrequiredocument`, body);
+    return data;
+  },
+
 };

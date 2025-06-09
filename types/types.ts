@@ -3,6 +3,7 @@ import { Dispatch, HTMLAttributes, SetStateAction } from "react";
 export type RateSelectType = {
   amount: number;
   currency: string;
+  id:any
 };
 
 export interface SendCardProps extends HTMLAttributes<HTMLDivElement> {
