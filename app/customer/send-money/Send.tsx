@@ -67,9 +67,7 @@ const StepTwoComponent = ({ values, setFieldValue }: any) => {
           How Much Do You Want To Send?
         </h1>
       </Box>
-      <Box>
-        <PayByField />
-      </Box>
+      <Box>{/*  <PayByField /> */}</Box>
 
       <Box>
         <BeneficiarySlip
@@ -78,15 +76,15 @@ const StepTwoComponent = ({ values, setFieldValue }: any) => {
           name="beneficiary"
         />
         <Divider />
-        <ConversionRateInput
+        {/*  <ConversionRateInput
           onChange={(e) => {
             setVal(e);
             setFieldValue("rate", e);
           }}
           value={val}
-        />
+        /> */}
         <Divider />
-        <CollectByField />
+        {/*  <CollectByField /> */}
         <Divider />
         <MainSelect
           name="type"

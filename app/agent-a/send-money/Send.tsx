@@ -65,21 +65,19 @@ const StepTwoComponent = () => {
           How Much Do You Want To Send?
         </h1>
       </Box>
-      <Box>
-        <PayByField />
-      </Box>
+      <Box>{/*  <PayByField /> */}</Box>
 
       <Box>
         <BeneficiarySlip />
         <Divider />
-        <ConversionRateInput
+        {/*  <ConversionRateInput
           onChange={(e) => {
             setVal(e);
           }}
           value={val}
-        />
+        /> */}
         <Divider />
-        <CollectByField />
+        {/*  <CollectByField /> */}
         <Divider />
         <MainSelect
           name="type"
