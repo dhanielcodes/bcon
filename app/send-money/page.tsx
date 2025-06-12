@@ -12,6 +12,7 @@ import useSendMoney from "@/hooks/sendMoney";
 import { ApiServiceAuth } from "@/services/auth.service";
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
+import { stepOneSchema, stepTwoSchema, stepThreeSchema } from "./validation";
 
 const SuccessModal = ({
   isOpen,
@@ -106,39 +107,47 @@ export default function Page() {
           sendMoneyDataList: [],
           transitionFee: "",
         }}
-        //validationSchema={LoginSchema}
+        validationSchema={
+          active === 1
+            ? stepOneSchema
+            : active === 2
+            ? stepTwoSchema
+            : stepThreeSchema
+        }
         onSubmit={(values) => {
-          mutate({
-            userId: Number(id),
-            totalAmount: (values?.sendMoneyDataList || []).reduce(
-              (acc: number, curr: { amount: number }) =>
-                acc + (curr?.amount || 0),
-              0
-            ),
-            transitionFee: values?.transitionFee || 0,
-            fromCurrencyId: values?.fromCurrencyId,
-            toCurrencyId: values?.toCurrencyId,
-            paymentChannelId: values?.paymentChannelId,
-            payoutChannelId: values?.payoutChannelId,
-            walletId: 0,
-            redirectURL:
-              "https://dashboard.transferrocket.co.uk/user/sendmoney",
-            transactionSource: "web",
-            transactionLocation: "",
-            senderName: dashboard?.data?.firstName || values?.name,
-            sendMoneyDataList: values?.sendMoneyDataList?.map((itm: any) => {
-              return {
-                userBeneficiaryId: itm?.userBeneficiaryId,
-                amount: itm?.amount,
-                purpose: itm?.purpose,
-                note: "",
-                documentTypeId: Number(itm?.documentTypeId) || 0,
-                documentURL: itm?.documentURL || "",
-              };
-            }),
-          });
-
-          //setActive((curr) => curr + 1);
+          if (active === 3) {
+            mutate({
+              userId: Number(id),
+              totalAmount: (values?.sendMoneyDataList || []).reduce(
+                (acc: number, curr: { amount: number }) =>
+                  acc + (curr?.amount || 0),
+                0
+              ),
+              transitionFee: values?.transitionFee || 0,
+              fromCurrencyId: values?.fromCurrencyId,
+              toCurrencyId: values?.toCurrencyId,
+              paymentChannelId: values?.paymentChannelId,
+              payoutChannelId: values?.payoutChannelId,
+              walletId: 0,
+              redirectURL:
+                "https://dashboard.transferrocket.co.uk/user/sendmoney",
+              transactionSource: "web",
+              transactionLocation: "",
+              senderName: dashboard?.data?.firstName || values?.name,
+              sendMoneyDataList: values?.sendMoneyDataList?.map((itm: any) => {
+                return {
+                  userBeneficiaryId: itm?.userBeneficiaryId,
+                  amount: itm?.amount,
+                  purpose: itm?.purpose,
+                  note: "",
+                  documentTypeId: Number(itm?.documentTypeId) || 0,
+                  documentURL: itm?.documentURL || "",
+                };
+              }),
+            });
+          } else {
+            setActive((curr) => curr + 1);
+          }
         }}
       >
         {({ handleSubmit, setFieldValue, values }) => {
@@ -181,7 +190,7 @@ export default function Page() {
           <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
             <AppButton
               onClick={() => {
-                setActive((curr) => curr + 1);
+                onSubmit();
               }}
               placeholder="Proceed"
             />
@@ -208,7 +217,7 @@ export default function Page() {
             />
             <AppButton
               onClick={() => {
-                setActive((curr) => curr + 1);
+                onSubmit();
               }}
               placeholder="Continue"
               className="mt-0"

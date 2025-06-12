@@ -14,9 +14,8 @@ export const stepOneSchema = Yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
       "Password must contain at least one uppercase letter, one lowercase letter, and one number"
     ),
- /*  agentId: Yup.string()
+  /*  agentId: Yup.string()
   .required("Agent ID is required") */
-
 });
 
 export const stepTwoSchema = Yup.object().shape({
@@ -52,15 +51,13 @@ export const stepTwoSchema = Yup.object().shape({
   state: Yup.object().shape({
     id: Yup.string().required("State is required"),
   }),
-  phone: Yup.string()
-    .required("Phone number is required")
+  phone: Yup.string().required("Phone number is required"),
 });
 
 export const stepThreeSchema = Yup.object().shape({
   address: Yup.string().required("Address is required"),
   address2: Yup.string().optional(),
-  employmentStatusId: Yup.string()
-    .required("Employment status is required"),
+  employmentStatusId: Yup.string().required("Employment status is required"),
   profession: Yup.object().shape({
     id: Yup.string().required("Profession is required"),
   }),
