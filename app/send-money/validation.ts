@@ -81,6 +81,7 @@ export const stepThreeSchema = Yup.object().shape({
 });
 
 // Complete validation schema for the entire form
+// Complete validation schema for the entire form
 export const sendMoneySchema = Yup.object().shape({
   userId: Yup.string().required("User ID is required"),
   fromCurrencyId: Yup.number().required("From currency is required"),
