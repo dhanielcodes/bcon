@@ -71,9 +71,18 @@ export default function Page() {
         onSubmit={(values) => {
           console.log(values, "values");
           if (active === 3) {
-            const { code, agentId, accountType, ...restValues } = values;
+            const {
+              code,
+              agentId,
+              accountType,
+              firstName,
+              surName,
+              ...restValues
+            } = values;
             const payload = {
               ...restValues,
+              firstName: firstName?.trim(),
+              surName: surName?.trim(),
               accountType: Number(accountType),
               agentId: agentId ? Number(agentId) : 0,
               phone:

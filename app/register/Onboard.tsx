@@ -58,7 +58,7 @@ const StepOneComponent = () => {
         <FormPasswordInput
           label="Password"
           name="password"
-          placeholder="Enter your email"
+          placeholder="Enter your password"
         />
         <FormInput
           label="Marketer Code (optional)"
@@ -203,7 +203,7 @@ const StepThreeComponent = ({ values, setFieldValue, isPending }: any) => {
         <LocationSelect
           name="address"
           label="Address"
-          placeholder="Search for a place"
+          placeholder="Enter your address"
           hint="Start typing a city, address, or place"
         />
         <FormInput label="Address 2 (optional)" name="address2" type="text" />
@@ -219,13 +219,12 @@ const StepThreeComponent = ({ values, setFieldValue, isPending }: any) => {
           label="Profession (optional)"
           options={formatOptions(professions?.data, "name", "id")}
         />
-
-        {/*   <FormInputNumber
+        <FormInputNumber
           label="Postcode"
-          name="code"
+          name="postcode"
           placeholder="Enter code"
-          width="w-[510px]"
         />
+        {/*   
 
         <FormInput
           label="Company name"

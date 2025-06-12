@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import { cn } from "@/libs/utils";
 import { FormInputProps } from "@/types/form-types";
@@ -21,8 +21,16 @@ const FormInput: FC<FormInputProps> = ({
   className,
 }) => {
   const { errors } = useFormikContext<any>(); // Access Formik's context
+  const [isFocused, setIsFocused] = useState(false);
 
   const hasError = errors[name]; // Determine if an error is present
+
+  const getMaxDate = () => {
+    const today = new Date();
+    const maxDate = new Date();
+    maxDate.setFullYear(today.getFullYear() - 15);
+    return maxDate.toISOString().split("T")[0];
+  };
 
   return (
     <div className="w-full mb-3">
@@ -58,6 +66,9 @@ const FormInput: FC<FormInputProps> = ({
                 evt.preventDefault();
             }
           }}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          max={type === "date" ? getMaxDate() : undefined}
         />
         {IconRight && <IconRight className="w-5 h-5 text-gray-500 ml-2" />}
       </div>
