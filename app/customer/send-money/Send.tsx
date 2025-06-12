@@ -46,20 +46,6 @@ const StepOneComponent = ({ values, setFieldValue }: any) => {
 };
 
 const StepTwoComponent = ({ values, setFieldValue }: any) => {
-  const [val, setVal] = useState<{
-    fromCurrency: { amount: number; currency: string };
-    toCurrency: { amount: number; currency: string };
-  }>({
-    fromCurrency: { amount: 0, currency: "GBP" } as {
-      amount: number;
-      currency: string;
-    },
-    toCurrency: { amount: 0, currency: "NGN" } as {
-      amount: number;
-      currency: string;
-    },
-  });
-
   return (
     <>
       <Box>

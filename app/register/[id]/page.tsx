@@ -1,5 +1,6 @@
-import PageO from "@/app/register/page";
+"use client";
+import RegisterPage from "@/app/register/page";
 
 export default function Page() {
-  return <PageO />;
+  return <RegisterPage />;
 }

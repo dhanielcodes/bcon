@@ -49,7 +49,6 @@ export default function Page() {
     toCurrency: { amount: 0, currency: "NGN" } as RateSelectType,
   });
 
-  console.log(val, "whole rate conversion");
   const [active, setActive] = useState<string>("sent");
   const { isAuth } = useMainContext();
 

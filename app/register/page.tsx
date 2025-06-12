@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { stepOneSchema, stepThreeSchema, stepTwoSchema } from "./validation";
 import useSignUp from "@/hooks/signUp";
 import { useParams } from "next/navigation";
-import BconSeo from "@/components/BconSeo";
 
 export default function Page() {
   const [active, setActive] = useState<number>(1);
@@ -22,7 +21,6 @@ export default function Page() {
   const id = (params?.id as string)?.toLowerCase() || null;
   return (
     <div>
-      <BconSeo title={`Register Under Marketer - ${id}`} />
       <Box className="rounded-t-none">
         <div className="grid place-items-center">
           <Stepper steps={3} active={active} setActive={setActive} />
@@ -40,7 +38,7 @@ export default function Page() {
           gender: "",
           phone: "",
           address: "",
-          //"postcode": "",
+          postcode: "",
           country: {
             id: "",
           },
