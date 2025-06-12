@@ -1,21 +1,26 @@
 import BeneficiarySlip from "@/components/BeneficiarySlip";
 import PageTitleSearchBox from "@/components/bits/PageTitleSearchBox";
 import ConversionRateInput from "@/components/ConversionRateInput";
+import CurrencySelect from "@/components/CurrencySelect";
 import DetailsCard from "@/components/DetailsCard";
 import CollectByField from "@/components/fields/CollectByField";
 import FileUploadField from "@/components/fields/FileUploadField";
+import FormInput from "@/components/fields/FormInput";
 import PayByField from "@/components/fields/PayByField";
 import Divider from "@/components/icons/Divider";
 import RateInput from "@/components/RateInput";
-import { FormatCurrency, formatOptions } from "@/libs/utils";
+import { FormatCurrency, formatOptions, formatToNumber } from "@/libs/utils";
 import { ApiServiceAuth } from "@/services/auth.service";
+import { OptionType } from "@/types/form-types";
 import { RateSelectType } from "@/types/types";
 import { PlusIcon } from "@radix-ui/react-icons";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import getSymbolFromCurrency from "currency-symbol-map";
 import { Field } from "formik";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { lazy, useEffect, useState } from "react";
+import { NumericFormat } from "react-number-format";
 const Box = lazy(() => import("@/components/bits/Box"));
 
 const MainSelect = lazy(() => import("@/components/fields/MainSelect"));
@@ -27,21 +32,47 @@ const Send = () => {
 
 const StepOneComponent = ({ values, setFieldValue }: any) => {
   const params = useParams();
-
   const id = (params?.id as string)?.toLowerCase() || null;
 
   const { data: list } = useQuery({
     queryKey: ["GetBeneficiariesQuery"],
     queryFn: () => ApiServiceAuth.GetBeneficiariesQuery(id as string),
   });
+
+  const handleBeneficiarySelect = (value: any) => {
+    const currentList = values.sendMoneyDataList || [];
+    const existingIndex = currentList.findIndex(
+      (item: any) => item.userBeneficiaryId === value.id
+    );
+
+    if (existingIndex === -1) {
+      setFieldValue("sendMoneyDataList", [
+        ...currentList,
+        {
+          userBeneficiaryId: value.id,
+          beneficiaryDetails: value,
+          amount: "",
+          purpose: "",
+          note: "",
+          documentTypeId: "",
+          documentURL: "",
+        },
+      ]);
+    } else {
+      // Remove if already selected
+      const newList = currentList.filter(
+        (item: any) => item.userBeneficiaryId !== value.id
+      );
+      setFieldValue("sendMoneyDataList", newList);
+    }
+  };
+
   return (
     <>
       <PageTitleSearchBox
         className="rounded-[40px] !w-full relative"
         title="Search Beneficiary"
         showSearch={false}
-
-        //icon={<PlusIcon color="#FF7434" width={24} height={24} />}
       />
 
       <Box className="space-y-4">
@@ -51,10 +82,8 @@ const StepOneComponent = ({ values, setFieldValue }: any) => {
               <BeneficiarySlip
                 slipType="input"
                 item={item}
-                onChange={(value) => {
-                  setFieldValue("beneficiary", value);
-                }}
-                name="userBeneficiaryId"
+                onChange={handleBeneficiarySelect}
+                name="sendMoneyDataList"
               />
             </div>
           );
@@ -64,66 +93,120 @@ const StepOneComponent = ({ values, setFieldValue }: any) => {
   );
 };
 
-const StepTwoComponent = ({ values, setFieldValue }: any) => {
-  /*   const [val, setVal] = useState<{
-    fromCurrency: RateSelectType;
-    toCurrency: RateSelectType;
-  }>({
-    fromCurrency: { amount: 0, currency: "" } as RateSelectType,
-    toCurrency: { amount: 0, currency: "" } as RateSelectType,
-  }); */
-
+const StepTwoComponent = ({ values, setFieldValue, dashboard }: any) => {
   const params = useParams();
-
   const id = (params?.id as string)?.toLowerCase() || null;
 
-  const { data: rates, refetch } = useQuery({
-    queryKey: ["GetRatesQuery"],
-    queryFn: () =>
-      ApiServiceAuth.GetRatesQuery({
-        userId: id,
-        fromAmount: values?.from?.amount,
-        toAmount: values?.to?.amount,
-        roleId: 6,
-        fromCurrencyId: values?.from?.id,
-        toCurrencyId: values?.to?.id,
-      }),
+  const {
+    mutate,
+    isPending,
+    data: documents,
+  } = useMutation({
+    mutationFn: ApiServiceAuth.CheckUserDocumentMutation,
+    onSuccess: (data) => {
+      //route("/dashboard");
+      //  window.location.pathname = "/dashboard";
+    },
+    onError: (data) => {
+      return;
+    },
   });
+
+  const fullAmount = values.sendMoneyDataList?.reduce(
+    (sum: number, item: any) => sum + (item?.amount || 0),
+    0
+  );
+
+  const fullConvertedAmount = values.sendMoneyDataList?.reduce(
+    (sum: number, item: any) => sum + (item?.to?.amount || 0),
+    0
+  );
+
+  const { data: rates, refetch } = useQuery({
+    queryKey: ["GetRatesQuery", values?.from?.id, values?.to?.id, fullAmount],
+    queryFn: () =>
+      dashboard?.data?.agentId === 0
+        ? ApiServiceAuth.GetRatesQuery({
+            userId: id,
+            fromAmount: fullAmount || 0,
+            toAmount: fullConvertedAmount || 0,
+            roleId: dashboard?.data?.role?.id,
+            fromCurrencyId: values?.from?.id,
+            toCurrencyId: values?.to?.id,
+          })
+        : ApiServiceAuth.GetRatesAgentQuery({
+            userId: id,
+            fromAmount: fullAmount || 0,
+            toAmount: fullConvertedAmount || 0,
+            agentId: dashboard?.data?.agentId,
+            fromCurrencyId: values?.from?.id,
+            toCurrencyId: values?.to?.id,
+          }),
+    enabled: Boolean(dashboard?.data && values?.from?.id && values?.to?.id),
+  });
+
   const [conversionRate, setConversionRate] = useState<number>(0);
-  useEffect(() => {
-    refetch();
-  }, [values?.from, values?.to]);
 
   useEffect(() => {
-    setConversionRate(rates?.data?.conversionRate);
-    setFieldValue("conversionRate", rates?.data?.conversionRate);
-  }, [rates]);
+    if (rates?.data?.conversionRate) {
+      setConversionRate(rates.data.conversionRate);
+      setFieldValue("conversionRate", rates.data.conversionRate);
+      setFieldValue("fee", rates.data.transitionFee);
+    }
+  }, [rates?.data?.conversionRate, rates?.data?.transitionFee]);
+
+  const getCategoryCurrency = dashboard?.data?.accountCategory?.find(
+    (itm: any) => itm?.currency?.code === values?.from?.currency
+  );
 
   useEffect(() => {
-    setFieldValue("to", {
-      ...values?.to,
-      amount: values?.from?.amount * conversionRate,
-    });
-  }, [values?.from, conversionRate]);
-
-  /*   useEffect(() => {
-    setFieldValue("from", {
-      ...values?.from,
-      amount: values?.to?.amount / conversionRate,
-    });
-  }, [values?.to]); */
-
-  console.log(rates);
+    if (fullAmount && getCategoryCurrency) {
+      mutate({
+        userId: id,
+        transactionAmount: fullAmount,
+        proofOfAddressAmountThreshold:
+          getCategoryCurrency?.proofOfAddressAmountThreshold,
+        sourceOfFundAmountThreshold:
+          getCategoryCurrency?.sourceOfFundAmountThreshold,
+      });
+    }
+  }, [fullAmount, getCategoryCurrency]);
 
   const { data: purposes } = useQuery({
     queryKey: ["GetPurposesQuery"],
     queryFn: () => ApiServiceAuth.GetPurposesQuery(),
   });
 
-  const { data: documents } = useQuery({
-    queryKey: ["GetIdTypesQuery"],
-    queryFn: () => ApiServiceAuth.GetIdTypesQuery(),
+  const { data: paymentChannels } = useQuery({
+    queryKey: ["GetPaymentChannelsQuery"],
+    queryFn: () => ApiServiceAuth.GetPaymentChannelsQuery(),
   });
+
+  const getActiveList = paymentChannels?.data?.filter(
+    (itm: any) => itm?.status
+  );
+
+  useEffect(() => {
+    if (getActiveList?.length === 1 && !values.paymentChannelId) {
+      setFieldValue("paymentChannelId", getActiveList[0].id);
+      setFieldValue("paymentChannel", getActiveList[0]);
+    }
+  }, [getActiveList, values.paymentChannelId]);
+
+  const { data: payoutChannels } = useQuery({
+    queryKey: ["GetPayoutChannelsQuery"],
+    queryFn: () => ApiServiceAuth.GetPayoutChannelsQuery(),
+  });
+
+  const getActiveListPayout = payoutChannels?.data?.filter(
+    (itm: any) => itm?.status
+  );
+
+  useEffect(() => {
+    if (getActiveListPayout?.length === 1 && !values.payoutChannelId) {
+      setFieldValue("payoutChannelId", getActiveListPayout[0].id);
+    }
+  }, [getActiveListPayout, values.payoutChannelId]);
 
   return (
     <>
@@ -133,28 +216,42 @@ const StepTwoComponent = ({ values, setFieldValue }: any) => {
         </h1>
       </Box>
       <Box>
-        <PayByField name="paymentChannelId" />
-      </Box>
-
-      <Box>
-        <BeneficiarySlip
-          slipType="input"
-          item={values?.beneficiary}
-          name="beneficiary"
-        />
-        <Divider />
-        <RateInput
-          value={values.from}
-          excludeId={values?.to?.id}
+        <PayByField
+          paymentChannels={paymentChannels}
+          setValue={setFieldValue}
+          name="paymentChannelId"
           onChange={(e) => {
-            setFieldValue("fromCurrencyId", e?.id);
-            setFieldValue("amount", e?.amount);
-            setFieldValue("from", {
-              ...e,
-              amount: e?.amount || 0,
-            });
+            setFieldValue("paymentChannel", e);
           }}
         />
+      </Box>
+
+      <Box className="">
+        <div className="flex space-x-10">
+          <CurrencySelect
+            excludeId={values?.to?.id}
+            onChange={(selected: any | null) => {
+              setFieldValue("from", {
+                id: selected?.id,
+                currency: selected?.code,
+              });
+              setFieldValue("fromCurrencyId", selected?.id);
+            }}
+            value={values?.from?.currency}
+          />
+          <CurrencySelect
+            excludeId={values?.from?.id}
+            onChange={(selected: any | null) => {
+              setFieldValue("to", {
+                id: selected?.id,
+                currency: selected?.code,
+              });
+              setFieldValue("toCurrencyId", selected?.id);
+            }}
+            value={values?.to?.currency}
+          />
+        </div>
+        <br />
         <div className="flex justify-between space-x-4 my-4">
           <div className="flex w-full items-center justify-between text-sm">
             <div className="text-left space-y-4">
@@ -165,13 +262,13 @@ const StepTwoComponent = ({ values, setFieldValue }: any) => {
               <div>
                 {FormatCurrency(1, values?.from?.currency)} ={" "}
                 {FormatCurrency(
-                  rates?.data?.conversionRate,
+                  rates?.data?.conversionRate || 0,
                   values?.to?.currency
                 )}
               </div>
               <div>
                 {FormatCurrency(
-                  rates?.data?.transitionFee,
+                  rates?.data?.transitionFee || 0,
                   values?.from?.currency
                 ) || "FREE"}
               </div>
@@ -185,85 +282,143 @@ const StepTwoComponent = ({ values, setFieldValue }: any) => {
             className="cursor-pointer"
           />
         </div>
-        <RateInput
-          value={values.to}
-          excludeId={values?.from?.id}
-          onChange={(e) => {
-            setFieldValue("toCurrencyId", e?.id);
-            setFieldValue("to", {
-              ...e,
-              amount: e?.amount || 0,
-            });
-            setFieldValue("from", {
-              ...values?.from,
-              amount: e?.amount / conversionRate,
-            });
-          }}
-        />
-        {/*   <ConversionRateInput
-          onChange={(e) => {
-            console.log(e, "onchange");
-            setVal({
-              ...e,
-              fromCurrency: {
-                ...e?.fromCurrency,
-                amount: e?.toCurrency?.amount / rates?.data?.conversionRate,
-              },
-              toCurrency: {
-                ...e?.toCurrency,
-                amount: e?.fromCurrency?.amount * rates?.data?.conversionRate,
-              },
-            });
-            setFieldValue("rate", {
-              ...e,
-              fromCurrency: {
-                ...e?.fromCurrency,
-                amount: e?.toCurrency?.amount / rates?.data?.conversionRate,
-              },
-              toCurrency: {
-                ...e?.toCurrency,
-                amount: e?.fromCurrency?.amount * rates?.data?.conversionRate,
-              },
-            });
-          }}
-          value={val}
-        /> */}
-        <Divider />
-        <CollectByField name="payoutChannelId" />
-        <Divider />
-        <MainSelect
-          name="purpose"
-          placeholder="Select purpose of transfer"
-          label="Select purpose of transfer"
-          options={formatOptions(purposes?.data, "name", "name")}
-        />
-        <MainSelect
-          name="documentType"
-          placeholder="Type"
-          label="Document type"
-          options={formatOptions(documents?.data, "name", "name")}
-        />
-        <Field
-          name="avatar"
-          userId={id}
-          component={FileUploadField}
-          label="Upload Profile Photo"
+      </Box>
+
+      {values.sendMoneyDataList?.map((beneficiary: any, index: number) => (
+        <Box key={index}>
+          <div className="mb-6">
+            <BeneficiarySlip
+              disabled
+              slipType="normal"
+              item={beneficiary?.beneficiaryDetails}
+              name={`sendMoneyDataList.${index}.userBeneficiaryId`}
+            />
+            <Divider />
+
+            <div className="text-right space-y-2 bg-neutral p-5 rounded-3xl mb-4">
+              <div className="text-[12px]">You send</div>
+              <div>
+                <NumericFormat
+                  className="w-full text-lg bg-transparent outline-none text-[1.5rem] text-right font-medium"
+                  allowLeadingZeros
+                  thousandSeparator={","}
+                  prefix={getSymbolFromCurrency(
+                    String(values?.from.currency) || ""
+                  )}
+                  value={beneficiary?.from?.amount}
+                  onChange={(e) => {
+                    setFieldValue(
+                      `sendMoneyDataList.${index}.from.amount`,
+                      formatToNumber(e.target.value)
+                    );
+                    setFieldValue(
+                      `sendMoneyDataList.${index}.amount`,
+                      formatToNumber(e.target.value)
+                    );
+                    setFieldValue(
+                      `sendMoneyDataList.${index}.to.amount`,
+                      formatToNumber(e.target.value) * conversionRate
+                    );
+                  }}
+                  placeholder={""}
+                  type={"text"}
+                />
+              </div>
+            </div>
+
+            <div className="text-right space-y-2 bg-neutral p-5 rounded-3xl ">
+              <div className="text-[12px]">You receive</div>
+              <div>
+                <NumericFormat
+                  className="w-full text-lg bg-transparent outline-none text-[1.5rem] text-right font-medium"
+                  allowLeadingZeros
+                  thousandSeparator={","}
+                  prefix={getSymbolFromCurrency(
+                    String(values?.to.currency) || ""
+                  )}
+                  value={beneficiary?.to?.amount}
+                  onChange={(e) => {
+                    setFieldValue(
+                      `sendMoneyDataList.${index}.to.amount`,
+                      formatToNumber(e.target.value)
+                    );
+                    setFieldValue(
+                      `sendMoneyDataList.${index}.amount`,
+                      formatToNumber(e.target.value)
+                    );
+                    setFieldValue(
+                      `sendMoneyDataList.${index}.from.amount`,
+                      formatToNumber(e.target.value) / conversionRate
+                    );
+                  }}
+                  placeholder={""}
+                  type={"text"}
+                />
+              </div>
+            </div>
+            <Divider />
+            <MainSelect
+              name={`sendMoneyDataList.${index}.purpose`}
+              placeholder="Select purpose of transfer"
+              label="Select purpose of transfer"
+              options={formatOptions(purposes?.data, "name", "name")}
+            />
+            {formatOptions(documents?.data || [], "name", "id")?.length ? (
+              <>
+                <MainSelect
+                  name={`sendMoneyDataList.${index}.documentType`}
+                  placeholder="Type"
+                  label="Document type"
+                  options={
+                    formatOptions(documents?.data || [], "name", "id")?.length
+                      ? formatOptions(documents?.data, "name", "id")
+                      : []
+                  }
+                />
+
+                <FileUploadField
+                  name={`sendMoneyDataList.${index}.documentURL`}
+                  userId={id as string}
+                  label="Upload Document"
+                />
+              </>
+            ) : (
+              ""
+            )}
+          </div>
+        </Box>
+      ))}
+      <Box>
+        <FormInput
+          label="Different Sender's Name (optional)"
+          name="name"
+          type="text"
         />
       </Box>
-      {/* <Box className="rounded-full cursor-pointer text-primary-orange flex items-center justify-center space-x-2">
-        <span>Add another payment</span>
-      </Box> */}
+      <Box>
+        <CollectByField
+          payoutChannels={payoutChannels}
+          setValue={setFieldValue}
+          name={`payoutChannelId`}
+        />
+      </Box>
       <Box>
         <DetailsCard
           title="Summary"
           details={[
             {
-              title: "You're sending",
-              value: FormatCurrency(values?.amount, values?.from?.currency),
+              title: "Total Amount",
+              value: FormatCurrency(
+                values.sendMoneyDataList?.reduce(
+                  (sum: number, item: any) => sum + (item.amount || 0),
+                  0
+                ),
+                values?.from?.currency
+              ),
             },
             {
-              title: "Recipient gets",
-              value: FormatCurrency(values?.to?.amount, values?.to?.currency),
+              title: "Total Recipients",
+              value: values.sendMoneyDataList?.length || 0,
             },
             {
               title: "Rate",
@@ -287,24 +442,84 @@ const StepThreeComponent = ({ values, setFieldValue }: any) => {
         <DetailsCard
           title="Transfer details"
           details={[
-            { title: "You're sending", value: "$0.00" },
-            { title: "Recipient gets", value: "$0.00" },
-            { title: "Rate", value: "$0.00" },
-            { title: "Transaction fee", value: "Free" },
+            {
+              title: "You're sending",
+              value: FormatCurrency(
+                values.sendMoneyDataList?.reduce(
+                  (sum: number, item: any) => sum + (item.amount || 0),
+                  0
+                ),
+                values?.from?.currency
+              ),
+            },
+            {
+              title: "Recipient(s) gets",
+              value: FormatCurrency(
+                values.sendMoneyDataList?.reduce(
+                  (sum: number, item: any) => sum + (item?.to.amount || 0),
+                  0
+                ),
+                values?.to?.currency
+              ),
+            },
+            {
+              title: "Rate",
+              value: FormatCurrency(
+                values?.conversionRate,
+                values?.to?.currency
+              ),
+            },
+            {
+              title: "Transaction fee",
+              value: FormatCurrency(values?.fee, values?.from?.currency),
+            },
+            { title: "You Pay By", value: values?.paymentChannel?.name },
           ]}
         />
       </Box>
-      <Box>
-        <DetailsCard
-          title="Recipient details"
-          details={[
-            { title: "You're sending", value: "$0.00" },
-            { title: "Recipient gets", value: "$0.00" },
-            { title: "Rate", value: "$0.00" },
-            { title: "Transaction fee", value: "Free" },
-          ]}
-        />
-      </Box>
+      {values?.sendMoneyDataList?.map((item: any) => {
+        return (
+          <Box>
+            <DetailsCard
+              title="Recipient details"
+              details={[
+                {
+                  title: "Receivers Name",
+                  value: item?.beneficiaryDetails?.beneficiaryBank?.accountName,
+                },
+                {
+                  title: "Bank Name",
+                  value: item?.beneficiaryDetails?.beneficiaryBank?.bankName,
+                },
+                {
+                  title: "Account Number",
+                  value:
+                    item?.beneficiaryDetails?.beneficiaryBank?.accountNumber,
+                },
+                {
+                  title: "You're sending",
+                  value: FormatCurrency(item?.amount, values?.from?.currency),
+                },
+                {
+                  title: "Beneficiary Gets",
+                  value: FormatCurrency(item?.to?.amount, values?.to?.currency),
+                },
+                {
+                  title: "Rate",
+                  value: FormatCurrency(
+                    values?.conversionRate,
+                    values?.to?.currency
+                  ),
+                },
+                {
+                  title: "Transaction fee",
+                  value: FormatCurrency(values?.fee, values?.from?.currency),
+                },
+              ]}
+            />
+          </Box>
+        );
+      })}
     </>
   );
 };

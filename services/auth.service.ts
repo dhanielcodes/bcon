@@ -12,17 +12,28 @@ export const ApiServiceAuth = {
     return data;
   },
 
+  GetDashboardService: async (body: any) => {
+    const { data } = await Axios.get(`getuserdashboard/${body}`);
+    return data;
+  },
+
+  SendMoneyService: async (body: any) => {
+    const { data } = await Axios.post(`sbm`, body);
+    return data;
+  },
+  SendMoneySingleService: async (body: any) => {
+    const { data } = await Axios.post(`sm`, body);
+    return data;
+  },
   UploadFile: async (body: any) => {
     const { data } = await Axios.post(`FileUploadAPI/${body?.id}`, body?.data);
     return data;
   },
 
-
   GetCountriesQuery: async () => {
     const { data } = await Axios.get(`getcountries`);
     return data;
   },
- 
 
   GetCitiesQuery: async (body: any) => {
     const { data } = await Axios.get(`getcities`, {
@@ -42,13 +53,12 @@ export const ApiServiceAuth = {
     return data;
   },
 
-
-  GetBeneficiariesQuery: async (userId:string) => {
+  GetBeneficiariesQuery: async (userId: string) => {
     const { data } = await Axios.get(`getuserbeneficiaries`, {
-      params:{
+      params: {
         userId,
-        beneficiaryId:0
-      }
+        beneficiaryId: 0,
+      },
     });
     return data;
   },
@@ -62,15 +72,35 @@ export const ApiServiceAuth = {
     return data;
   },
 
-  
   GetCurrencyQuery: async () => {
     const { data } = await Axios.get(`getcurrency`);
     return data;
   },
 
-  GetRatesQuery: async (body:{toCurrencyId:any;fromCurrencyId:any;fromAmount:any;toAmount:any;roleId:any;userId:any}) => {
+  GetRatesQuery: async (body: {
+    toCurrencyId: any;
+    fromCurrencyId: any;
+    fromAmount: any;
+    toAmount: any;
+    roleId: any;
+    userId: any;
+  }) => {
     const { data } = await Axios.get(`getrate`, {
-      params:body
+      params: body,
+    });
+    return data;
+  },
+
+  GetRatesAgentQuery: async (body: {
+    toCurrencyId: any;
+    fromCurrencyId: any;
+    fromAmount: any;
+    toAmount: any;
+    agentId: any;
+    userId: any;
+  }) => {
+    const { data } = await Axios.get(`agentcustomersgetrate`, {
+      params: body,
     });
     return data;
   },
@@ -84,9 +114,11 @@ export const ApiServiceAuth = {
     const { data } = await Axios.get(`getidtypes`);
     return data;
   },
-  checkifusertransactionrequiredocument: async (body: any) => {
-    const { data } = await Axios.post(`checkifusertransactionrequiredocument`, body);
+  CheckUserDocumentMutation: async (body: any) => {
+    const { data } = await Axios.post(
+      `checkifusertransactionrequiredocument`,
+      body
+    );
     return data;
   },
-
 };

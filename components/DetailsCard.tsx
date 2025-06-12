@@ -22,7 +22,7 @@ const DetailsCard: FC<DetailsCardProps> = ({
               )}
             >
               <div className="text-neutral3">{detail.title}</div>
-              <div>{detail.value}</div>
+              <div className="text-right">{detail.value}</div>
             </div>
           );
         })}

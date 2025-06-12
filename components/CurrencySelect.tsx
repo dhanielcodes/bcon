@@ -38,15 +38,19 @@ const CurrencySelect: FC<CurrencySelectProps> = ({
     setSelectedOption(selected);
     if (onChange) onChange(selected);
   };
+  const sectionValue = options?.find((itm: any) => itm?.code === value);
 
   useEffect(() => {
-    handleChange(options?.find((itm: any) => itm?.code === "GBP"));
+    if (value) {
+    } else {
+      handleChange(options?.find((itm: any) => itm?.code === "GBP"));
+    }
   }, []);
 
   return (
     <div className={cn("w-full", className)}>
       <Select
-        value={value || selectedOption}
+        value={sectionValue ? sectionValue : selectedOption}
         onChange={handleChange}
         placeholder={""}
         options={options}
@@ -75,7 +79,7 @@ const CurrencySelect: FC<CurrencySelectProps> = ({
             ...base,
             background: "#ffffff",
             padding: "0.35rem",
-            borderColor: "#ffffff",
+            borderColor: "#dcdcdc",
             borderRadius: "10px",
             "&:hover": { borderColor: "#ffffff0" },
           }),

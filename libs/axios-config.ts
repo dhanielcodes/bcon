@@ -17,16 +17,22 @@ Axios.interceptors.request.use((config) => {
 Axios.interceptors.response.use(
   function (response) {
     if (response?.config?.method !== "get") {
-      toast.success(response?.data?.message, {
-        //icon:'✅',
-        style: {
-          borderRadius: "1100px",
-          border: "1px solid green",
-          color: "#000",
-          fontSize: "14px",
-        },
-      });
-      console.log(response?.data?.message);
+      if (
+        response?.request?.__URL__?.includes(
+          "checkifusertransactionrequiredocument"
+        )
+      ) {
+      } else {
+        toast.success(response?.data?.message, {
+          //icon:'✅',
+          style: {
+            borderRadius: "1100px",
+            border: "1px solid green",
+            color: "#000",
+            fontSize: "14px",
+          },
+        });
+      }
       return response;
     }
     return response;
@@ -42,7 +48,6 @@ Axios.interceptors.response.use(
           fontSize: "14px",
         },
       });
-      console.log(error?.response?.data?.message || error?.message);
       return;
     }
     if (error?.response?.data?.message === "Invalid token, Expired") {
@@ -61,7 +66,6 @@ Axios.interceptors.response.use(
         return;
       } else {
         localStorage.clear();
-        console.log(error?.response?.status);
       }
     } else if (
       "Request failed with status code 500" === error.message ||

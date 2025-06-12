@@ -1,8 +1,9 @@
 // components/FileUploadField.tsx
 import { FC, useState } from "react";
-import { useFormikContext } from "formik";
+import { Field, FieldProps, useFormikContext } from "formik";
 import { cn } from "@/libs/utils";
 import { ApiServiceAuth } from "@/services/auth.service";
+import Image from "next/image";
 
 interface FileUploadFieldProps {
   name: string;
@@ -44,7 +45,6 @@ const FileUploadField: FC<FileUploadFieldProps> = ({
       });
 
       // Set the image URL from the response
-      console.log(response);
       if (response?.secure_url) {
         setFieldValue(name, response?.secure_url);
       }
@@ -62,45 +62,62 @@ const FileUploadField: FC<FileUploadFieldProps> = ({
   };
 
   return (
-    <div className={cn("w-full", className)}>
-      {label && <div className="text-sm mb-2">{label}</div>}
-      <div className="relative">
-        <input
-          type="file"
-          accept={accept}
-          onChange={handleFileChange}
-          disabled={disabled || isUploading}
-          className="hidden"
-          id={`file-upload-${name}`}
-        />
-        <div className="space-y-4">
-          <label
-            htmlFor={`file-upload-${name}`}
-            className={cn(
-              "flex items-center justify-center flex-1 h-40 border-2 border-dashed rounded-lg cursor-pointer",
-              "hover:bg-gray-50 transition-colors",
-              disabled && "opacity-50 cursor-not-allowed",
-              isUploading && "opacity-50 cursor-wait"
-            )}
-          >
-            <div className="text-center">
-              <div className="text-gray-500">
-                {isUploading ? "Uploading..." : fileName || "Click to upload"}
+    <Field name={name}>
+      {({ form, meta }: FieldProps) => {
+        return (
+          <div className={cn("w-full", className)}>
+            {label && <div className="text-sm mb-2">{label}</div>}
+            <div className="relative">
+              <input
+                type="file"
+                accept={accept}
+                onChange={handleFileChange}
+                disabled={disabled || isUploading}
+                className="hidden"
+                id={`file-upload-${name}`}
+              />
+              <div className="space-y-4">
+                <label
+                  htmlFor={`file-upload-${name}`}
+                  className={cn(
+                    "flex items-center justify-center flex-1 h-40 border-2 border-dashed rounded-lg cursor-pointer",
+                    "hover:bg-gray-50 transition-colors",
+                    disabled && "opacity-50 cursor-not-allowed",
+                    isUploading && "opacity-50 cursor-wait"
+                  )}
+                >
+                  <div className="text-center">
+                    <div className="text-gray-500">
+                      {isUploading ? (
+                        "Uploading..."
+                      ) : meta?.value ? (
+                        <Image
+                          src={meta?.value}
+                          width={140}
+                          height={140}
+                          alt={`document`}
+                        />
+                      ) : (
+                        "Click to upload"
+                      )}
+                    </div>
+                  </div>
+                </label>
+                {fileName && !isUploading && (
+                  <button
+                    type="button"
+                    onClick={handleRemove}
+                    className="px-4 h-12 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
             </div>
-          </label>
-          {fileName && !isUploading && (
-            <button
-              type="button"
-              onClick={handleRemove}
-              className="px-4 h-12 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
-            >
-              Remove
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
+          </div>
+        );
+      }}
+    </Field>
   );
 };
 

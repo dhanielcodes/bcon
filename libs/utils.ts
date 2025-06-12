@@ -27,7 +27,6 @@ export function parseImageUrl(imageName?: string): string {
     : "https://coventiassets2.blob.core.windows.net/coventidoc/" + imageName;
 }
 
-
 export function Gsh2(n: number | string) {
   return (n + "").split(".")[0];
 }
@@ -48,3 +47,7 @@ export function FormatCurrency(value: number | string, currency?: string) {
     : `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+export const formatToNumber = (str: string) => {
+  const cleanedStr = str.replace(/[^0-9.]/g, "");
+  return parseFloat(cleanedStr);
+};

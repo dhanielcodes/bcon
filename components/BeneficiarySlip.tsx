@@ -9,6 +9,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   slipType?: "input" | "normal";
   optionValue?: string;
   onChange?: (arg0: any) => void;
+  disabled?: boolean;
 }
 
 const BeneficiarySlip: FC<Props> = ({
@@ -17,22 +18,40 @@ const BeneficiarySlip: FC<Props> = ({
   slipType = "normal",
   optionValue = "id",
   onChange,
+  disabled,
   ...props
 }) => {
   function InputSlip() {
     return (
       <Field name={name}>
         {({ form, meta }: FieldProps) => {
+          const data: any[] = form.values?.sendMoneyDataList;
+          const isSelected = data
+            ?.map((itm: any) => itm?.userBeneficiaryId)
+            ?.includes(item?.id);
+
           return (
             <div
               onClick={() => {
-                form.setFieldValue(name as string, item?.[optionValue]);
-                onChange && onChange(item);
+                if (disabled) {
+                } else {
+                  /*     if (Array.isArray(form.values?.[name as string])) {
+                    const currentList = form.values?.[name as string] || [];
+                    const newList = currentList.includes(item?.[optionValue])
+                      ? currentList.filter(
+                          (id: any) => id !== item?.[optionValue]
+                        )
+                      : [...currentList, item?.[optionValue]];
+                    form.setFieldValue(name as string, newList);
+                  } else {
+                    form.setFieldValue(name as string, item?.[optionValue]);
+                  } */
+                  onChange && onChange(item);
+                }
               }}
               className={cn(
                 "relative border border-neutral cursor-pointer bg-white px-4 py-3 space-x-2 rounded-2xl flex justify-between items-center",
-                item?.[optionValue] === form.values?.[name as string] &&
-                  "border-primary-orange"
+                isSelected && "border-primary-orange"
               )}
               {...props}
             >
@@ -55,7 +74,7 @@ const BeneficiarySlip: FC<Props> = ({
                 </div>
               </div>
 
-              {item?.[optionValue] === form.values?.[name as string] && (
+              {isSelected && (
                 <svg
                   className="absolute right-0 top-0"
                   width="16"

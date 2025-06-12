@@ -1,7 +1,7 @@
 import { cn } from "@/libs/utils";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { SendCardProps } from "@/types/types";
 import { ApiServiceAuth } from "@/services/auth.service";
 import { Field, FieldProps } from "formik";
@@ -16,11 +16,15 @@ const getPaymentImage = (channelName: string) => {
   // Default to bank icon if no match
   return "/icons/bank.svg";
 };
-const CollectByField = ({ name }: { name: string }) => {
-  const { data: payoutChannels } = useQuery({
-    queryKey: ["GetPayoutChannelsQuery"],
-    queryFn: () => ApiServiceAuth.GetPayoutChannelsQuery(),
-  });
+const CollectByField = ({
+  name,
+  setValue,
+  payoutChannels,
+}: {
+  name: string;
+  setValue: any;
+  payoutChannels: any;
+}) => {
   return (
     <div className="space-y-4">
       <h1 className="text-neutral3 text-sm flex space-x-1 items-center">
@@ -61,7 +65,7 @@ const Card: FC<SendCardProps> = ({ active, name, img = "", ...props }) => {
     <div
       className={cn(
         "relative border cursor-pointer bg-white px-4 py-3 space-y-2 rounded-2xl text-sm",
-        active ? "border-primary-orange" : "border-neutral"
+        active ? "border-primary-orange text-primary-orange" : "border-neutral"
       )}
       {...props}
     >
@@ -73,6 +77,41 @@ const Card: FC<SendCardProps> = ({ active, name, img = "", ...props }) => {
         className="rounded-full"
       />
       <div>{name}</div>
+      {active && (
+        <svg
+          className="absolute right-2 top-0"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="0.466535"
+            y="0.466535"
+            width="15.0669"
+            height="15.0669"
+            rx="6.99803"
+            fill="#FF7434"
+          />
+          <rect
+            x="0.466535"
+            y="0.466535"
+            width="15.0669"
+            height="15.0669"
+            rx="6.99803"
+            stroke="#FF7434"
+            strokeWidth="0.933071"
+          />
+          <path
+            d="M11.1104 5.66748L6.83379 9.94406L4.88989 8.00016"
+            stroke="white"
+            strokeWidth="1.55512"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      )}
     </div>
   );
 };

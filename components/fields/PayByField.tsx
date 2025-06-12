@@ -1,7 +1,7 @@
 import { cn } from "@/libs/utils";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { SendCardProps } from "@/types/types";
 import { ApiServiceAuth } from "@/services/auth.service";
 import { useQuery } from "@tanstack/react-query";
@@ -18,12 +18,17 @@ const getPaymentImage = (channelName: string) => {
   return "/icons/bank.svg";
 };
 
-const PayByField = ({ name }: { name: string }) => {
-  const { data: paymentChannels } = useQuery({
-    queryKey: ["GetPaymentChannelsQuery"],
-    queryFn: () => ApiServiceAuth.GetPaymentChannelsQuery(),
-  });
-
+const PayByField = ({
+  name,
+  setValue,
+  onChange,
+  paymentChannels,
+}: {
+  name: string;
+  setValue: any;
+  onChange?: (arg0: any) => void;
+  paymentChannels: any;
+}) => {
   return (
     <div className="space-y-4">
       <h1 className="text-neutral3 text-sm flex space-x-2 items-center">
@@ -36,18 +41,18 @@ const PayByField = ({ name }: { name: string }) => {
             <div className="grid grid-cols-2 gap-2">
               {paymentChannels?.data?.map((item: any, idx: number) => {
                 return (
-                  <div>
+                  <div key={idx}>
                     <Card
                       onClick={() => {
                         if (item?.status) {
                           form.setFieldValue(name, item?.id);
+                          onChange && onChange(item);
                         }
                       }}
                       style={{
                         opacity: item?.status ? 1 : 0.6,
                         cursor: item?.status ? "pointer" : "not-allowed",
                       }}
-                      key={idx}
                       img={getPaymentImage(item?.name)}
                       name={item?.name}
                       active={item?.id === meta.value}
@@ -68,7 +73,7 @@ const Card: FC<SendCardProps> = ({ active, name, img = "", ...props }) => {
     <div
       className={cn(
         "relative border cursor-pointer bg-white px-4 py-3 space-y-2 rounded-2xl text-sm",
-        active ? "border-primary-orange" : "border-neutral"
+        active ? "border-primary-orange text-primary-orange" : "border-neutral"
       )}
       {...props}
     >
@@ -80,6 +85,41 @@ const Card: FC<SendCardProps> = ({ active, name, img = "", ...props }) => {
         className="rounded-full"
       />
       <div>{name}</div>
+      {active && (
+        <svg
+          className="absolute right-2 top-0"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="0.466535"
+            y="0.466535"
+            width="15.0669"
+            height="15.0669"
+            rx="6.99803"
+            fill="#FF7434"
+          />
+          <rect
+            x="0.466535"
+            y="0.466535"
+            width="15.0669"
+            height="15.0669"
+            rx="6.99803"
+            stroke="#FF7434"
+            strokeWidth="0.933071"
+          />
+          <path
+            d="M11.1104 5.66748L6.83379 9.94406L4.88989 8.00016"
+            stroke="white"
+            strokeWidth="1.55512"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      )}
     </div>
   );
 };
