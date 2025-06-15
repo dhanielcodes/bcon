@@ -22,7 +22,7 @@ export interface AppButtonProps {
 
 export interface FormInputProps {
   name: string;
-  type: string;
+  type?: string;
   placeholder?: string;
   defaultValue?: string;
   label?: string;
@@ -61,6 +61,7 @@ export interface FormInputNumberProps {
   currency?: string;
   cutBorder?: boolean;
   showError?: boolean;
+  onChange?: (arg0:any) => void
 }
 
 export interface FormPasswordInputProps {

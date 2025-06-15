@@ -35,6 +35,11 @@ export const ApiServiceAuth = {
     return data;
   },
 
+  GetBanksQuery: async () => {
+    const { data } = await Axios.get(`getbanks`);
+    return data;
+  },
+
   GetCitiesQuery: async (body: any) => {
     const { data } = await Axios.get(`getcities`, {
       params: {
@@ -76,7 +81,16 @@ export const ApiServiceAuth = {
     const { data } = await Axios.get(`getcurrency`);
     return data;
   },
-
+  NameEnquiry: async (body:any) => {
+    const { data } = await Axios.get(`BankDetailsLookUp`, {
+      params: body,
+    });
+    return data;
+  },
+  AddBeneficiaryMutation: async (body:any) => {
+    const { data } = await Axios.post(`adduserbeneficiary`, body);
+    return data;
+  },
   GetRatesQuery: async (body: {
     toCurrencyId: any;
     fromCurrencyId: any;

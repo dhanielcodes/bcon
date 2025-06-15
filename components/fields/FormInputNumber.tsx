@@ -25,6 +25,7 @@ export default function FormInputNumber({
   currency,
   cutBorder,
   showError = true,
+  onChange,
 }: FormInputNumberProps) {
   const { setFieldValue, values, errors } = useFormikContext<{
     [key: string]: any;
@@ -77,12 +78,14 @@ export default function FormInputNumber({
               maxLength={max}
               defaultValue={defaultValue}
               value={values[name]}
-              onChange={(e) =>
+              onChange={(e) => {
                 setFieldValue(
                   name,
                   amount ? formatToNumber(e.target.value) : e.target.value
-                )
-              }
+                );
+
+                onChange && onChange(e.target.value);
+              }}
               placeholder={placeholder}
               disabled={disabled}
               type={pin ? "password" : "text"}

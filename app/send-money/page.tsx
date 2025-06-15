@@ -15,6 +15,7 @@ import { CheckCircledIcon } from "@radix-ui/react-icons";
 import { stepOneSchema, stepTwoSchema, stepThreeSchema } from "./validation";
 import { FormatCurrency } from "@/libs/utils";
 import DetailsCard from "@/components/DetailsCard";
+import AddBeneficiaryModal from "@/components/AddBeneficiary";
 
 const SuccessModal = ({
   isOpen,

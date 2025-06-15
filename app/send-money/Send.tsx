@@ -1,3 +1,4 @@
+import AddBeneficiaryModal from "@/components/AddBeneficiary";
 import BeneficiarySlip from "@/components/BeneficiarySlip";
 import PageTitleSearchBox from "@/components/bits/PageTitleSearchBox";
 import ConversionRateInput from "@/components/ConversionRateInput";
@@ -16,7 +17,7 @@ import { RateSelectType } from "@/types/types";
 import { CheckCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import getSymbolFromCurrency from "currency-symbol-map";
-import { Field } from "formik";
+import { Field, useFormik } from "formik";
 import { Copy } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -26,7 +27,6 @@ import { NumericFormat } from "react-number-format";
 const Box = lazy(() => import("@/components/bits/Box"));
 
 const MainSelect = lazy(() => import("@/components/fields/MainSelect"));
-const AppButton = lazy(() => import("@/components/fields/AppButton"));
 
 const Send = () => {
   return <div></div>;
@@ -36,7 +36,7 @@ const StepOneComponent = ({ values, setFieldValue }: any) => {
   const params = useParams();
   const id = (params?.id as string)?.toLowerCase() || null;
 
-  const { data: list } = useQuery({
+  const { data: list, refetch } = useQuery({
     queryKey: ["GetBeneficiariesQuery"],
     queryFn: () => ApiServiceAuth.GetBeneficiariesQuery(id as string),
   });
@@ -69,12 +69,31 @@ const StepOneComponent = ({ values, setFieldValue }: any) => {
     }
   };
 
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <PageTitleSearchBox
         className="rounded-[40px] !w-full relative"
         title="Search Beneficiary"
+        icon={
+          <PlusIcon
+            className="cursor-pointer"
+            color="#FF7434" width={24} height={24} 
+            onClick={() => {
+              setOpen(true);
+            }}
+          />
+        }
         showSearch={false}
+      />
+      <AddBeneficiaryModal
+        customerId={id}
+        finished={() => {
+          refetch();
+        }}
+        open={open}
+        setOpen={setOpen}
       />
 
       <Box className="space-y-4">
