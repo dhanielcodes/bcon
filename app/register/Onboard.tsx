@@ -72,7 +72,7 @@ const StepOneComponent = () => {
         <AppButton disabled placeholder="Submit" className="cursor-default" />
       </Box>
       <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
-        <AppButton placeholder="Submit" />
+        <AppButton placeholder="Proceed" />
       </Box>
     </>
   );
@@ -167,7 +167,7 @@ const StepTwoComponent = ({ values, setFieldValue }: any) => {
         <AppButton disabled placeholder="Submit" className="cursor-default" />
       </Box>
       <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
-        <AppButton placeholder="Submit" />
+        <AppButton placeholder="Proceed" />
       </Box>
     </>
   );
@@ -207,6 +207,11 @@ const StepThreeComponent = ({ values, setFieldValue, isPending }: any) => {
           hint="Start typing a city, address, or place"
         />
         <FormInput label="Address 2 (optional)" name="address2" type="text" />
+        <FormInputNumber
+          label="Postcode"
+          name="postcode"
+          placeholder="Enter code"
+        />
         <MainSelect
           name="employmentStatusId"
           isSearchable={false}
@@ -219,11 +224,7 @@ const StepThreeComponent = ({ values, setFieldValue, isPending }: any) => {
           label="Profession (optional)"
           options={formatOptions(professions?.data, "name", "id")}
         />
-        <FormInputNumber
-          label="Postcode"
-          name="postcode"
-          placeholder="Enter code"
-        />
+
         {/*   
 
         <FormInput

@@ -21,7 +21,7 @@ const DetailsCard: FC<DetailsCardProps> = ({
                 `${details.length === idx + 1 ? "" : "border-b"}`
               )}
             >
-              <div className="text-neutral3">{detail.title}</div>
+              <div className="text-neutral3 text-left">{detail.title}</div>
               <div className="text-right">{detail.value}</div>
             </div>
           );

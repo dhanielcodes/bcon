@@ -13,13 +13,15 @@ import { FormatCurrency, formatOptions, formatToNumber } from "@/libs/utils";
 import { ApiServiceAuth } from "@/services/auth.service";
 import { OptionType } from "@/types/form-types";
 import { RateSelectType } from "@/types/types";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { CheckCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import getSymbolFromCurrency from "currency-symbol-map";
 import { Field } from "formik";
+import { Copy } from "lucide-react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { lazy, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { NumericFormat } from "react-number-format";
 const Box = lazy(() => import("@/components/bits/Box"));
 
@@ -296,7 +298,7 @@ const StepTwoComponent = ({ values, setFieldValue, dashboard }: any) => {
             <Divider />
 
             <div className="text-right space-y-2 bg-neutral p-5 rounded-3xl mb-4">
-              <div className="text-[12px]">You send</div>
+              <div className="text-[20px]">You send</div>
               <div>
                 <NumericFormat
                   className="w-full text-lg bg-transparent outline-none text-[1.5rem] text-right font-medium"
@@ -327,7 +329,7 @@ const StepTwoComponent = ({ values, setFieldValue, dashboard }: any) => {
             </div>
 
             <div className="text-right space-y-2 bg-neutral p-5 rounded-3xl ">
-              <div className="text-[12px]">You receive</div>
+              <div className="text-[20px]">You receive</div>
               <div>
                 <NumericFormat
                   className="w-full text-lg bg-transparent outline-none text-[1.5rem] text-right font-medium"
@@ -389,11 +391,26 @@ const StepTwoComponent = ({ values, setFieldValue, dashboard }: any) => {
         </Box>
       ))}
       <Box>
-        <FormInput
-          label="Different Sender's Name (optional)"
-          name="name"
-          type="text"
-        />
+        {!values?.confirmSender ? (
+          <FormInput label="Sender's Name (optional)" name="name" type="text" />
+        ) : (
+          ""
+        )}
+        <div className="mt-4 flex items-center gap-2">
+          <input
+            type="checkbox"
+            id="confirm-sender"
+            name="confirmSender"
+            checked={values?.confirmSender}
+            onChange={(e) => {
+              setFieldValue("confirmSender", e?.target?.checked);
+            }}
+            className="w-4 h-4 rounded border-gray-300 text-primary-orange focus:ring-primary-orange"
+          />
+          <label htmlFor="confirm-sender" className="text-sm text-gray-600">
+            Use my account's name as sender
+          </label>
+        </div>
       </Box>
       <Box>
         <CollectByField
@@ -524,8 +541,126 @@ const StepThreeComponent = ({ values, setFieldValue }: any) => {
   );
 };
 
+const StepFourComponent = ({ values, data, onClose }: any) => {
+  return (
+    <>
+      <Box className="rounded-t-none">
+        <div className="flex flex-col items-center text-center space-y-4">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+            <CheckCircledIcon className="w-8 h-8 text-green-500" />
+          </div>
+          <h2 className="text-2xl font-semibold">
+            {data?.data?.accountName
+              ? "Transaction Submitted Successfully"
+              : "Transaction Successful!"}
+          </h2>
+          <p className="text-gray-600">{data?.message}</p>
+        </div>
+      </Box>
+
+      <Box>
+        <DetailsCard
+          title=""
+          details={[
+            {
+              title: "Account Name",
+              value: (
+                <div className="flex items-center space-x-2">
+                  <div>{data?.data?.accountName} </div>
+                  <Copy
+                    size={20}
+                    onClick={() => {
+                      navigator.clipboard.writeText(data?.data?.accountName);
+                      toast("Account Name Copied");
+                    }}
+                  />
+                </div>
+              ),
+            },
+            {
+              title: "Bank Name",
+              value: (
+                <div className="flex items-center space-x-2">
+                  <div>{data?.data?.bankName} </div>
+                  <Copy
+                    size={20}
+                    onClick={() => {
+                      navigator.clipboard.writeText(data?.data?.bankName);
+                      toast("Bank Name Copied");
+                    }}
+                  />
+                </div>
+              ),
+            },
+            {
+              title: "Account Number",
+              value: (
+                <div className="flex items-center space-x-2">
+                  <div>{data?.data?.accountNumber} </div>
+                  <Copy
+                    size={20}
+                    onClick={() => {
+                      navigator.clipboard.writeText(data?.data?.accountNumber);
+                      toast("Account Number Copied");
+                    }}
+                  />
+                </div>
+              ),
+            },
+            /*    {
+              title: "Transaction Reference",
+              value: data?.data?.accountNumber,
+            }, */
+            {
+              title: "Transaction Date",
+              value: data?.data?.dateCreated,
+            },
+            {
+              title: "You sent",
+              value: FormatCurrency(
+                (values?.sendMoneyDataList || []).reduce(
+                  (acc: number, curr: { amount: number }) =>
+                    acc + (curr?.amount || 0),
+                  0
+                ),
+                values?.from?.currency
+              ),
+            },
+            {
+              title: "Rate",
+              value: FormatCurrency(
+                values?.conversionRate,
+                values?.to?.currency
+              ),
+            },
+            {
+              title: "Recipients Gets",
+              value: FormatCurrency(
+                values.sendMoneyDataList?.reduce(
+                  (sum: number, item: any) => sum + (item?.to.amount || 0),
+                  0
+                ),
+                values?.to?.currency
+              ),
+            },
+            {
+              title: "Transaction fee",
+              value: FormatCurrency(values?.fee, values?.from?.currency),
+            },
+            {
+              title: "Sort Code",
+              value: data?.data?.sortCode,
+            },
+          ]}
+        />
+      </Box>
+    </>
+  );
+};
+
 Send.StepOneComponent = StepOneComponent;
 Send.StepTwoComponent = StepTwoComponent;
 Send.StepThreeComponent = StepThreeComponent;
+Send.StepFourComponent = StepFourComponent;
 
 export { Send };

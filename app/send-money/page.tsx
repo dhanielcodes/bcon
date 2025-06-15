@@ -13,15 +13,19 @@ import { ApiServiceAuth } from "@/services/auth.service";
 import { useQuery } from "@tanstack/react-query";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
 import { stepOneSchema, stepTwoSchema, stepThreeSchema } from "./validation";
+import { FormatCurrency } from "@/libs/utils";
+import DetailsCard from "@/components/DetailsCard";
 
 const SuccessModal = ({
   isOpen,
   onClose,
   data,
+  values,
 }: {
   isOpen: boolean;
   onClose: () => void;
   data: any;
+  values?: any;
 }) => {
   if (!isOpen) return null;
 
@@ -32,16 +36,94 @@ const SuccessModal = ({
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
             <CheckCircledIcon className="w-8 h-8 text-green-500" />
           </div>
-          <h2 className="text-2xl font-semibold">Transaction Successful!</h2>
+          <h2 className="text-2xl font-semibold">
+            {data?.data?.accountName
+              ? "Transaction Submitted Successfully"
+              : "Transaction Successful!"}
+          </h2>
           <p className="text-gray-600">{data?.message}</p>
 
-          <AppButton
-            onClick={() => {
-              window.location.replace(data?.data?.response);
-            }}
-            placeholder="Proceed"
-            className="w-full mt-4"
-          />
+          {data?.data?.accountName ? (
+            <>
+              <DetailsCard
+                title=""
+                details={[
+                  {
+                    title: "Account Name",
+                    value: data?.data?.accountName,
+                  },
+                  {
+                    title: "Bank Name",
+                    value: data?.data?.bankName,
+                  },
+                  {
+                    title: "Account Number",
+                    value: data?.data?.accountNumber,
+                  },
+                  {
+                    title: "Transaction Reference",
+                    value: data?.data?.accountNumber,
+                  },
+                  {
+                    title: "Transaction Date",
+                    value: data?.data?.dateCreated,
+                  },
+                  {
+                    title: "You sent",
+                    value: FormatCurrency(
+                      (values?.sendMoneyDataList || []).reduce(
+                        (acc: number, curr: { amount: number }) =>
+                          acc + (curr?.amount || 0),
+                        0
+                      ),
+                      values?.from?.currency
+                    ),
+                  },
+                  {
+                    title: "Rate",
+                    value: FormatCurrency(
+                      values?.conversionRate,
+                      values?.to?.currency
+                    ),
+                  },
+                  {
+                    title: "Recipients Gets",
+                    value: FormatCurrency(
+                      values.sendMoneyDataList?.reduce(
+                        (sum: number, item: any) =>
+                          sum + (item?.to.amount || 0),
+                        0
+                      ),
+                      values?.to?.currency
+                    ),
+                  },
+                  {
+                    title: "Transaction fee",
+                    value: FormatCurrency(values?.fee, values?.from?.currency),
+                  },
+                  {
+                    title: "Sort Code",
+                    value: data?.data?.sortCode,
+                  },
+                ]}
+              />
+              <AppButton
+                onClick={() => {
+                  onClose();
+                }}
+                placeholder="Close"
+                className="w-full mt-4"
+              />
+            </>
+          ) : (
+            <AppButton
+              onClick={() => {
+                window.location.replace(data?.data?.response);
+              }}
+              placeholder="Proceed"
+              className="w-full mt-4"
+            />
+          )}
         </div>
       </div>
     </div>
@@ -60,14 +142,17 @@ export default function Page() {
   });
 
   let onSubmit: () => void;
+  let resetFields: () => void;
 
   const params = useParams();
 
   const id = (params?.id as string)?.toLowerCase() || null;
 
   useEffect(() => {
-    if (data) {
+    if (data?.data?.response) {
       setShowSuccessModal(true);
+    } else if (data?.data?.accountName) {
+      setActive(4);
     }
   }, [data]);
 
@@ -78,13 +163,17 @@ export default function Page() {
 
   return (
     <div>
-      <Box className="rounded-t-none flex justify-between items-center">
-        <BackBtn />
-        <div className="grid place-items-center w-1/2">
-          <Stepper steps={3} active={active} setActive={setActive} />
-        </div>
-        <div></div>
-      </Box>
+      {active === 4 ? (
+        ""
+      ) : (
+        <Box className="rounded-t-none flex justify-between items-center">
+          <BackBtn />
+          <div className="grid place-items-center w-1/2">
+            <Stepper steps={3} active={active} setActive={setActive} />
+          </div>
+          <div></div>
+        </Box>
+      )}
       <Formik
         initialValues={{
           userId: id,
@@ -119,8 +208,8 @@ export default function Page() {
             mutate({
               userId: Number(id),
               totalAmount: (values?.sendMoneyDataList || []).reduce(
-                (acc: number, curr: { amount: number }) =>
-                  acc + (curr?.amount || 0),
+                (acc: number, curr: { from: { amount: number } }) =>
+                  acc + (curr?.from?.amount || 0),
                 0
               ),
               transitionFee: values?.transitionFee || 0,
@@ -137,7 +226,7 @@ export default function Page() {
               sendMoneyDataList: values?.sendMoneyDataList?.map((itm: any) => {
                 return {
                   userBeneficiaryId: itm?.userBeneficiaryId,
-                  amount: itm?.amount,
+                  amount: itm?.from?.amount,
                   purpose: itm?.purpose,
                   note: "",
                   documentTypeId: Number(itm?.documentTypeId) || 0,
@@ -145,16 +234,31 @@ export default function Page() {
                 };
               }),
             });
+          } else if (active === 4) {
+            resetFields();
+            setShowSuccessModal(false);
+            setActive(1);
           } else {
             setActive((curr) => curr + 1);
           }
         }}
       >
-        {({ handleSubmit, setFieldValue, values }) => {
+        {({ handleSubmit, setFieldValue, values, resetForm }) => {
           onSubmit = handleSubmit;
+          resetFields = resetForm;
 
           return (
             <Form onSubmit={handleSubmit}>
+              <SuccessModal
+                isOpen={showSuccessModal}
+                onClose={() => {
+                  resetForm();
+                  setShowSuccessModal(false);
+                  setActive(1);
+                }}
+                data={data}
+                values={values}
+              />
               {active === 1 && (
                 <Send.StepOneComponent
                   values={values}
@@ -170,6 +274,13 @@ export default function Page() {
               )}
               {active === 3 && (
                 <Send.StepThreeComponent
+                  values={values}
+                  setFieldValue={setFieldValue}
+                />
+              )}
+              {active === 4 && (
+                <Send.StepFourComponent
+                  data={data}
                   values={values}
                   setFieldValue={setFieldValue}
                 />
@@ -257,12 +368,28 @@ export default function Page() {
           </Box>
         </>
       )}
-
-      <SuccessModal
-        isOpen={showSuccessModal}
-        onClose={handleCloseModal}
-        data={data}
-      />
+      {active === 4 && (
+        <>
+          <Box className="opacity-0 cursor-default">
+            <AppButton
+              disabled
+              placeholder="Submit"
+              className="cursor-default"
+            />
+          </Box>
+          <Box className="rounded-b-none fixed bottom-0 left-1/2 transform -translate-x-1/2 max-width-util mb-0">
+            <AppButton
+              onClick={() => {
+                onSubmit();
+              }}
+              loading={isPending}
+              disabled={isPending}
+              placeholder="Close"
+              className="mt-0"
+            />
+          </Box>
+        </>
+      )}
     </div>
   );
 }

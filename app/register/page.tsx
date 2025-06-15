@@ -8,6 +8,56 @@ import { useEffect, useState } from "react";
 import { stepOneSchema, stepThreeSchema, stepTwoSchema } from "./validation";
 import useSignUp from "@/hooks/signUp";
 import { useParams } from "next/navigation";
+import { CheckCircledIcon } from "@radix-ui/react-icons";
+import AppButton from "@/components/fields/AppButton";
+import { LucideApple, Play } from "lucide-react";
+
+const SuccessModal = ({
+  isOpen,
+  onClose,
+  data,
+}: {
+  isOpen: boolean;
+  onClose?: () => void;
+  data?: any;
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+      <div className="bg-white rounded-3xl p-8 max-w-md w-full mx-4">
+        <div className="flex flex-col items-center text-center space-y-4">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+            <CheckCircledIcon className="w-8 h-8 text-green-500" />
+          </div>
+          <h2 className="text-2xl font-semibold">Signup Successful!</h2>
+          <p className="text-gray-600">
+            You can now login to your account on the mobile app
+          </p>
+
+          <AppButton
+            //IconLeft={LucideApple}
+            onClick={() => {
+              window.location.href =
+                "https://apps.apple.com/ng/app/bcon/id1557952054";
+            }}
+            placeholder="Apple IOS"
+            className="w-full mt-4"
+          />
+          <AppButton
+            //IconLeft={Play}
+            onClick={() => {
+              window.location.href =
+                "https://play.google.com/store/apps/details?id=com.bconsolutionltd.bcon.bcons_bcons_revamped&pcampaignid=web_share";
+            }}
+            placeholder="Android Device"
+            className="w-full mt-4"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function Page() {
   const [active, setActive] = useState<number>(1);
@@ -17,10 +67,17 @@ export default function Page() {
   useEffect(() => {
     setActive(1);
   }, [data]);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  useEffect(() => {
+    if (data) {
+      setShowSuccessModal(true);
+    }
+  }, [data]);
 
   const id = (params?.id as string)?.toLowerCase() || null;
   return (
     <div>
+      <SuccessModal isOpen={showSuccessModal} data={data} />
       <Box className="rounded-t-none">
         <div className="grid place-items-center">
           <Stepper steps={3} active={active} setActive={setActive} />
